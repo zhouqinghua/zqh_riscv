@@ -1,0 +1,43 @@
+
+bootrom.elf:     file format elf64-littleriscv
+
+
+Disassembly of section .text.start:
+
+0000000000010000 <_start>:
+   10000:	20000437          	lui	s0,0x20000
+   10004:	0280006f          	j	1002c <_start+0x2c>
+   10008:	00000013          	nop
+   1000c:	00000013          	nop
+   10010:	40000437          	lui	s0,0x40000
+   10014:	0180006f          	j	1002c <_start+0x2c>
+   10018:	00000013          	nop
+   1001c:	00000013          	nop
+   10020:	0010041b          	addiw	s0,zero,1
+   10024:	01f41413          	slli	s0,s0,0x1f
+   10028:	0040006f          	j	1002c <_start+0x2c>
+   1002c:	f1402573          	csrr	a0,mhartid
+   10030:	00000597          	auipc	a1,0x0
+   10034:	05058593          	addi	a1,a1,80 # 10080 <_dtb>
+   10038:	00040067          	jr	s0
+	...
+
+Disassembly of section .text.hang:
+
+0000000000010060 <_hang>:
+   10060:	f1402573          	csrr	a0,mhartid
+   10064:	00000597          	auipc	a1,0x0
+   10068:	01c58593          	addi	a1,a1,28 # 10080 <_dtb>
+   1006c:	10500073          	wfi
+   10070:	ffdff06f          	j	1006c <_hang+0xc>
+
+Disassembly of section .rodata.dtb:
+
+0000000000010080 <_dtb>:
+   10080:	5444                	lw	s1,44(s0)
+   10082:	2042                	fld	ft0,16(sp)
+   10084:	73656f67          	0x73656f67
+   10088:	6820                	ld	s0,80(s0)
+   1008a:	7265                	lui	tp,0xffff9
+   1008c:	65              	Address 0x000000000001008c is out of bounds.
+

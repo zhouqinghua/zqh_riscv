@@ -1,0 +1,48 @@
+
+code
+  code/N25Qxxx.v
+
+include
+  include/Decoders.h
+  include/DevParam.h
+  include/PLRSDetectors.h
+  include/StackDecoder.h
+  include/TimingData.h
+  include/UserData.h
+
+sim
+  sim/do.do
+  sim/mem_Q064.vmf
+  sim/modelsim.ini
+  sim/session.inter.vpd.tcl
+  sim/sfdp.vmf
+  sim/vlog.opt
+  sim/wave.do
+
+stim
+  stim/dummy_prova.v
+  stim/erase.v
+  stim/lock1.v
+  stim/lock2.v
+  stim/otp.v
+  stim/plrs_extended_2nd_part_abort.v
+  stim/plrs_extended.v
+  stim/plrs_xip_diofr.v
+  stim/plrs_xip_dofr.v
+  stim/plrs_xip_qiofr_aborted_bb.v
+  stim/plrs_xip_qiofr_aborted_SHSLviolate.v
+  stim/plrs_xip_qiofr_aborted.v
+  stim/plrs_xip_qiofr.v
+  stim/plrs_xip_qiofr_without_power_loss.v
+  stim/plrs_xip_qofr.v
+  stim/program.v
+  stim/read_ogie.v
+  stim/read.v
+  stim/test_protocol.v
+  stim/XIP_Numonyx.v
+
+top
+  top/ClockGenerator.v
+  top/StimGen_interface.h
+  top/StimTasks.v
+  top/Testbench.v

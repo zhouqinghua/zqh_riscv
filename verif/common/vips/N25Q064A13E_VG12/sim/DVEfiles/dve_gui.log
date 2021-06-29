@@ -1,0 +1,278 @@
+Chronologic VCS simulator copyright 1991-2016
+Contains Synopsys proprietary information.
+Compiler version L-2016.06_Full64; Runtime version L-2016.06_Full64;  Jan 15 18:15 2020
+VCD+ Writer L-2016.06_Full64 Copyright (c) 1991-2016 by Synopsys Inc.
+The file '/home/zqh/risc-v/zqh_riscv/verif/zqh_riscv/env/N25Q064A13E_VG12/sim/inter.vpd' was opened successfully.
+Error: [DVAP037] 
+Errors while sourcing the file '/home/zqh/risc-v/zqh_riscv/verif/zqh_riscv/env/N25Q064A13E_VG12/sim/session.inter.vpd.tcl':
+
+ Line 40: [DVSG007] 
+Signal ' "Sim:Testbench.DUT.any_die_busy" "Sim:Testbench.DUT.current_die_active" "Sim:Testbench.DUT.current_die_busy"' cannot be found.
+ Line 46: [DVSG007] 
+Signal ' "Sim:Testbench.DUT.N25Q_die0.dataOut" "Sim:Testbench.DUT.N25Q_die0.C" "Sim:Testbench.DUT.N25Q_die0.DQ0" "Sim:Testbench.DUT.N25Q_die0.DQ1" "Sim:Testbench.DUT.N25Q_die0.HOLD_DQ3" "Sim:Testbench.DUT.N25Q_die0.S" "Sim:Testbench.DUT.N25Q_die0.Vcc" "Sim:Testbench.DUT.N25Q_die0.Vpp_W_DQ2" "Sim:Testbench.DUT.N25Q_die0.die_active"' cannot be found.
+ Line 52: [DVSG007] 
+Signal ' "Sim:Testbench.DUT.N25Q_die1.dataOut" "Sim:Testbench.DUT.N25Q_die1.C" "Sim:Testbench.DUT.N25Q_die1.DQ0" "Sim:Testbench.DUT.N25Q_die1.DQ1" "Sim:Testbench.DUT.N25Q_die1.HOLD_DQ3" "Sim:Testbench.DUT.N25Q_die1.S" "Sim:Testbench.DUT.N25Q_die1.Vcc" "Sim:Testbench.DUT.N25Q_die1.Vpp_W_DQ2" "Sim:Testbench.DUT.N25Q_die1.die_active"' cannot be found.
+ Line 81: gui_list_select: List item(s) given by "Testbench.DUT.N25Q_die1.dataOut"  were not found.
+ Line 95: gui_list_set_insertion_bar: Cannot set the insertion bar, "Testbench.DUT.N25Q_die1.dataOut[7:0]" was not found..
+==============================================
+===INFO=== Model Configuration Info
+===INFO=== Device Name:  N25Q064A13E
+===INFO=== DQ3 = HOLD pin
+===INFO=== XIP type = Numonyx
+===INFO=== VCC 3V
+==============================================
+[0 ns] ==INFO== Protocol selected is extended
+[0 ns] ==INFO== Hold condition disabled: communication with the device has been activated.
+[0 ns] ==INFO== 2. Load memory content from file: "mem_Q064.vmf".
+[0 ns] ==INFO== Power up: polling allowed.
+[0 ns] ==INFO== VCC has been driven below threshold : internal logic will be reset.
+[0 ns] ==INFO== Protocol selected is extended
+[0 ps] ==INFO== Single Transfer Rate selected
+[1000 ns] ==INFO== 1. Load memory content from file: "mem_Q064.vmf".
+[1000 ns] ==INFO== Load flash discovery paramater table content from file: "sfdp.vmf".
+[150000 ns] ==INFO== Power up: device fully accessible.
+[150000 ns] ==INFO== Protocol selected is extended
+[150000 ps] ==INFO== Single Transfer Rate selected
+
+ ----- Read.
+[570000 ns] COMMAND DECODED: Read , withAddr=00000001, with2Addr=00000000, with4Addr=00000000, cmdcode=03 
+[570000 ns] 1.COMMAND RECOGNIZED: Read. Address expected ...
+  [1530000 ns] Address latched: 000000 (byte 0 of page 0, sector 0)
+  [1552000 ns] Data are going to be output: 00. [Read Memory. Address 000000 (byte 0 of page 0, subsector 0 of sector 0)] 0 0
+  [1872000 ns] Data are going to be output: 01. [Read Memory. Address 000001 (byte 1 of page 0, subsector 0 of sector 0)] 0 0
+  [2192000 ns] Data are going to be output: ff. [Read Memory. Address 000002 (byte 2 of page 0, subsector 0 of sector 0)] 0 0
+  [2512000 ns] Data are going to be output: ff. [Read Memory. Address 000003 (byte 3 of page 0, subsector 0 of sector 0)] 0 0
+[3300000 ns] COMMAND DECODED: Read , withAddr=00000001, with2Addr=00000000, with4Addr=00000000, cmdcode=03 
+[3300000 ns] 1.COMMAND RECOGNIZED: Read. Address expected ...
+  [4260000 ns] Address latched: 3fffe8 (byte 232 of page 16383, sector 63)
+  [4282000 ns] Data are going to be output: ff. [Read Memory. Address 3fffe8 (byte 232 of page 16383, subsector 1023 of sector 63)] 0 0
+  [4602000 ns] Data are going to be output: ff. [Read Memory. Address 3fffe9 (byte 233 of page 16383, subsector 1023 of sector 63)] 0 0
+  [4922000 ns] Data are going to be output: ff. [Read Memory. Address 3fffea (byte 234 of page 16383, subsector 1023 of sector 63)] 0 0
+  [5242000 ns] Data are going to be output: ff. [Read Memory. Address 3fffeb (byte 235 of page 16383, subsector 1023 of sector 63)] 0 0
+  [5562000 ns] Data are going to be output: ff. [Read Memory. Address 3fffec (byte 236 of page 16383, subsector 1023 of sector 63)] 0 0
+  [5882000 ns] Data are going to be output: ff. [Read Memory. Address 3fffed (byte 237 of page 16383, subsector 1023 of sector 63)] 0 0
+  [6202000 ns] Data are going to be output: ff. [Read Memory. Address 3fffee (byte 238 of page 16383, subsector 1023 of sector 63)] 0 0
+  [6522000 ns] Data are going to be output: ff. [Read Memory. Address 3fffef (byte 239 of page 16383, subsector 1023 of sector 63)] 0 0
+
+ ----- Dual Read.
+[7310000 ns] COMMAND DECODED: Dual Output Fast Read , withAddr=00000001, with2Addr=00000000, with4Addr=00000000, cmdcode=3b 
+[7310000 ns] 1.COMMAND RECOGNIZED: Dual Output Fast Read. Address expected ...
+  [8270000 ns] Address latched: 000020 (byte 32 of page 0, sector 0)
+  [8270000 ns] Dummy byte expected ...
+  [8590000 ns] Dummy clock cycles latched.
+  [8611000 ns] Data are going to be output: ff. [Read Memory. Address 000020 (byte 32 of page 0, subsector 0  sector 0)] 0 0
+  [8771000 ns] Data are going to be output: ff. [Read Memory. Address 000021 (byte 33 of page 0, subsector 0  sector 0)] 0 0
+  [8931000 ns] Data are going to be output: ff. [Read Memory. Address 000022 (byte 34 of page 0, subsector 0  sector 0)] 0 0
+  [9091000 ns] Data are going to be output: ff. [Read Memory. Address 000023 (byte 35 of page 0, subsector 0  sector 0)] 0 0
+  [9251000 ns] Data are going to be output: ff. [Read Memory. Address 000024 (byte 36 of page 0, subsector 0  sector 0)] 0 0
+  [9411000 ns] Data are going to be output: ff. [Read Memory. Address 000025 (byte 37 of page 0, subsector 0  sector 0)] 0 0
+
+ ----- Fast Read.
+[10120000 ns] COMMAND DECODED: Read Fast , withAddr=00000001, with2Addr=00000000, with4Addr=00000000, cmdcode=0b 
+[10120000 ns] 1.COMMAND RECOGNIZED: Read Fast. Address expected ...
+  [11080000 ns] Address latched: 000000 (byte 0 of page 0, sector 0)
+  [11080000 ns] Dummy byte expected ...
+  [11400000 ns] Dummy clock cycles latched.
+  [11422000 ns] Data are going to be output: 00. [Read Memory. Address 000000 (byte 0 of page 0, subsector 0 of sector 0)] 0 0
+  [11742000 ns] Data are going to be output: 01. [Read Memory. Address 000001 (byte 1 of page 0, subsector 0 of sector 0)] 0 0
+  [12062000 ns] Data are going to be output: ff. [Read Memory. Address 000002 (byte 2 of page 0, subsector 0 of sector 0)] 0 0
+  [12382000 ns] Data are going to be output: ff. [Read Memory. Address 000003 (byte 3 of page 0, subsector 0 of sector 0)] 0 0
+
+ ----- Dual I/O read
+[13250000 ns] COMMAND DECODED: Dual I/O Fast Read , withAddr=00000000, with2Addr=00000001, with4Addr=00000000, cmdcode=bb 
+[13250000 ns] 2.COMMAND RECOGNIZED: Dual I/O Fast Read. Address expected ...
+  [13730000 ns] Address latched: 3fffeZ (byte Z of page 16383, sector 63)
+  [13730000 ns] Dummy byte expected ...
+  [14050000 ns] Dummy clock cycles latched.
+  [14071000 ns] Data are going to be output: xx. [Read Memory. Address 3fffeZ (byte Z of page 16383, subsector 1023  sector 63)] 0 0
+  [14231000 ns] Data are going to be output: 00. [Read Memory. Address 000000 (byte 0 of page 0, subsector 0  sector 0)] 0 0
+  [14391000 ns] Data are going to be output: 01. [Read Memory. Address 000001 (byte 1 of page 0, subsector 0  sector 0)] 0 0
+  [14551000 ns] Data are going to be output: ff. [Read Memory. Address 000002 (byte 2 of page 0, subsector 0  sector 0)] 0 0
+  [14711000 ns] Data are going to be output: ff. [Read Memory. Address 000003 (byte 3 of page 0, subsector 0  sector 0)] 0 0
+  [14871000 ns] Data are going to be output: ff. [Read Memory. Address 000004 (byte 4 of page 0, subsector 0  sector 0)] 0 0
+  [15031000 ns] Data are going to be output: ff. [Read Memory. Address 000005 (byte 5 of page 0, subsector 0  sector 0)] 0 0
+  [15191000 ns] Data are going to be output: ff. [Read Memory. Address 000006 (byte 6 of page 0, subsector 0  sector 0)] 0 0
+  [15351000 ns] Data are going to be output: ff. [Read Memory. Address 000007 (byte 7 of page 0, subsector 0  sector 0)] 0 0
+  [15511000 ns] Data are going to be output: a5. [Read Memory. Address 000008 (byte 8 of page 0, subsector 0  sector 0)] 0 0
+  [15671000 ns] Data are going to be output: 5a. [Read Memory. Address 000009 (byte 9 of page 0, subsector 0  sector 0)] 0 0
+  [15831000 ns] Data are going to be output: ff. [Read Memory. Address 00000a (byte 10 of page 0, subsector 0  sector 0)] 0 0
+  [15991000 ns] Data are going to be output: ff. [Read Memory. Address 00000b (byte 11 of page 0, subsector 0  sector 0)] 0 0
+  [16151000 ns] Data are going to be output: ff. [Read Memory. Address 00000c (byte 12 of page 0, subsector 0  sector 0)] 0 0
+  [16311000 ns] Data are going to be output: ff. [Read Memory. Address 00000d (byte 13 of page 0, subsector 0  sector 0)] 0 0
+  [16471000 ns] Data are going to be output: ff. [Read Memory. Address 00000e (byte 14 of page 0, subsector 0  sector 0)] 0 0
+  [16631000 ns] Data are going to be output: ff. [Read Memory. Address 00000f (byte 15 of page 0, subsector 0  sector 0)] 0 0
+
+ ----- Quad Fast Read.
+[17220000 ns] COMMAND DECODED: Quad Output Read , withAddr=00000001, with2Addr=00000000, with4Addr=00000000, cmdcode=6b 
+[17220000 ns] 1.COMMAND RECOGNIZED: Quad Output Read. Address expected ...
+  [18180000 ns] Address latched: 000020 (byte 32 of page 0, sector 0)
+  [8000 ns]                18180 Dummy clock cycles expected ...
+  [18500000 ns] Dummy clock cycles latched.
+  [18520000 ns] Data are going to be output: ff. [Read Memory. Address 000020 (byte 32 of page 0, subsector 0 sector 0)] 0 0
+  [18600000 ns] Data are going to be output: ff. [Read Memory. Address 000021 (byte 33 of page 0, subsector 0 sector 0)] 0 0
+  [18680000 ns] Data are going to be output: ff. [Read Memory. Address 000022 (byte 34 of page 0, subsector 0 sector 0)] 0 0
+  [18760000 ns] Data are going to be output: ff. [Read Memory. Address 000023 (byte 35 of page 0, subsector 0 sector 0)] 0 0
+  [18840000 ns] Data are going to be output: ff. [Read Memory. Address 000024 (byte 36 of page 0, subsector 0 sector 0)] 0 0
+  [18920000 ns] Data are going to be output: ff. [Read Memory. Address 000025 (byte 37 of page 0, subsector 0 sector 0)] 0 0
+  [19000000 ns] Data are going to be output: ff. [Read Memory. Address 000026 (byte 38 of page 0, subsector 0 sector 0)] 0 0
+  [19080000 ns] Data are going to be output: ff. [Read Memory. Address 000027 (byte 39 of page 0, subsector 0 sector 0)] 0 0
+  [19160000 ns] Data are going to be output: ff. [Read Memory. Address 000028 (byte 40 of page 0, subsector 0 sector 0)] 0 0
+  [19240000 ns] Data are going to be output: ff. [Read Memory. Address 000029 (byte 41 of page 0, subsector 0 sector 0)] 0 0
+  [19320000 ns] Data are going to be output: ff. [Read Memory. Address 00002a (byte 42 of page 0, subsector 0 sector 0)] 0 0
+  [19400000 ns] Data are going to be output: ff. [Read Memory. Address 00002b (byte 43 of page 0, subsector 0 sector 0)] 0 0
+  [19480000 ns] Data are going to be output: ff. [Read Memory. Address 00002c (byte 44 of page 0, subsector 0 sector 0)] 0 0
+  [19560000 ns] Data are going to be output: ff. [Read Memory. Address 00002d (byte 45 of page 0, subsector 0 sector 0)] 0 0
+  [19640000 ns] Data are going to be output: ff. [Read Memory. Address 00002e (byte 46 of page 0, subsector 0 sector 0)] 0 0
+  [19720000 ns] Data are going to be output: ff. [Read Memory. Address 00002f (byte 47 of page 0, subsector 0 sector 0)] 0 0
+
+ -----  Quad I/O read
+[20350000 ns] COMMAND DECODED: Quad I/O Fast Read , withAddr=00000000, with2Addr=00000000, with4Addr=00000001, cmdcode=eb 
+[20350000 ns] 4.COMMAND RECOGNIZED: Quad I/O Fast Read. Address expected ...
+  [20590000 ns] Address latched: 3fffaZ (byte Z of page 16383, sector 63)
+  [10000 ns]                20590 Dummy clock cycles expected ...
+  [20990000 ns] Dummy clock cycles latched.
+  [21010000 ns] Data are going to be output: xx. [Read Memory. Address 3fffaZ (byte Z of page 16383, subsector 1023 sector 63)] 0 0
+  [21090000 ns] Data are going to be output: 00. [Read Memory. Address 000000 (byte 0 of page 0, subsector 0 sector 0)] 0 0
+  [21170000 ns] Data are going to be output: 01. [Read Memory. Address 000001 (byte 1 of page 0, subsector 0 sector 0)] 0 0
+  [21250000 ns] Data are going to be output: ff. [Read Memory. Address 000002 (byte 2 of page 0, subsector 0 sector 0)] 0 0
+  [21330000 ns] Data are going to be output: ff. [Read Memory. Address 000003 (byte 3 of page 0, subsector 0 sector 0)] 0 0
+  [21410000 ns] Data are going to be output: ff. [Read Memory. Address 000004 (byte 4 of page 0, subsector 0 sector 0)] 0 0
+  [21490000 ns] Data are going to be output: ff. [Read Memory. Address 000005 (byte 5 of page 0, subsector 0 sector 0)] 0 0
+  [21570000 ns] Data are going to be output: ff. [Read Memory. Address 000006 (byte 6 of page 0, subsector 0 sector 0)] 0 0
+  [21650000 ns] Data are going to be output: ff. [Read Memory. Address 000007 (byte 7 of page 0, subsector 0 sector 0)] 0 0
+  [21730000 ns] Data are going to be output: a5. [Read Memory. Address 000008 (byte 8 of page 0, subsector 0 sector 0)] 0 0
+  [21810000 ns] Data are going to be output: 5a. [Read Memory. Address 000009 (byte 9 of page 0, subsector 0 sector 0)] 0 0
+  [21890000 ns] Data are going to be output: ff. [Read Memory. Address 00000a (byte 10 of page 0, subsector 0 sector 0)] 0 0
+  [21970000 ns] Data are going to be output: ff. [Read Memory. Address 00000b (byte 11 of page 0, subsector 0 sector 0)] 0 0
+  [22050000 ns] Data are going to be output: ff. [Read Memory. Address 00000c (byte 12 of page 0, subsector 0 sector 0)] 0 0
+  [22130000 ns] Data are going to be output: ff. [Read Memory. Address 00000d (byte 13 of page 0, subsector 0 sector 0)] 0 0
+  [22210000 ns] Data are going to be output: ff. [Read Memory. Address 00000e (byte 14 of page 0, subsector 0 sector 0)] 0 0
+  [22290000 ns] Data are going to be output: ff. [Read Memory. Address 00000f (byte 15 of page 0, subsector 0 sector 0)] 0 0
+  [22370000 ns] Data are going to be output: ff. [Read Memory. Address 000010 (byte 16 of page 0, subsector 0 sector 0)] 0 0
+  [22450000 ns] Data are going to be output: ff. [Read Memory. Address 000011 (byte 17 of page 0, subsector 0 sector 0)] 0 0
+  [22530000 ns] Data are going to be output: ff. [Read Memory. Address 000012 (byte 18 of page 0, subsector 0 sector 0)] 0 0
+  [22610000 ns] Data are going to be output: ff. [Read Memory. Address 000013 (byte 19 of page 0, subsector 0 sector 0)] 0 0
+  [22690000 ns] Data are going to be output: ff. [Read Memory. Address 000014 (byte 20 of page 0, subsector 0 sector 0)] 0 0
+  [22770000 ns] Data are going to be output: ff. [Read Memory. Address 000015 (byte 21 of page 0, subsector 0 sector 0)] 0 0
+  [22850000 ns] Data are going to be output: ff. [Read Memory. Address 000016 (byte 22 of page 0, subsector 0 sector 0)] 0 0
+  [22930000 ns] Data are going to be output: ff. [Read Memory. Address 000017 (byte 23 of page 0, subsector 0 sector 0)] 0 0
+  [23010000 ns] Data are going to be output: ff. [Read Memory. Address 000018 (byte 24 of page 0, subsector 0 sector 0)] 0 0
+  [23090000 ns] Data are going to be output: ff. [Read Memory. Address 000019 (byte 25 of page 0, subsector 0 sector 0)] 0 0
+  [23170000 ns] Data are going to be output: ff. [Read Memory. Address 00001a (byte 26 of page 0, subsector 0 sector 0)] 0 0
+  [23250000 ns] Data are going to be output: ff. [Read Memory. Address 00001b (byte 27 of page 0, subsector 0 sector 0)] 0 0
+  [23330000 ns] Data are going to be output: ff. [Read Memory. Address 00001c (byte 28 of page 0, subsector 0 sector 0)] 0 0
+  [23410000 ns] Data are going to be output: ff. [Read Memory. Address 00001d (byte 29 of page 0, subsector 0 sector 0)] 0 0
+  [23490000 ns] Data are going to be output: ff. [Read Memory. Address 00001e (byte 30 of page 0, subsector 0 sector 0)] 0 0
+
+ ----- Read ID.
+[24080000 ns] COMMAND DECODED: Read ID , withAddr=00000000, with2Addr=00000000, with4Addr=00000000, cmdcode=9f 
+[24080000 ns] COMMAND RECOGNIZED: Read ID.
+  [24102000 ns] Data are going to be output: 20. [Read ID, byte 0] 0 0
+  [24422000 ns] Data are going to be output: ba. [Read ID, byte 1] 0 0
+  [24742000 ns] Data are going to be output: 17. [Read ID, byte 2] 0 0
+  [25062000 ns] Data are going to be output: 10. [Read ID, byte 3] 0 0
+  [25382000 ns] Data are going to be output: 00. [Read ID, byte 4] 0 0
+  [25702000 ns] Data are going to be output: 00. [Read ID, byte 5] 0 0
+  [26022000 ns] Data are going to be output: 00. [Read ID, byte 6] 0 0
+  [26342000 ns] Data are going to be output: 00. [Read ID, byte 7] 0 0
+  [26662000 ns] Data are going to be output: 00. [Read ID, byte 8] 0 0
+  [26982000 ns] Data are going to be output: 00. [Read ID, byte 9] 0 0
+  [27302000 ns] Data are going to be output: 00. [Read ID, byte 10] 0 0
+  [27622000 ns] Data are going to be output: 00. [Read ID, byte 11] 0 0
+  [27942000 ns] Data are going to be output: 00. [Read ID, byte 12] 0 0
+  [28262000 ns] Data are going to be output: 00. [Read ID, byte 13] 0 0
+  [28582000 ns] Data are going to be output: 00. [Read ID, byte 14] 0 0
+  [28902000 ns] Data are going to be output: 00. [Read ID, byte 15] 0 0
+  [29222000 ns] Data are going to be output: 00. [Read ID, byte 16] 0 0
+  [29542000 ns] Data are going to be output: 00. [Read ID, byte 17] 0 0
+  [29862000 ns] Data are going to be output: 00. [Read ID, byte 18] 0 0
+  [30182000 ns] Data are going to be output: 00. [Read ID, byte 19] 0 0
+  [30502000 ns] Data are going to be output: 00. [Read ID, byte 20] 0 0
+  [30822000 ns] Data are going to be output: 00. [Read ID, byte 20] 0 0
+  [31142000 ns] Data are going to be output: 00. [Read ID, byte 20] 0 0
+  [31462000 ns] Data are going to be output: 00. [Read ID, byte 20] 0 0
+
+ ----- Read Serial Flash Discovery Parameter
+[32330000 ns] COMMAND DECODED: Read Serial Flash Discovery Parameter , withAddr=00000001, with2Addr=00000000, with4Addr=00000000, cmdcode=5a 
+[32330000 ns] 1.COMMAND RECOGNIZED: Read Serial Flash Discovery Parameter. Address expected ...
+  [33290000 ns] Address latched: 000000 (byte 0 of page 0, sector 0)
+  [33290000 ns] Dummy byte expected ...
+  [33610000 ns] Dummy clock cycles latched.
+In SFDP READ: fdpAddr=001 , data=53                33632
+  [33632000 ns] Data are going to be output: 53. [Read Serial Flash Discovery Parameter. Address xxxX00] 0 0
+In SFDP READ: fdpAddr=002 , data=46                33952
+  [33952000 ns] Data are going to be output: 46. [Read Serial Flash Discovery Parameter. Address xxxX01] 0 0
+In SFDP READ: fdpAddr=003 , data=44                34272
+  [34272000 ns] Data are going to be output: 44. [Read Serial Flash Discovery Parameter. Address xxxX02] 0 0
+In SFDP READ: fdpAddr=004 , data=50                34592
+  [34592000 ns] Data are going to be output: 50. [Read Serial Flash Discovery Parameter. Address xxxX03] 0 0
+Simulation complete, time is 35040000 ps.
+Warning: [AD-MD] Missing dump for active drivers
+  Missing dump for the following signals when doing active drivers analysis:
+      * Testbench.tasks.Vcc from time 0
+      * Testbench.tasks.Vcc_waveform.V1 from time 0
+      * Testbench.tasks.Vcc_waveform.V2 from time 0
+      * Testbench.tasks.Vcc_waveform.V3 from time 0
+      * Testbench.tasks.setVcc.value from time 0
+  Some drivers couldn't be analyzed and will be shown as active.
+  Please dump the listed signals if you need more precise active drivers 
+  analysis.
+sdb'
+6 drivers (6 possibly active statements) found for signal: Testbench.DUT.Vcc[31:0]
+Warning: [AD-MD] Missing dump for active drivers
+  Missing dump for the following signals when doing active drivers analysis:
+      * Testbench.tasks.Vcc from time 0
+      * Testbench.tasks.Vcc_waveform.V1 from time 0
+      * Testbench.tasks.Vcc_waveform.V2 from time 0
+      * Testbench.tasks.Vcc_waveform.V3 from time 0
+      * Testbench.tasks.setVcc.value from time 0
+  Some drivers couldn't be analyzed and will be shown as active.
+  Please dump the listed signals if you need more precise active drivers 
+  analysis.
+6 drivers (1 active statement, 5 possibly active statements) found for signal: Testbench.Vcc[31:0]
+Warning: [AD-MD] Missing dump for active drivers
+  Missing dump for the following signals when doing active drivers analysis:
+      * Testbench.tasks.Vcc from time 0
+      * Testbench.tasks.Vcc_waveform.V1 from time 0
+      * Testbench.tasks.Vcc_waveform.V2 from time 0
+      * Testbench.tasks.Vcc_waveform.V3 from time 0
+      * Testbench.tasks.setVcc.value from time 0
+  Some drivers couldn't be analyzed and will be shown as active.
+  Please dump the listed signals if you need more precise active drivers 
+  analysis.
+Warning: [AD-MD] Missing dump for active drivers
+  Missing dump for the following signals when doing active drivers analysis:
+      * Testbench.tasks.Vcc from time 0
+      * Testbench.tasks.Vcc_waveform.V1 from time 0
+      * Testbench.tasks.Vcc_waveform.V2 from time 0
+      * Testbench.tasks.Vcc_waveform.V3 from time 0
+      * Testbench.tasks.setVcc.value from time 0
+  Some drivers couldn't be analyzed and will be shown as active.
+  Please dump the listed signals if you need more precise active drivers 
+  analysis.
+5 drivers (5 possibly active statements) found for signal: Testbench.stim.Vcc[31:0]
+Warning: [DVSW307] 
+Could not find any driver for signal: 'Testbench.tasks.Vcc_waveform.V1[31:0]'.
+Warning: [DVSW307] 
+Could not find any driver for signal: 'Testbench.tasks.Vcc_waveform.V1[31:0]'.
+Warning: [DVMF026] 
+The bottom has been reached.
+Continuing to search from top.
+Warning: [DVMF026] 
+The bottom has been reached.
+Continuing to search from top.
+Warning: [DVMF026] 
+The bottom has been reached.
+Continuing to search from top.
+Warning: [DVMF026] 
+The bottom has been reached.
+Continuing to search from top.
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 35040000 ps
+CPU Time:      0.630 seconds;       Data structure size:   8.3Mb
+Thu Jan 16 17:55:34 2020
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 35040000 ps
+CPU Time:      0.410 seconds;       Data structure size:   8.3Mb
+Thu Jan 16 17:55:45 2020
+VCS terminated abruptly at time 35040000 ps

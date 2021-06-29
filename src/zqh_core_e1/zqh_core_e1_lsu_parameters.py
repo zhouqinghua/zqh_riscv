@@ -1,0 +1,6 @@
+import sys
+import os
+from phgl_imp import *
+from .zqh_core_e1_core_parameters import zqh_core_e1_core_parameter
+from zqh_tilelink.zqh_tilelink_node_module_parameters import zqh_tilelink_node_module_parameter
+

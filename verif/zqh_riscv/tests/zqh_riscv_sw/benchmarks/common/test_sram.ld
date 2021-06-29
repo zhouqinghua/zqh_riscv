@@ -1,0 +1,75 @@
+/*======================================================================*/
+/* Proxy kernel linker script                                           */
+/*======================================================================*/
+/* This is the linker script used when building the proxy kernel. */
+
+/*----------------------------------------------------------------------*/
+/* Setup                                                                */
+/*----------------------------------------------------------------------*/
+
+/* The OUTPUT_ARCH command specifies the machine architecture where the
+   argument is one of the names used in the BFD library. More
+   specifically one of the entires in bfd/cpu-mips.c */
+
+OUTPUT_ARCH( "riscv" )
+ENTRY(_start)
+
+/*----------------------------------------------------------------------*/
+/* Sections                                                             */
+/*----------------------------------------------------------------------*/
+
+SECTIONS
+{
+
+  /* text: test code section */
+
+  /*simulation need start from 0x40002000*/
+  /*0x40000000 - 0x40002000 used to exec bootloader(speedup simulation)*/
+  /*real exec, such as FPGA run can start from 0x40000000*/
+  /*bootloader exec from flash xip*/
+  /*. = 0x40000000;*/
+  . = 0x40002000;
+
+  .text.init : { *(.text.init) }
+
+  .text : { *(.text) }
+
+  .rodata : {*(.rodata*)}
+
+  /* data segment */
+  .data : { *(.data) }
+
+  .sdata : {
+    __global_pointer$ = . + 0x800;
+    *(.srodata.cst16) *(.srodata.cst8) *(.srodata.cst4) *(.srodata.cst2) *(.srodata*)
+    *(.sdata .sdata.* .gnu.linkonce.s.*)
+  }
+
+  /* bss segment */
+  .sbss : {
+    *(.sbss .sbss.* .gnu.linkonce.sb.*)
+    *(.scommon)
+  }
+  .bss : { *(.bss) }
+
+  . = ALIGN(0x1000);
+  .tohost : { *(.tohost) }
+
+  /* thread-local data segment */
+  .tdata :
+  {
+    _tls_data = .;
+    *(.tdata.begin)
+    *(.tdata)
+    *(.tdata.end)
+  }
+  .tbss :
+  {
+    *(.tbss)
+    *(.tbss.end)
+  }
+
+  /* End of uninitalized data segement */
+  _end = .;
+}
+

@@ -1,0 +1,55 @@
+*design* DebussyLib (btIdent Verdi3_K-2015.09-SP1-1)
+Command arguments:
+    +define+verilog
+    -notice
+*Warning* Unknown argument -notice
+
+    -line
+*Warning* Unknown argument -line
+
+    +lint=all
+    noVCDE
+    noONGS
+    noUI
+    noNS
+    noVNGS
+    -error=noIOPCWM
+    +v2k
+    +vcs+lic+wait
+    -sverilog
+    -timescale=1ns/10ps
+    +define+sg125
+    +define+den1024Mb
+    +define+x8
+    -pvalue+MEM_BITS=12
+    -pvalue+DEBUG=1
+    +incdir+./
+    ./ddr3.v
+    ./tb.v
+    -P
+    /home/zqh/verdi/K-2015.09-SP1-1/share/PLI/VCS/LINUX64/novas.tab
+    /home/zqh/verdi/K-2015.09-SP1-1/share/PLI/VCS/LINUX64/pli.a
+    -l ./cmp.log
+    -debug_pp
+*Warning* Unknown argument -debug_pp
+
+
+
+*Error* failed to open source file "noVCDE" with read access: No such file or directory
+
+
+*Error* failed to open source file "noONGS" with read access: No such file or directory
+
+
+*Error* failed to open source file "noUI" with read access: No such file or directory
+
+
+*Error* failed to open source file "noNS" with read access: No such file or directory
+
+
+*Error* failed to open source file "noVNGS" with read access: No such file or directory
+
+Highest level modules:
+tb
+
+Total	5 error(s),   3 warning(s)

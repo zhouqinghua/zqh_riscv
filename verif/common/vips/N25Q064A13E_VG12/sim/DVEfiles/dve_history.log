@@ -1,0 +1,172 @@
+# Preference setting overrides
+gui_set_pref_value -category {Globals} -key {app_default_font} -value {Bitstream Charter,12,-1,5,50,0,0,0,0,0}
+gui_set_pref_value -category {Globals} -key {app_fixed_width_font} -value {Fixed [Misc],15,-1,5,50,0,0,0,0,0}
+gui_create_pref_key -category {Globals} -key {load_detail_for_funcov} -value_type {bool} -value {false}
+gui_create_pref_category -category {dlg_settings}
+gui_create_pref_key -category {dlg_settings} -key {tableWithImmediatePopup} -value_type {bool} -value {true}
+
+# State setting overrides
+gui_state_default_create -off -ini
+gui_set_state_value -category Globals -key recent_databases -value {{gui_open_db -file output/zqh_test0.riscv.vpd} {gui_open_db -file output/mm.riscv.vpd} {gui_open_db -file output/mm.riscv.vpd -design V1} {gui_open_db -file /home/zqh/risc-v/rocket-chip/vsim/output.bak/mm.riscv.vpd -design V1} {gui_open_db -file output.bak/mm.riscv.vpd}}
+gui_set_state_value -category Globals -key recent_sessions -value {{gui_load_session -ignore_errors -file /home/zqh/risc-v/rocket-chip/vsim/session.mm.riscv1.vpd.tcl} {gui_load_session -ignore_errors -file /home/zqh/risc-v/rocket-chip/vsim/session.mm.riscv.vpd.tcl} {gui_load_session -ignore_errors -file /home/zqh/risc-v/rocket-chip/vsim/session.mm.riscv.vpd.tcl -ignore_errors}}
+gui_set_state_value -category Layout -key child_console_size_x -value 1849
+gui_set_state_value -category Layout -key child_console_size_y -value 456
+gui_set_state_value -category Layout -key child_data_coltype -value 11
+gui_set_state_value -category Layout -key child_data_colvalue -value 10
+gui_set_state_value -category Layout -key child_data_colvariable -value 128
+gui_set_state_value -category Layout -key child_data_size_x -value 154
+gui_set_state_value -category Layout -key child_data_size_y -value 441
+gui_set_state_value -category Layout -key child_driver_size_x -value 1279
+gui_set_state_value -category Layout -key child_driver_size_y -value 179
+gui_set_state_value -category Layout -key child_hier_col3 -value {-1}
+gui_set_state_value -category Layout -key child_hier_colhier -value 454
+gui_set_state_value -category Layout -key child_hier_colpd -value 0
+gui_set_state_value -category Layout -key child_hier_coltype -value 15
+gui_set_state_value -category Layout -key child_hier_size_x -value 473
+gui_set_state_value -category Layout -key child_hier_size_y -value 441
+gui_set_state_value -category Layout -key child_source_docknewline -value false
+gui_set_state_value -category Layout -key child_source_pos_x -value {-2}
+gui_set_state_value -category Layout -key child_source_pos_y -value {-20}
+gui_set_state_value -category Layout -key child_source_size_x -value 1225
+gui_set_state_value -category Layout -key child_source_size_y -value 437
+gui_set_state_value -category Layout -key child_wave_colname -value 266
+gui_set_state_value -category Layout -key child_wave_colvalue -value 266
+gui_set_state_value -category Layout -key child_wave_left -value 536
+gui_set_state_value -category Layout -key child_wave_right -value 1307
+gui_set_state_value -category Layout -key main_pos_x -value 65
+gui_set_state_value -category Layout -key main_pos_y -value 52
+gui_set_state_value -category Layout -key main_size_x -value 1914
+gui_set_state_value -category Layout -key main_size_y -value 1075
+gui_set_state_value -category Layout -key stand_source_child_docknewline -value false
+gui_set_state_value -category Layout -key stand_source_child_pos_x -value {-2}
+gui_set_state_value -category Layout -key stand_source_child_pos_y -value {-20}
+gui_set_state_value -category Layout -key stand_source_child_size_x -value 1284
+gui_set_state_value -category Layout -key stand_source_child_size_y -value 410
+gui_set_state_value -category Layout -key stand_wave_child_docknewline -value false
+gui_set_state_value -category Layout -key stand_wave_child_pos_x -value {-2}
+gui_set_state_value -category Layout -key stand_wave_child_pos_y -value {-20}
+gui_set_state_value -category Layout -key stand_wave_child_size_x -value 1853
+gui_set_state_value -category Layout -key stand_wave_child_size_y -value 864
+gui_set_state_value -category Layout -key stand_wave_top_pos_x -value 65
+gui_set_state_value -category Layout -key stand_wave_top_pos_y -value 80
+gui_set_state_value -category Layout -key stand_wave_top_size_x -value 1913
+gui_set_state_value -category Layout -key stand_wave_top_size_y -value 1074
+gui_set_state_value -category Data -key showAggregate -value false
+gui_set_state_value -category Data -key showAssertion -value false
+gui_set_state_value -category Data -key showBuffer -value false
+gui_set_state_value -category Data -key showConstant -value false
+gui_set_state_value -category Data -key showEvent -value false
+gui_set_state_value -category Data -key showInterface -value false
+gui_set_state_value -category Data -key showLinkage -value false
+gui_set_state_value -category Data -key showLowPower -value false
+gui_set_state_value -category Data -key showOthers -value false
+gui_set_state_value -category Data -key showParameter -value false
+gui_set_state_value -category Data -key showSignal -value false
+gui_set_state_value -category Data -key showUnit -value false
+gui_set_state_value -category Data -key showVariable -value false
+gui_create_state_key -category FindDialog -key m_pMatchCase -value_type bool -value false
+gui_create_state_key -category FindDialog -key m_pMatchWord -value_type bool -value false
+gui_create_state_key -category FindDialog -key m_pUseCombo -value_type string -value {}
+gui_create_state_key -category FindDialog -key m_pWrapAround -value_type bool -value true
+gui_create_state_key -category Widget_History -key Find|m_pFindFrame|m_pFindCombo -value_type string -value {debug_1_io_dmi_dmi_resp_valid debug_clockeddmi_dmi_resp_valid dut_debug_clockeddmi_dmi_resp_valid SimDTM_debug_resp_valid debug_resp_valid}
+gui_create_state_key -category Widget_History -key TopLevel.1|qt_left_dock|DockWnd4|DLPane.1|pages|Data.1|hbox|textfilter -value_type string -value {*valid* *addr* *fixer*}
+gui_create_state_key -category Widget_History -key TopLevel.1|qt_top_dock|&Edit|FindCombo -value_type string -value {debug_1_io_dmi_dmi_resp_valid debug_clockeddmi_dmi_resp_valid dut_debug_clockeddmi_dmi_resp_valid SimDTM_debug_resp_valid debug_resp_valid}
+gui_create_state_key -category Widget_History -key TopLevel.2|qt_top_dock|&Edit|FindCombo -value_type string -value {debug_1_io_dmi_dmi_resp_valid debug_clockeddmi_dmi_resp_valid dut_debug_clockeddmi_dmi_resp_valid SimDTM_debug_resp_valid debug_resp_valid}
+gui_create_state_key -category Widget_History -key dlgSearchValue|m_ValueComboBox -value_type string -value *03c58593*
+gui_state_default_create -off
+
+# Begin command logging
+gui_sim_run Ucli -exe ./simv -args {-ucligui  } -dir .
+run
+gui_wv_zoom_timerange -id  Wave.1 0 33405910
+gui_wv_zoom_timerange -id  Wave.1 0 33405910
+gui_wv_zoom_timerange -id  Wave.1 0 33499222
+gui_wv_zoom_timerange -id  Wave.1 0 40155521
+gui_wv_zoom_timerange -id  Wave.1 0 40000000
+gui_wv_zoom_timerange -id  Wave.1 0 33405910
+gui_wv_zoom_timerange -id  Wave.1 0 33499222
+gui_wv_zoom_timerange -id  Wave.1 0 40155521
+gui_close_window -window TopLevel.2
+tion {Vcc} -selectionId 0 -replace 0
+gui_src_highlight_item -id Source.1 -lfrom 85 -idxfrom 45 -fileIdFrom 0 -lto 85 -idxto 48 -fileIdTo 0 -selection {Vcc} -selectionId 0 -replace 0
+gui_show_drivers -signal  {Testbench.Vcc[31:0]}
+gui_get_drivers -id Source.1 -signal {Testbench.Vcc[31:0]}
+gui_src_highlight_item -id Source.1 -lfrom 85 -idxfrom 8 -fileIdFrom 0 -lto 85 -idxto 15 -fileIdTo 0 -selection {Stimuli} -selectionId 0 -replace 0
+gui_src_highlight_item -id Source.1 -lfrom 85 -idxfrom 8 -fileIdFrom 0 -lto 85 -idxto 15 -fileIdTo 0 -selection {Stimuli} -selectionId 0 -replace 0
+gui_src_highlight_item -id Source.1 -lfrom 85 -idxfrom 8 -fileIdFrom 0 -lto 85 -idxto 15 -fileIdTo 0 -selection {Stimuli} -selectionId 0 -replace 0
+gui_src_highlight_item -id Source.1 -lfrom 85 -idxfrom 16 -fileIdFrom 0 -lto 85 -idxto 20 -fileIdTo 0 -selection {stim} -selectionId 0 -replace 0
+gui_src_highlight_item -id Source.1 -lfrom 85 -idxfrom 16 -fileIdFrom 0 -lto 85 -idxto 20 -fileIdTo 0 -selection {stim} -selectionId 0 -replace 0
+gui_open_source -id Source.1  -active  Testbench.stim
+gui_src_highlight_item -id Source.1 -lfrom 10 -idxfrom 9 -fileIdFrom 0 -lto 10 -idxto 16 -fileIdTo 0 -selection {Stimuli} -selectionId 0 -replace 0
+gui_src_highlight_item -id Source.1 -lfrom 10 -idxfrom 41 -fileIdFrom 0 -lto 10 -idxto 44 -fileIdTo 0 -selection {Vcc} -selectionId 0 -replace 0
+gui_src_highlight_item -id Source.1 -lfrom 10 -idxfrom 41 -fileIdFrom 0 -lto 10 -idxto 44 -fileIdTo 0 -selection {Vcc} -selectionId 0 -replace 0
+gui_show_drivers -signal  {Testbench.stim.Vcc[31:0]}
+gui_get_drivers -id Source.1 -signal {Testbench.stim.Vcc[31:0]}
+gui_open_source -activate -startline  1878 /home/zqh/risc-v/zqh_riscv/verif/zqh_riscv/env/N25Q064A13E_VG12/include/DevParam.h  -openmode macro  -design  Sim
+package require snpsMisc ; Misc::exec_method -method popCmd 
+gui_src_highlight_item -id Source.1 -lfrom 2052 -idxfrom 6 -fileIdFrom 0 -lto 2052 -idxto 9 -fileIdTo 0 -selection {Vcc} -selectionId 0 -replace 0
+gui_src_highlight_item -id Source.1 -lfrom 2052 -idxfrom 10 -fileIdFrom 0 -lto 2052 -idxto 12 -fileIdTo 0 -selection {V1} -selectionId 0 -replace 0
+gui_src_highlight_item -id Source.1 -lfrom 2052 -idxfrom 10 -fileIdFrom 0 -lto 2052 -idxto 12 -fileIdTo 0 -selection {V1} -selectionId 0 -replace 0
+gui_show_drivers -signal  {Testbench.tasks.Vcc_waveform.V1[31:0]}
+gui_get_drivers -id Source.1 -signal {Testbench.tasks.Vcc_waveform.V1[31:0]}
+gui_src_highlight_item -id Source.1 -lfrom 2052 -idxfrom 10 -fileIdFrom 0 -lto 2052 -idxto 12 -fileIdTo 0 -selection {V1} -selectionId 0 -replace 0
+gui_show_drivers -signal  {Testbench.tasks.Vcc_waveform.V1[31:0]}
+gui_get_drivers -id Source.1 -signal {Testbench.tasks.Vcc_waveform.V1[31:0]}
+gui_src_highlight_item -id Source.1 -lfrom 2047 -idxfrom 9 -fileIdFrom 0 -lto 2047 -idxto 21 -fileIdTo 0 -selection {Vcc_waveform} -selectionId 0 -replace 0
+gui_find -next -id Source.1 -expr Vcc_waveform 
+gui_find -next -id Source.1 -expr Vcc_waveform 
+gui_find -next -id Source.1 -expr Vcc_waveform 
+gui_find -next -id Source.1 -expr Vcc_waveform 
+gui_find -next -id Source.1 -expr Vcc_waveform 
+gui_zoom -window Wave.1 -full
+gui_zoom -window Wave.1 -full
+gui_list_select -id Wave.1 -selected  { Testbench.DUT.S   }
+gui_list_select -id Wave.1 -selected  { {Testbench.DUT.Vcc[31:0]}   }
+gui_list_select -id Wave.1 -selected  { Testbench.DUT.C   }
+gui_zoom -window Wave.1 -full
+gui_wv_zoom_timerange -id  Wave.1 163484 1062644
+gui_wv_zoom_timerange -id  Wave.1 220245 402734
+gui_list_select -id Wave.1 -selected  { Testbench.DUT.S   }
+gui_marker_move -id  Wave.1 C1 250000
+gui_list_select -id Wave.1 -selected  { Testbench.DUT.DQ0   }
+gui_zoom -window Wave.1 -factor 0.5
+gui_zoom -window Wave.1 -factor 0.5
+gui_zoom -window Wave.1 -factor 0.5
+gui_wv_zoom_timerange -id  Wave.1 390519 710654
+gui_marker_move -id  Wave.1 C1 510000
+gui_zoom -window Wave.1 -factor 0.5
+gui_zoom -window Wave.1 -factor 0.5
+gui_zoom -window Wave.1 -factor 0.5
+gui_zoom -window Wave.1 -factor 0.5
+gui_wv_zoom_timerange -id  Wave.1 3150557 3401487
+gui_zoom -window Wave.1 -factor 0.5
+gui_zoom -window Wave.1 -factor 0.5
+gui_zoom -window Wave.1 -factor 0.5
+gui_zoom -window Wave.1 -factor 0.5
+gui_zoom -window Wave.1 -factor 0.5
+gui_zoom -window Wave.1 -factor 0.5
+gui_zoom -window Wave.1 -factor 0.5
+gui_list_select -id Wave.1 -selected  { Testbench.DUT.DQ1   }
+gui_zoom -window Wave.1 -full
+gui_wv_zoom_timerange -id  Wave.1 2806470 5122488
+gui_wv_zoom_timerange -id  Wave.1 3184075 3564074
+gui_zoom -window Wave.1 -factor 0.5
+gui_zoom -window Wave.1 -factor 0.5
+gui_zoom -window Wave.1 -factor 0.5
+gui_zoom -window Wave.1 -factor 0.5
+gui_zoom -window Wave.1 -factor 0.5
+gui_zoom -window Wave.1 -factor 0.5
+gui_marker_move -id  Wave.1 C1 2273000
+gui_wv_zoom_timerange -id  Wave.1 1853303 3139268
+gui_wv_zoom_timerange -id  Wave.1 2105943 2413934
+gui_marker_move -id  Wave.1 C1 2153000
+gui_wv_zoom_timerange -id  Wave.1 2105882 2363100
+gui_wv_zoom_timerange -id  Wave.1 2105882 2363100
+gui_wv_zoom_timerange -id  Wave.1 2105882 2363818
+gui_wv_zoom_timerange -id  Wave.1 2105882 2415070
+gui_wv_zoom_timerange -id  Wave.1 2105882 2413873
+gui_wv_zoom_timerange -id  Wave.1 2105882 2415070
+gui_wv_zoom_timerange -id  Wave.1 2105882 2363100
+gui_wv_zoom_timerange -id  Wave.1 2105882 2363818
+gui_wv_zoom_timerange -id  Wave.1 2105882 2415070
+gui_close_window -window TopLevel.2

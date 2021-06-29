@@ -1,0 +1,120 @@
+Magic 271485
+Revision Verdi3_K-2015.09-SP1-1
+
+; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
+viewPort 0 28 1855 926 385 241
+
+; File list:
+; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
+openDirFile -d / "" "/home/zqh/risc-v/zqh_riscv/verif/common/vips/DDR3_model/zqh_ddr3.fsdb"
+
+; file time scale:
+; fileTimeScale ### s|ms|us|ns|ps
+
+; signal spacing:
+signalSpacing 5
+
+; windowTimeUnit is used for zoom, cursor & marker
+windowTimeUnit 1ns
+
+; waveform viewport range
+zoom 36548.059683 36617.393943 1n
+cursor 36569.375000
+marker 36590.000000
+
+; user define markers
+; userMarker time_pos marker_name color linestyle
+; visible top row signal index
+top 0
+; marker line index
+markerPos 37
+
+; event list
+; addEvent event_name event_expression
+; curEvent event_name
+
+
+
+COMPLEX_EVENT_BEGIN
+
+
+COMPLEX_EVENT_END
+
+
+
+; toolbar current search type
+; curSTATUS search_type
+curSTATUS ByChange
+
+
+addGroup "G1"
+activeDirFile "" "/home/zqh/risc-v/zqh_riscv/verif/common/vips/DDR3_model/zqh_ddr3.fsdb"
+addSignal -h 15 /tb/sdramddr3_0/ck
+addSignal -h 15 -holdScope ck_n
+addSignal -h 15 -holdScope rst_n
+addGroup "G3"
+addSignal -h 15 /tb/sdramddr3_0/cke
+addSignal -h 15 -holdScope cs_n
+addSignal -h 15 -holdScope ras_n
+addSignal -h 15 -holdScope cas_n
+addSignal -h 15 -holdScope we_n
+addSignal -h 15 -UNSIGNED -HEX -holdScope addr[13:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope ba[2:0]
+addGroup "G4"
+addSignal -h 15 /tb/sdramddr3_0/dm_tdqs[0:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope dq[7:0]
+addSignal -h 15 -holdScope dqs[0:0]
+addSignal -h 15 -holdScope dqs_n[0:0]
+addSignal -h 15 -holdScope odt
+addSignal -h 15 -holdScope tdqs_n[0:0]
+addGroup "G5"
+addSignal -h 15 -UNSIGNED -HEX /tb/mr_cwl[5:3]
+addSignal -h 15 -UNSIGNED -HEX -holdScope mr_wr[11:9]
+addSignal -h 15 -UNSIGNED -HEX -holdScope mr_cl[6:2]
+addSignal -h 15 -UNSIGNED -HEX -holdScope tmrd[11:0]
+addGroup "G6"
+addSignal -h 15 -UNSIGNED -HEX /tb/sdramddr3_0/check_write_dqs_low[63:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope check_write_dqs_high[63:0]
+addSignal -h 15 -holdScope diff_ck
+addSignal -h 15 -UNSIGNED -HEX /tb/TZQINIT[31:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope tdllk[11:0]
+addSignal -h 15 -UNSIGNED -HEX /tb/sdramddr3_0/TZQINIT[31:0]
+addGroup "G7"
+addSignal -h 15 -UNSIGNED -HEX /tb/odt_fifo[16:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope bl[3:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope rl[4:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope wl[4:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope cl[3:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope cwl[3:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope al[3:0]
+addSignal -h 15 -holdScope odt_fifo[0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope trcd[11:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope twtr[11:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope trp[11:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope twtr[11:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope mode_reg0[13:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope mode_reg1[13:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope mode_reg2[13:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope tcl_min[11:0]
+addGroup "G8"
+addSignal -h 15 /tb/sdramddr3_0/tdqs_en
+addGroup "G9"
+
+; getSignalForm Scope Hierarchy Status
+; active file of getSignalForm
+activeDirFile "" "/home/zqh/risc-v/zqh_riscv/verif/common/vips/DDR3_model/zqh_ddr3.fsdb"
+
+GETSIGNALFORM_SCOPE_HIERARCHY_BEGIN
+getSignalForm close
+
+"/tb"
+"/tb/sdramddr3_0"
+
+SCOPE_LIST_BEGIN
+"/tb"
+"/tb/sdramddr3_0"
+SCOPE_LIST_END
+
+GETSIGNALFORM_SCOPE_HIERARCHY_END
+
+

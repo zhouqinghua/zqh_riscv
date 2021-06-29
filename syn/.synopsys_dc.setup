@@ -1,0 +1,13 @@
+# System variables
+set_app_var search_path   "$search_path $synopsys_root/libraries/syn /mnt/hgfs/vmware_share/smic180/std/synopsys /mnt/hgfs/vmware_share/smic180/std/symbols"
+
+#
+#set_app_var target_library   "class.db"
+#set_app_var symbol_library   "class.sdb"
+#set_app_var link_library     "class.db"
+
+set target_library typical.db
+set symbol_library smic18.sdb
+set link_library [concat $target_library "*"]
+
+set designer "Zhou Qinghua"

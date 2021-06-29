@@ -1,0 +1,384 @@
+
+Warning-[LINX_KRNL] Unsupported Linux kernel
+  Linux kernel '4.15.0-101-generic' is not supported.
+  Supported versions are 2.4* or 2.6*.
+
+Command: vcs -full64 -notice -line +lint=all,noVCDE,noONGS,noUI,noNS,noVNGS -error=noIOPCWM \
++v2k +vcs+lic+wait -sverilog -timescale=1ns/10ps +define+sg125 +define+den1024Mb \
++define+x8 -pvalue+MEM_BITS=12 -pvalue+DEBUG=0 +incdir+./ ./ddr3.v ./tb.v -P /home/zqh/verdi/K-2015.09-SP1-1/share/PLI/VCS/LINUX64/novas.tab \
+/home/zqh/verdi/K-2015.09-SP1-1/share/PLI/VCS/LINUX64/pli.a -l ./cmp.log -o ./simv \
+-debug_pp
+                         Chronologic VCS (TM)
+         Version L-2016.06_Full64 -- Thu Jul  9 12:23:27 2020
+               Copyright (c) 1991-2016 by Synopsys Inc.
+                         ALL RIGHTS RESERVED
+
+This program is proprietary and confidential information of Synopsys Inc.
+and may be used and disclosed only as authorized in a license agreement
+controlling such use and disclosure.
+
+Parsing design file './ddr3.v'
+Parsing included file '1024Mb_ddr3_parameters.vh'.
+Back to file './ddr3.v'.
+Parsing design file './tb.v'
+Parsing included file '1024Mb_ddr3_parameters.vh'.
+Back to file './tb.v'.
+Parsing included file 'subtest.vh'.
+Back to file './tb.v'.
+Parsing included file '1024Mb_ddr3_parameters.vh'.
+Back to file './tb.v'.
+Top Level Modules:
+       tb
+assign 12 /tb/MEM_BITS (global:"command line":0)
+assign 12 /tb/sdramddr3_0/MEM_BITS (global:"command line":0)
+assign 12 /tb/dqrx(0)/MEM_BITS (global:"command line":0)
+assign 0 /tb/DEBUG (global:"command line":0)
+assign 0 /tb/sdramddr3_0/DEBUG (global:"command line":0)
+assign 0 /tb/dqrx(0)/DEBUG (global:"command line":0)
+TimeScale is 1 ps / 1 ps
+
+Lint-[ZERO] Zero delay in design
+./ddr3.v, 493
+  Use of #0 in module 'ddr3' may result in incorrect results or inconsistent 
+  behavior.
+
+
+Lint-[ZERO] Zero delay in design
+./ddr3.v, 494
+  Use of #0 in module 'ddr3' may result in incorrect results or inconsistent 
+  behavior.
+
+
+Lint-[ZERO] Zero delay in design
+./ddr3.v, 495
+  Use of #0 in module 'ddr3' may result in incorrect results or inconsistent 
+  behavior.
+
+
+Lint-[ZERO] Zero delay in design
+./ddr3.v, 498
+  Use of #0 in module 'ddr3' may result in incorrect results or inconsistent 
+  behavior.
+
+
+Lint-[ZERO] Zero delay in design
+./ddr3.v, 500
+  Use of #0 in module 'ddr3' may result in incorrect results or inconsistent 
+  behavior.
+
+
+Lint-[ZERO] Zero delay in design
+./ddr3.v, 501
+  Use of #0 in module 'ddr3' may result in incorrect results or inconsistent 
+  behavior.
+
+
+Lint-[ZERO] Zero delay in design
+./ddr3.v, 502
+  Use of #0 in module 'ddr3' may result in incorrect results or inconsistent 
+  behavior.
+
+
+Lint-[ZERO] Zero delay in design
+./ddr3.v, 503
+  Use of #0 in module 'ddr3' may result in incorrect results or inconsistent 
+  behavior.
+
+
+Lint-[ZERO] Zero delay in design
+./ddr3.v, 504
+  Use of #0 in module 'ddr3' may result in incorrect results or inconsistent 
+  behavior.
+
+
+Lint-[ZERO] Zero delay in design
+./ddr3.v, 505
+  Use of #0 in module 'ddr3' may result in incorrect results or inconsistent 
+  behavior.
+
+
+Lint-[ZERO] Zero delay in design
+./ddr3.v, 506
+  Use of #0 in module 'ddr3' may result in incorrect results or inconsistent 
+  behavior.
+
+
+Lint-[ZERO] Zero delay in design
+./ddr3.v, 507
+  Use of #0 in module 'ddr3' may result in incorrect results or inconsistent 
+  behavior.
+
+
+Lint-[ZERO] Zero delay in design
+./ddr3.v, 508
+  Use of #0 in module 'ddr3' may result in incorrect results or inconsistent 
+  behavior.
+
+
+Lint-[ZERO] Zero delay in design
+./ddr3.v, 509
+  Use of #0 in module 'ddr3' may result in incorrect results or inconsistent 
+  behavior.
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 79
+  Continuous assignment width mismatch
+  4 bits (lhs) versus 32 bits (rhs).
+  Source info: assign cl = ({mode_reg0[2], mode_reg0[6:4]} + 4);  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 82
+  Continuous assignment width mismatch
+  4 bits (lhs) versus 32 bits (rhs).
+  Source info: assign cwl = (mode_reg2[5:3] + 5);  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 113
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign tccd = TCCD;  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 114
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign tcke = tb.max(tb.ceil((TCKE / tck)), TCKE_TCK);  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 115
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign tckesr = TCKESR_TCK;  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 116
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign tcksre = tb.max(tb.ceil((TCKSRE / tck)), TCKSRE_TCK);  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 117
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign tcksrx = tb.max(tb.ceil((TCKSRX / tck)), TCKSRX_TCK);  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 119
+  Continuous assignment width mismatch
+  5 bits (lhs) versus 32 bits (rhs).
+  Source info: assign mr_cl = (((tcl_min - 4) << 2) | (tcl_min / 12));  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 120
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign tcpded = TCPDED;  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 122
+  Continuous assignment width mismatch
+  3 bits (lhs) versus 32 bits (rhs).
+  Source info: assign mr_cwl = (tcwl_min - 5);  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 123
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign tdllk = TDLLK;  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 124
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign tfaw = tb.ceil((TFAW / tck));  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 125
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign tmod = tb.max(tb.ceil((TMOD / tck)), TMOD_TCK);  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 126
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign tmrd = TMRD;  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 127
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign tras = tb.ceil((TRAS_MIN / tck));  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 128
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign trc = tb.ceil((TRC / tck));  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 129
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign trcd = tb.ceil((TRCD / tck));  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 130
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign trfc = tb.ceil((TRFC_MIN / tck));  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 131
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign trp = tb.ceil((TRP / tck));  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 132
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign trrd = tb.max(tb.ceil((TRRD / tck)), TRRD_TCK);  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 133
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign trtp = tb.max(tb.ceil((TRTP / tck)), TRTP_TCK);  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 134
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign twr = tb.ceil((TWR / tck));  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 135
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign twtr = tb.max(tb.ceil((TWTR / tck)), TWTR_TCK);  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 136
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign txp = tb.max(tb.ceil((TXP / tck)), TXP_TCK);  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 137
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign txpdll = tb.max(tb.ceil((TXPDLL / tck)), TXPDLL_TCK);  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 138
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign txpr = tb.max(tb.ceil((TXPR / tck)), TXPR_TCK);  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 139
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign txs = tb.max(tb.ceil((TXS / tck)), TXS_TCK);  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 140
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign txsdll = TXSDLL;  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 141
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign tzqcs = TZQCS;  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 142
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign tzqoper = TZQOPER;  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 143
+  Continuous assignment width mismatch
+  12 bits (lhs) versus 32 bits (rhs).
+  Source info: assign wr = ((twr < 8) ? twr : (twr + (twr % 2)));  
+
+
+Lint-[CAWM-L] Width mismatch
+./tb.v, 144
+  Continuous assignment width mismatch
+  3 bits (lhs) versus 32 bits (rhs).
+  Source info: assign mr_wr = ((twr < 8) ? (twr - 4) : (twr >> 1));  
+
+
+Lint-[PCTI-L] Ports coerced to input
+./ddr3.v, 108
+"dm_tdqs"
+  Port "dm_tdqs" declared as inout in module "ddr3" does not have any load in 
+  parent module or is connected to constant, it may need to be input. 
+  Coercing to input.
+
+Starting vcs inline pass...
+2 unique modules to generate
+Generating code for _VCSgd_reYIK
+Generating code for _VCSgd_g7hgQ
+2 modules and 0 UDP read. 
+	However, due to incremental compilation, only 1 module needs to be compiled. 
+recompiling module tb
+All of 1 modules done
+make[1]: Entering directory '/home/zqh/risc-v/zqh_riscv/verif/common/vips/DDR3_model/csrc' \
+
+rm -f _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+ld -shared  -o .//../simv.daidir//_csrc0.so objs/amcQw_d.o 
+rm -f _csrc0.so
+if [ -x .././simv ]; then chmod -x .././simv; fi
+g++  -o .././simv   -Wl,-rpath-link=./ -Wl,-rpath='$ORIGIN'/simv.daidir/ -Wl,-rpath=./simv.daidir/ \
+-Wl,-rpath='$ORIGIN'/simv.daidir//scsim.db.dir  -L/usr/lib/x86_64-linux-gnu -L/lib/x86_64-linux-gnu \
+-Wl,--no-as-needed -rdynamic   amcQwB.o   _93244_archive_1.so _prev_archive_1.so \
+_csrc0.so  SIM_l.o  _csrc0.so     rmapats_mop.o rmapats.o rmar.o  rmar_llvm_0_1.o \
+rmar_llvm_0_0.o          /home/zqh/vcs/vcs_L-2016.06/vcs/linux64/lib/libzerosoft_rt_stubs.so \
+/home/zqh/vcs/vcs_L-2016.06/vcs/linux64/lib/libvirsim.so /home/zqh/vcs/vcs_L-2016.06/vcs/linux64/lib/liberrorinf.so \
+/home/zqh/vcs/vcs_L-2016.06/vcs/linux64/lib/libsnpsmalloc.so /home/zqh/verdi/K-2015.09-SP1-1/share/PLI/VCS/LINUX64/pli.a \
+/home/zqh/vcs/vcs_L-2016.06/vcs/linux64/lib/libvcsnew.so /home/zqh/vcs/vcs_L-2016.06/vcs/linux64/lib/libsimprofile.so \
+/home/zqh/vcs/vcs_L-2016.06/vcs/linux64/lib/libuclinative.so   -Wl,-whole-archive \
+/home/zqh/vcs/vcs_L-2016.06/vcs/linux64/lib/libvcsucli.so -Wl,-no-whole-archive  \
+_vcs_pli_stub_.o   /home/zqh/vcs/vcs_L-2016.06/vcs/linux64/lib/vcs_save_restore_new.o \
+-ldl -lm  -lc -lpthread -ldl 
+.././simv up to date
+make[1]: Leaving directory '/home/zqh/risc-v/zqh_riscv/verif/common/vips/DDR3_model/csrc' \
+
+CPU time: .736 seconds to compile + .286 seconds to elab + .254 seconds to link

@@ -1,0 +1,12 @@
+import sys
+import os
+from phgl_imp import *
+from .zqh_core_e1_core_parameters import zqh_core_e1_core_parameter
+from zqh_core_common.zqh_core_common_ifu_bundles import zqh_core_common_ifu_cpu_io
+from zqh_fpu.zqh_fpu_bundles import zqh_fpu_core_io
+from zqh_rocc.zqh_rocc_bundles import zqh_rocc_core_io
+from zqh_core_common.zqh_core_common_interrupts_bundles import zqh_core_common_interrupts
+from zqh_core_common.zqh_core_common_core_bundles import zqh_core_common_core_io
+
+class zqh_core_e1_core_io(zqh_core_common_core_io):
+    pass
