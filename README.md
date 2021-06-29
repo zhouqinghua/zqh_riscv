@@ -1,4 +1,4 @@
-# 2	zqh_riscv整体介绍
+# zqh_riscv整体介绍
 zqh_riscv是一套开源SOC开发平台，核心部分包含处理器core、cache、片内互联总线、中断控制器、memory控制器、片内总线slave接口、片内总线master接口、片内总线device、片外总线device、时钟复位控制器、debug控制器。还包含了SOC功能验证/仿真相关的脚本程序和测试用例。除了可以运行电路仿真，平台还提供了ASIC综合脚本，可以对生成的电路做逻辑综合。支持在FPGA上的原型仿真验证。
 处理器core选择开源指令集的riscv架构，zqh_riscv SOC的目标应用平台是各种IOT设备/嵌入式设备，处理器core不采用通用计算处理器的微架构，因此core不会集成MMU/TLB 多核cache一致性等典型AP处理器的功能。core的微架构常常选择类似于Rocket项目的结构，力求在能满足计算要求的前提下尽可能占用最低的面积与功耗。
 片内互联总线选择的是tilelink总线，tilelink是开源的总线标准，它跟riscv指令集一样出自加州伯克利大学，跟riscv core的搭配最合适不过了。tilelink没有ARM的AMBA总线的名气大，但它简洁高效的结构比AXI/AHB等ARM总线更适合IOT芯片。但鉴于目前各种商业IP提供的大部分都是AMBA总线的接口，zqh_riscv也提供了tilelink接口与AMBA总线接口的转换。
