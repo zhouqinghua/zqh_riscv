@@ -1,3 +1,0 @@
-Command Line: /home/zqh/verdi/K-2015.09-SP1-1/platform/LINUXAMD64/bin/Novas -nologo -notice -line +lint=all,noVCDE,noONGS,noUI,noNS,noVNGS -error=noIOPCWM +v2k +vcs+lic+wait -sverilog -timescale=1ns/10ps +define+sg125 +define+den1024Mb +define+x8 -pvalue+MEM_BITS=12 -pvalue+DEBUG=1 +incdir+./ ./ddr3.v ./tb.v -P /home/zqh/verdi/K-2015.09-SP1-1/share/PLI/VCS/LINUX64/novas.tab /home/zqh/verdi/K-2015.09-SP1-1/share/PLI/VCS/LINUX64/pli.a -l ./cmp.log -debug_pp
-uname(Linux ubuntu 4.15.0-101-generic #102~16.04.1-Ubuntu SMP Mon May 11 11:38:16 UTC 2020 x86_64)
-au time 249230.550503 102.703796 2276.486056 delta 325722112 325722112 total 706035712 706035712
