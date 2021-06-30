@@ -30,7 +30,7 @@ class zqh_cfg_r1__no_ddr__no_eth__no_print_monitor__no_axi4_sram__no_debug(zqh_c
         super(zqh_cfg_r1__no_ddr__no_eth__no_print_monitor__no_axi4_sram__no_debug, self).set_cfg()
         self.cfg_all('zqh_system_common_parameter', 'has_ddr', 0)
         self.cfg_all('zqh_system_common_parameter', 'has_eth', 1)
-        self.cfg_all('zqh_system_common_parameter', 'has_print_monitor', 0)
+        self.cfg_all('zqh_system_common_parameter', 'has_print_monitor', 1)
         self.cfg_all('zqh_system_common_parameter', 'has_axi4_sram', 0)
         self.cfg_all('zqh_system_common_parameter', 'debug_dumy', 0)
         self.cfg_all('DefaultDebugModuleParams', 'dumy', 0)
@@ -38,7 +38,7 @@ class zqh_cfg_r1__no_ddr__no_eth__no_print_monitor__no_axi4_sram__no_debug(zqh_c
 class zqh_cfg_r1__fpga_min(zqh_cfg_r1__no_ddr__no_eth__no_print_monitor__no_axi4_sram__no_debug):
     def set_cfg(self):
         super(zqh_cfg_r1__fpga_min, self).set_cfg()
-        self.cfg_all('zqh_full_chip_common_parameter', 'imp_mode', 'fpga')
+        self.cfg_all('zqh_full_chip_common_parameter', 'imp_mode', 'sim')
 
         #self.cfg_all('zqh_core_common_core_parameter', 'csr_have_basic_counters', 1)
         #self.cfg_all('zqh_core_common_core_parameter', 'csr_num_perf_counters', 0)
