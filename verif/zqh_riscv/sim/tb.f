@@ -16,4 +16,5 @@
 ../th/top.sv
 ../env/zqh_riscv_env.sv
 ../tests/zqh_riscv_tests/zqh_riscv_sanity_test.sv
+../tests/zqh_riscv_tests/zqh_riscv_jtag_sba_test.sv
 ../tests/test_master.sv
