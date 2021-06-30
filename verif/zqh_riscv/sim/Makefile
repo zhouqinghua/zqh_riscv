@@ -179,7 +179,7 @@ gcc_march = rv$(gcc_xlen)$(gcc_isa)
 
 sw_root_dir = ../tests/zqh_riscv_sw
 sw_tc_grp_dir = benchmarks#isa/benchmarks
-sw_tc_dir = zqh_test0#zqh_test0/rv64ui
+sw_tc_dir = zqh_test_sanity#zqh_test0/rv64ui
 sw_tc = p-add
 ifeq ($(sw_tc_grp_dir),isa)
     sw_tc_elf = $(sw_tc_dir)-$(sw_tc)
