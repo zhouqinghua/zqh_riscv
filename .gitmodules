@@ -1,0 +1,3 @@
+[submodule "phgl"]
+	path = phgl
+	url = git@github.com:zhouqinghua/phgl.git
