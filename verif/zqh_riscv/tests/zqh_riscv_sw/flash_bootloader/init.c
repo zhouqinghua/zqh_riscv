@@ -5,8 +5,6 @@
 #include "util.h"
 #include "zqh_common_def.h"
 
-#define IMP_MODE_SIM 1
-
 uintptr_t __attribute__((weak)) handle_trap(uintptr_t cause, uintptr_t epc, uintptr_t regs[32])
 {
 }

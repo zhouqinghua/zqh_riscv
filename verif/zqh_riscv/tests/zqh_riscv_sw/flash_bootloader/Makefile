@@ -3,7 +3,7 @@ tgt_fn = bootloader.hex.fix
 
 #actual mode should be flash. but simulation is very slow
 #use mode=sram to put bootloader code into onchip sram to speedup simulation
-mode=flash
+mode=sram
 ifeq ($(mode),flash)
     lk_fn = linker_flash.ld
     text_seg_base = 0x20000000
@@ -18,7 +18,7 @@ endif
 data_seg_base = 0x40000000
 data_seg_max = 0x50000000
 
-has_ddr=1
+has_ddr=0
 ifeq ($(has_ddr),1)
 	def_has_ddr=-DHAS_DDR=1
 else
@@ -35,9 +35,10 @@ ddr_speed =800
 def_has_ddr +=-DDDR_SPEED=$(ddr_speed)
 
 #0x80000000 is uaually ddr space
+#0x40000000 is onchip memory(sram) space
 #if chip don't have ddr, this space should be set to onchip memory(sram) space
-#such as 0x40002000
-#main_mem_base = 0x80000000
+#when mode=sram need. 0x40000000-0x40000x2000 is bootloader space
+#when mode=flash, main_mem_base is not used
 main_mem_base = 0x40002000
 
 has_eth=1
@@ -50,9 +51,15 @@ endif
 #print use uart is very slow in simulation, should use mmio print monitor
 print_use_uart=0
 
+#impliment mode: sim/fpga
+imp_mode=sim
+def_imp_mode=
+ifeq ($(imp_mode),sim)
+    def_imp_mode=-DIMP_MODE_SIM=1
+endif
 
 GCC=riscv64-unknown-elf-gcc
-RISCV_GCC_OPTS = -DPREALLOCATE=1 $(def_has_ddr) $(def_has_eth) -DMAIN_MEM_BASE=$(main_mem_base) -DPRINT_USE_UART=$(print_use_uart) -mcmodel=medany -static -std=gnu99 -O1 -ffast-math -fno-common -fno-builtin-printf -march=rv64g -g
+RISCV_GCC_OPTS = -DPREALLOCATE=1 $(def_has_ddr) $(def_has_eth) $(def_imp_mode) -DMAIN_MEM_BASE=$(main_mem_base) -DPRINT_USE_UART=$(print_use_uart) -mcmodel=medany -static -std=gnu99 -O1 -ffast-math -fno-common -fno-builtin-printf -march=rv64g -g
 RISCV_LINK_OPTS = -static -nostdlib -nostartfiles -lm -lgcc -T $(src_dir)/$(lk_fn)
 OBJCOPY=riscv64-unknown-elf-objcopy --only-section=.text* --only-section=.rodata*
 OBJDUMP=riscv64-unknown-elf-objdump -S --disassemble-all --disassemble-zeroes
