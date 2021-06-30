@@ -217,7 +217,7 @@ SIM_OPTS_IVL =
 
 # -O  option will disable python script's assert() check
 #  this will improve runtime performanc
-gen_rtl_bin = python3 /home/zqh/risc-v/phgl/phgl_generator.py
+gen_rtl_bin = python3 ../../../phgl/phgl_generator.py
 
 #core_e1
 #gen_py = ../../../src/zqh_test_harness_e1/zqh_test_harness_e1_ut.py
