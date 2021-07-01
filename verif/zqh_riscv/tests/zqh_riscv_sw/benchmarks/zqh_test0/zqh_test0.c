@@ -1456,9 +1456,9 @@ int main (int argc, char** argv)
     printf_zqh("mhpmcounter4 last %d\n", read_csr(mhpmcounter4));
     printf_zqh("mhpmcounter5 last %d\n", read_csr(mhpmcounter5));
     printf_zqh("mhpmcounter6 last %d\n", read_csr(mhpmcounter6));
-    __sync_synchronize();
-    *STOP_PTR_HART(hart_id) = stop_code;
-    while(1);
+    //__sync_synchronize();
+    //*STOP_PTR_HART(hart_id) = stop_code;
+    //while(1);
 
     return 0;
 }

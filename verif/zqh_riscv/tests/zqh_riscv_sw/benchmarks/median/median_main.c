@@ -12,6 +12,9 @@
 #include "util.h"
 
 #include "median.h"
+//zqh
+#include "zqh_common_def.h"
+#include "zqh_common_funcs.c"
 
 //--------------------------------------------------------------------------
 // Input/Reference Data
@@ -34,6 +37,7 @@ int main( int argc, char* argv[] )
   setStats(1);
   median( DATA_SIZE, input_data, results_data );
   setStats(0);
+
 
   // Check the results
   return verify( DATA_SIZE, results_data, verify_data );

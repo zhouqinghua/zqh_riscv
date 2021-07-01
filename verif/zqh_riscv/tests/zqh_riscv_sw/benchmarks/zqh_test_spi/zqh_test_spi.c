@@ -57,6 +57,6 @@ int main (int argc, char** argv)
     printf_zqh("spi0 test end\n");
     //}}}
 
-    post_stop(0x01);
+    //post_stop(0x01);
     return 0;
 }

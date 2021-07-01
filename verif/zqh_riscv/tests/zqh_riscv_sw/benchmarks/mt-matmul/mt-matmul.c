@@ -32,6 +32,9 @@
 
 #include "util.h"
 
+//zqh
+#include "zqh_common_def.h"
+#include "zqh_common_funcs.c"
    
 //--------------------------------------------------------------------------
 // matmul function

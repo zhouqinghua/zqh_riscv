@@ -30,6 +30,6 @@ int main (int argc, char** argv)
     printf_zqh("mac test end\n");
     //}}}
 
-    post_stop(0x01);
+    //post_stop(0x01);
     return 0;
 }

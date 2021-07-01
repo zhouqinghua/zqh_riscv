@@ -73,6 +73,6 @@ int main (int argc, char** argv)
     //}}}
 
 
-    post_stop(0x01);
+    //post_stop(0x01);
     return 0;
 }

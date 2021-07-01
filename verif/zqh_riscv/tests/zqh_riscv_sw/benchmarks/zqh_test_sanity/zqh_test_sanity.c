@@ -288,6 +288,6 @@ int main (int argc, char** argv)
 //        *(dtim_addr) = 0;
 //    }
 
-    post_stop(0x01);
+    //post_stop(0x01);
     return 0;
 }

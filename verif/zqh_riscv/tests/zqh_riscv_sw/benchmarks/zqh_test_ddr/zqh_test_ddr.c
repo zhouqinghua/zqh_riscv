@@ -50,6 +50,6 @@ int main (int argc, char** argv)
     //while(1);
     //}}}
 
-    post_stop(0x01);
+    //post_stop(0x01);
     return 0;
 }

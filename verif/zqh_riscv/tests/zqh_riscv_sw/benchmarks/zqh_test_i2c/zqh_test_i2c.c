@@ -64,6 +64,6 @@ int main (int argc, char** argv)
     printf_zqh("i2c test end\n");
     //}}}
 
-    post_stop(0x01);
+    //post_stop(0x01);
     return 0;
 }

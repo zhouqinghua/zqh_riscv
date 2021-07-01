@@ -48,6 +48,6 @@ int main (int argc, char** argv)
     delay_zqh(200);
     printf_zqh("dtim test end\n");
 
-    post_stop(0x01);
+    //post_stop(0x01);
     return 0;
 }

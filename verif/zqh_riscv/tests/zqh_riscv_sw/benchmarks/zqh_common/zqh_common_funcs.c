@@ -1,3 +1,10 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdarg.h>
+#include <math.h>
+#include "util.h"
+
 #ifndef __ZQH_COMMON_FUNCS_C
 #define __ZQH_COMMON_FUNCS_C
 
@@ -10,7 +17,8 @@ volatile __thread char hart_id = 0;
 volatile __thread char support_vm = 0;
 volatile __thread char support_user = 0;
 
-void putchar_zqh(char ch, int ptr_offset)
+#undef putchar
+int putchar(int ch)
 {
     //user uart
     #if PRINT_USE_UART == 1
@@ -18,12 +26,13 @@ void putchar_zqh(char ch, int ptr_offset)
         *UART0_TXDATA = ch;
     //use print_monitor
     #else
-        *(PRINT_PTR_HART(hart_id) + ptr_offset) = ch;
+        *(PRINT_PTR_HART(hart_id)) = ch;
     #endif
 
+    return 0;
 }
 
-void printstr_zqh(char* s, int ptr_offset)
+void printstr(char* s)
 {
   int len;
   char pre_str[11] = "[riscv0]: ";
@@ -31,14 +40,14 @@ void printstr_zqh(char* s, int ptr_offset)
 
   len = strlen(pre_str);
   for (int i = 0; i< len; i++) {
-      //*(PRINT_PTR_HART(hart_id) + ptr_offset) = pre_str[i];
-      putchar_zqh(pre_str[i], ptr_offset);
+      //*(PRINT_PTR_HART(hart_id)) = pre_str[i];
+      putchar(pre_str[i]);
   }
 
   len = strlen(s);
   for (int i = 0; i< len; i++) {
-      //*(PRINT_PTR_HART(hart_id) + ptr_offset) = s[i];
-      putchar_zqh(s[i], ptr_offset);
+      //*(PRINT_PTR_HART(hart_id)) = s[i];
+      putchar(s[i]);
   }
 }
 
@@ -59,12 +68,12 @@ char* f2str(float a, char *buf)
 
 #define printf_zqh(format,args...) \
         sprintf(str_zqh,format,##args); \
-        printstr_zqh(str_zqh, 0);
+        printstr(str_zqh);
 
 //exception process use this printf to avoid conflict with normal user printf
 #define printf_xcpt_zqh(format,args...) \
         sprintf(str_xcpt_zqh,format,##args); \
-        printstr_zqh(str_xcpt_zqh, 1);
+        printstr(str_xcpt_zqh);
 
 void delay_zqh(int a) {
     for (int i = 0; i < a; i ++) {

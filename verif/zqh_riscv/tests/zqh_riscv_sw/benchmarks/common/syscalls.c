@@ -53,9 +53,11 @@ void setStats(int enable)
 #undef READ_CTR
 }
 
+#define EXIT_PTR ((uint8_t *)((0x1f000000 | 0x00f0fff0)))
 void __attribute__((noreturn)) tohost_exit(uintptr_t code)
 {
-  tohost = (code << 1) | 1;
+  //zqh tohost = (code << 1) | 1;
+  *EXIT_PTR = (code << 1) | 1;
   while (1);
 }
 
@@ -74,7 +76,7 @@ void abort()
   exit(128 + SIGABRT);
 }
 
-void printstr(const char* s)
+void __attribute__((weak)) printstr(const char* s)
 {
   syscall(SYS_write, 1, (uintptr_t)s, strlen(s));
 }
@@ -124,7 +126,7 @@ void _init(int cid, int nc)
 }
 
 #undef putchar
-int putchar(int ch)
+int __attribute__((weak)) putchar(int ch)
 {
   static __thread char buf[64] __attribute__((aligned(64)));
   static __thread int buflen = 0;
