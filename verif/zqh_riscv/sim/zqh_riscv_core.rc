@@ -1,0 +1,80 @@
+Magic 271485
+Revision Verdi3_K-2015.09-SP1-1
+
+; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
+viewPort 0 28 1855 435 100 318
+
+; File list:
+; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
+openDirFile -d / "" "/home/zqh/risc-v/my_git/zqh_riscv/verif/zqh_riscv/sim/wave/zqh_riscv_sanity_test_zqh_test_sanity.riscv_1.fsdb"
+
+; file time scale:
+; fileTimeScale ### s|ms|us|ns|ps
+
+; signal spacing:
+signalSpacing 5
+
+; windowTimeUnit is used for zoom, cursor & marker
+; waveform viewport range
+zoom 0.000000 110210215.768958
+cursor 0.000000
+marker 0.000000
+
+; user define markers
+; userMarker time_pos marker_name color linestyle
+; visible top row signal index
+top 0
+; marker line index
+markerPos 5
+
+; event list
+; addEvent event_name event_expression
+; curEvent event_name
+
+
+
+COMPLEX_EVENT_BEGIN
+
+
+COMPLEX_EVENT_END
+
+
+
+; toolbar current search type
+; curSTATUS search_type
+curSTATUS ByChange
+
+
+addGroup "G1"
+activeDirFile "" "/home/zqh/risc-v/my_git/zqh_riscv/verif/zqh_riscv/sim/wave/zqh_riscv_sanity_test_zqh_test_sanity.riscv_1.fsdb"
+addSignal -h 15 /top/test_harness/dut/system/tile/core_wrap_0/core/csr/clock
+addSignal -h 15 -holdScope reset
+addGroup "G2"
+addSignal -h 15 -UNSIGNED -HEX /top/test_harness/dut/system/tile/core_wrap_0/core/csr/io_pc[32:0]
+addSignal -h 15 -holdScope io_retire
+addGroup "G3"
+
+; getSignalForm Scope Hierarchy Status
+; active file of getSignalForm
+activeDirFile "" "/home/zqh/risc-v/my_git/zqh_riscv/verif/zqh_riscv/sim/wave/zqh_riscv_sanity_test_zqh_test_sanity.riscv_1.fsdb"
+
+GETSIGNALFORM_SCOPE_HIERARCHY_BEGIN
+getSignalForm close
+
+"/_$novas_unit__1"
+"/top"
+"/top/test_harness"
+"/top/test_harness/dut"
+"/top/test_harness/dut/system"
+"/top/test_harness/dut/system/tile"
+"/top/test_harness/dut/system/tile/core_wrap_0"
+"/top/test_harness/dut/system/tile/core_wrap_0/core"
+
+SCOPE_LIST_BEGIN
+"/_$novas_unit__1"
+"/top/test_harness/dut/system/tile/core_wrap_0/core/csr"
+SCOPE_LIST_END
+
+GETSIGNALFORM_SCOPE_HIERARCHY_END
+
+
