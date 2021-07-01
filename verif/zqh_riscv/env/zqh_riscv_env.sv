@@ -139,329 +139,6 @@ module zqh_riscv_env();
     task start();
         m_start_state = 1;
         fork
-            //while(1) begin
-            //    repeat(100) @(posedge `ZQH_TOP.clock);
-            //    force `ZQH_DUT.dmemAccessWrapper.dcache.tlb.io_resp_miss = 1;
-            //    repeat(100) @(posedge `ZQH_TOP.clock);
-            //    force `ZQH_DUT.dmemAccessWrapper.dcache.tlb.io_resp_miss = 0;
-            //end
-            //begin
-            //  repeat(20500) @(posedge `ZQH_TOP.clock);
-            //  force `ZQH_DUT.dmemAccessWrapper.dcache.dma_req_valid = 1;
-            //  repeat(10000) @(posedge `ZQH_TOP.clock);
-            //  force `ZQH_DUT.dmemAccessWrapper.dcache.dma_req_valid = 0;
-            //end
-    
-            //interrupt
-            //begin
-            //    repeat(70000) @(posedge `ZQH_TOP.clock);
-            //    `ZQH_TOP.test_harness.int_if.cb.io_int[0] <= 1;
-            //    //`ZQH_TOP.test_harness.int_if.cb.io_int[1] <= 1;
-            //    repeat(100) @(posedge `ZQH_TOP.clock);
-            //    `ZQH_TOP.test_harness.int_if.cb.io_int[0] <= 0;
-            //    //`ZQH_TOP.test_harness.int_if.cb.io_int[1] <= 0;
-            //end
-    
-            //check load/store address misalign exception
-            //begin
-            //    repeat(70000) @(posedge `ZQH_TOP.clock);
-            //    force top.test_harness.DUT.tile.core_wrap_0.core.io_lsu_req_bits_addr[0] = 1;
-            //    @(posedge `ZQH_TOP.clock);
-            //    release top.test_harness.DUT.tile.core_wrap_0.core.io_lsu_req_bits_addr[0];
-            //end
-    
-            //icache exception
-            //begin
-            //    repeat(5000) @(posedge `ZQH_TOP.clock);
-            //    force `ZQH_DUT.tile_0.core.ibuf.io_inst_0_bits_xcpt0_pf_inst = 1;
-            //    repeat(1) @(posedge `ZQH_TOP.clock);
-            //    release `ZQH_DUT.tile_0.core.ibuf.io_inst_0_bits_xcpt0_pf_inst;
-            //end
-    
-            //icache memory error
-            //while(1) begin
-            //    @(negedge `ZQH_TOP.clock);
-            //    if (`ZQH_DUT0.frontend.icache.s1_valid_o === 1) begin
-            //        force `ZQH_DUT0.frontend.icache.s1_tag_disparity_0 = 1;
-            //        force `ZQH_DUT0.frontend.icache.s1_tag_disparity_1 = 1;
-            //        force `ZQH_DUT0.frontend.icache.s1_tag_disparity_2 = 1;
-            //        force `ZQH_DUT0.frontend.icache.s1_tag_disparity_3 = 1;
-            //        @(negedge `ZQH_TOP.clock);
-            //        release `ZQH_DUT0.frontend.icache.s1_tag_disparity_0;
-            //        release `ZQH_DUT0.frontend.icache.s1_tag_disparity_1;
-            //        release `ZQH_DUT0.frontend.icache.s1_tag_disparity_2;
-            //        release `ZQH_DUT0.frontend.icache.s1_tag_disparity_3;
-            //    end
-            //    repeat(100) @(posedge `ZQH_TOP.clock);
-            //end
-    
-            //icache tl_error
-            //begin
-            //    repeat(14000) @(posedge `ZQH_TOP.clock);
-            //    while(1) begin
-            //        @(negedge `ZQH_TOP.clock);
-            //        if (`ZQH_DUT.tile_0.frontend.io_tl_to_extern_out_frontend_master_d_valid === 1) begin
-            //            force `ZQH_DUT.tile_0.frontend.io_tl_to_extern_out_frontend_master_d_bits_corrupt = 1;
-            //            repeat(8) @(negedge `ZQH_TOP.clock);
-            //            release `ZQH_DUT.tile_0.frontend.io_tl_to_extern_out_frontend_master_d_bits_corrupt;
-            //            break;
-            //        end
-            //    end
-            //end
-    
-            //dcache memory error
-            //begin
-            //    repeat(1000) @(posedge `ZQH_TOP.clock);
-            //    while(1) begin
-            //        @(negedge `ZQH_TOP.clock);
-            //        if (`ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.s2_meta_correctable_errors_0_en === 1) begin
-            //            //force `ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.s2_meta_correctable_errors_0_i = 1;
-            //            //force `ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.s2_meta_correctable_errors_1_i = 1;
-            //            //force `ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.s2_meta_correctable_errors_2_i = 1;
-            //            //force `ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.s2_meta_correctable_errors_3_i = 1;
-            //            @(negedge `ZQH_TOP.clock);
-            //            //release `ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.s2_meta_correctable_errors_0_i;
-            //            //release `ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.s2_meta_correctable_errors_1_i;
-            //            //release `ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.s2_meta_correctable_errors_2_i;
-            //            //release `ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.s2_meta_correctable_errors_3_i;
-            //        end
-            //        repeat(10) @(posedge `ZQH_TOP.clock);
-            //    end
-            //end
-    
-            //dcache tag memory ecc error insert
-            //begin
-            //    static bit force_v;
-            //    repeat(1000) @(posedge `ZQH_TOP.clock);
-            //    while(1) begin
-            //        @(negedge `ZQH_TOP.clock);
-            //        if ((`ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.tag_array.io_en === 1) &&
-            //            (`ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.tag_array.io_wmode === 0)) begin
-            //            @(negedge `ZQH_TOP.clock);
-            //            force_v = ~`ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.tag_array.io_rdata[0];
-            //            force `ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.tag_array.io_rdata[0] = force_v;
-            //            @(negedge `ZQH_TOP.clock);
-            //            release `ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.tag_array.io_rdata[0];
-            //        end
-            //        repeat(10) @(posedge `ZQH_TOP.clock);
-            //    end
-            //end
-    
-            //dcache data memory ecc error insert
-            //begin
-            //    static bit force_v;
-            //    repeat(1000) @(posedge `ZQH_TOP.clock);
-            //    while(1) begin
-            //        @(negedge `ZQH_TOP.clock);
-            //        if ((`ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.data.data_arrays_0.io_en === 1) &&
-            //            (`ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.data.data_arrays_0.io_wmode === 0)) begin
-            //            @(negedge `ZQH_TOP.clock);
-            //            force_v = ~`ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.data.data_arrays_0.io_rdata[0];
-            //            force `ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.data.data_arrays_0.io_rdata[0] = force_v;
-            //            @(negedge `ZQH_TOP.clock);
-            //            release `ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.data.data_arrays_0.io_rdata[0];
-            //        end
-            //        repeat(10) @(posedge `ZQH_TOP.clock);
-            //    end
-            //end
-    
-            //new data scratchpad data memory ecc error insert
-            //begin
-            //    static bit force_v = 0;
-            //    repeat(1000) @(posedge `ZQH_TOP.clock);
-            //    while(1) begin
-            //        @(negedge `ZQH_TOP.clock);
-            //        if ((`ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.data_scratchpad.data_arrays.io_en === 1) &&
-            //            (`ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.data_scratchpad.data_arrays.io_wmode === 0)) begin
-            //            fork
-            //                begin
-            //                    @(negedge `ZQH_TOP.clock);
-            //                    std::randomize(force_v) with {
-            //                        force_v dist {
-            //                            0 :/ 50,
-            //                            1 :/ 50
-            //                        };
-            //                    };
-            //                    force `ZQH_DUT0.dmemAccessWrapper.dcacheWithScratchpad.data_scratchpad.data_arrays.io_rdata[0] = force_v;
-            //                    @(negedge `ZQH_TOP.clock);
-            //                end
-            //            join_none
-            //        end
-            //        //repeat(5) @(posedge `ZQH_TOP.clock);
-            //    end
-            //end
-            
-            //tmp force dcache a output
-            //begin
-            //    int wait_8 = 0;
-            //    repeat(3000) @(posedge `ZQH_TOP.clock);
-            //    #0.1ns;
-            //    force top.DUT0.tile_0.dmemAccessWrapper.dcacheWithScratchpad.io_tl_to_dcache_out_extern_master_a_ready = 1;
-            //    for (int i = 0; i < 8; i++) begin
-            //        repeat(0) @(posedge `ZQH_TOP.clock);
-            //        force top.DUT0.tile_0.dmemAccessWrapper.dcacheWithScratchpad.tl_out_a_valid = 1;
-            //        force top.DUT0.tile_0.dmemAccessWrapper.dcacheWithScratchpad.tl_out_a_bits_opcode = 0;
-            //        force top.DUT0.tile_0.dmemAccessWrapper.dcacheWithScratchpad.tl_out_a_bits_param = 0;
-            //        if (i < 2) begin
-            //            force top.DUT0.tile_0.dmemAccessWrapper.dcacheWithScratchpad.tl_out_a_bits_size = 6;
-            //            wait_8 = 1;
-            //        end
-            //        else if (i < 3) begin
-            //            force top.DUT0.tile_0.dmemAccessWrapper.dcacheWithScratchpad.tl_out_a_bits_size = 2;
-            //            wait_8 = 0;
-            //        end
-            //        else begin
-            //            force top.DUT0.tile_0.dmemAccessWrapper.dcacheWithScratchpad.tl_out_a_bits_size = 6;
-            //            wait_8 = 1;
-            //        end
-            //        force top.DUT0.tile_0.dmemAccessWrapper.dcacheWithScratchpad.tl_out_a_bits_address = 32'h6000_0000;
-            //        force top.DUT0.tile_0.dmemAccessWrapper.dcacheWithScratchpad.tl_out_a_bits_mask = 8'hff;
-            //        if (wait_8) begin
-            //            repeat(8) @(posedge `ZQH_TOP.clock);
-            //        end
-            //        else begin
-            //            repeat(1) @(posedge `ZQH_TOP.clock);
-            //        end
-            //        #0.1ns;
-            //        force top.DUT0.tile_0.dmemAccessWrapper.dcacheWithScratchpad.tl_out_a_valid = 0;
-            //    end
-            //end
-    
-            //force dcache uncacheable
-            //begin
-            //    force top.test_harness.DUT.tile_0.dmemAccessWrapper.dcache.tlb.io_resp_cacheable = 0;
-            //end
-    
-            //i2c other master arbitrition with this master
-    //tmp        begin
-    //tmp            repeat(8672.5 - 777 - 1000) @(posedge `ZQH_TOP.clock);
-    //tmp
-    //tmp            //start
-    //tmp            repeat(192) @(posedge `ZQH_TOP.clock);
-    //tmp            #0.1;
-    //tmp            force top.test_harness.io_i2c_sda = 0;
-    //tmp            repeat(192) @(posedge `ZQH_TOP.clock);
-    //tmp            #0.1;
-    //tmp            force top.test_harness.io_i2c_scl = 0;
-    //tmp
-    //tmp            repeat(3000) @(posedge `ZQH_TOP.clock);
-    //tmp
-    //tmp            //stop
-    //tmp            repeat(192) @(posedge `ZQH_TOP.clock);
-    //tmp            #0.1;
-    //tmp            release top.test_harness.io_i2c_scl;
-    //tmp            repeat(192) @(posedge `ZQH_TOP.clock);
-    //tmp            #0.1;
-    //tmp            release top.test_harness.io_i2c_sda;
-    //tmp
-    //tmp            repeat(650) @(posedge `ZQH_TOP.clock);
-    //tmp
-    //tmp
-    //tmp            //start
-    //tmp            repeat(192) @(posedge `ZQH_TOP.clock);
-    //tmp            #0.1;
-    //tmp            force top.test_harness.io_i2c_sda = 0;
-    //tmp            repeat(192) @(posedge `ZQH_TOP.clock);
-    //tmp            #0.1;
-    //tmp            force top.test_harness.io_i2c_scl = 0;
-    //tmp
-    //tmp            release top.test_harness.io_i2c_sda;
-    //tmp            //repeat(192) @(posedge `ZQH_TOP.clock);
-    //tmp            //#0.1;
-    //tmp            //release top.test_harness.io_i2c_scl;
-    //tmp
-    //tmp            //trigger master's scl_sync
-    //tmp            for (int i = 0; i < 9; i++) begin
-    //tmp                repeat(192) @(posedge `ZQH_TOP.clock);
-    //tmp                #0.1;
-    //tmp                release top.test_harness.io_i2c_scl;
-    //tmp                repeat(192) @(posedge `ZQH_TOP.clock);
-    //tmp                #0.1;
-    //tmp                force top.test_harness.io_i2c_scl = 0;
-    //tmp            end
-    //tmp
-    //tmp
-    //tmp        end
-     
-                //test ifu's itim and tl fetch access cross
-                //begin
-                //    static bit hit_tim = 0;
-                //    force top.test_harness.DUT.tile.core_wrap_0.ifu.hit_itim = hit_tim;
-                //    while(1) begin
-                //        repeat(1) @(posedge `ZQH_TOP.clock);
-                //        std::randomize(hit_tim);
-                //    end
-                //end
-    
-    
-                //test zqh_core_e1_ifu's uncache able fetch
-                //begin
-                //    while(1) begin
-                //        force top.test_harness.DUT.tile.core_wrap_0.ifu.fetch_addr_cacheable_s0 = 0;
-                //        repeat(1) @(posedge `ZQH_TOP.clock);
-                //        release top.test_harness.DUT.tile.core_wrap_0.ifu.fetch_addr_cacheable_s0;
-                //        repeat(1) @(posedge `ZQH_TOP.clock);
-                //    end
-                //end
-    
-                //icache tag ecc insert
-                //begin
-                //    int which_bit = 0;
-                //    bit do_force;
-                //    static bit[111:0] bit_v;
-                //    while(1) begin
-                //        repeat(1) @(negedge `ZQH_TOP.clock);
-                //        std::randomize(which_bit) with {
-                //            which_bit >=0;
-                //            which_bit <= 111;
-                //        };
-                //        bit_v = top.test_harness.DUT.tile.core_wrap_0.ifu.tag_array.io_rdata;
-                //        std::randomize(do_force);
-                //        if (do_force) begin
-                //            bit_v[which_bit] = ~bit_v[which_bit];
-                //            force top.test_harness.DUT.tile.core_wrap_0.ifu.tag_array.io_rdata = bit_v;
-                //            repeat(1) @(negedge `ZQH_TOP.clock);
-                //            release top.test_harness.DUT.tile.core_wrap_0.ifu.tag_array.io_rdata;
-                //        end
-                //    end
-                //end
-    
-                //icache data ecc insert
-                //begin
-                //    int which_bit = 0;
-                //    bit do_force;
-                //    static bit[311:0] bit_v;
-                //    while(1) begin
-                //        repeat(1) @(negedge `ZQH_TOP.clock);
-                //        std::randomize(which_bit) with {
-                //            which_bit >=0;
-                //            which_bit <= 311;
-                //        };
-                //        bit_v = top.test_harness.DUT.tile.core_wrap_0.ifu.data_array.io_rdata[311:0];
-                //        std::randomize(do_force);
-                //        if (do_force) begin
-                //            bit_v[which_bit] = ~bit_v[which_bit];
-                //            force top.test_harness.DUT.tile.core_wrap_0.ifu.data_array.io_rdata = bit_v;
-                //            repeat(1) @(negedge `ZQH_TOP.clock);
-                //            release top.test_harness.DUT.tile.core_wrap_0.ifu.data_array.io_rdata;
-                //        end
-                //    end
-                //end
-    
-                //ifu fetch's d_resp has error, need trigger exception
-                //begin
-                //    repeat(50000) @(negedge `ZQH_TOP.clock);
-                //    while(1) begin
-                //        repeat(1) @(negedge `ZQH_TOP.clock);
-                //        if (top.test_harness.DUT.tile.core_wrap_0.ifu.io_tl_to_extern_out_ifu_master_d_valid === 1) begin
-                //            force top.test_harness.DUT.tile.core_wrap_0.ifu.io_tl_to_extern_out_ifu_master_d_bits_corrupt = 1;
-                //            repeat(10) @(negedge `ZQH_TOP.clock);
-                //            release top.test_harness.DUT.tile.core_wrap_0.ifu.io_tl_to_extern_out_ifu_master_d_bits_corrupt;
-                //            break;
-                //        end
-                //    end
-                //end
-    
                 ////mac_phy's cs/cd
                 //begin
                 //    //repeat(18107 - reset_time) @(negedge `ZQH_TOP.clock);
@@ -478,85 +155,85 @@ module zqh_riscv_env();
     
                 //
                 //mac rx packet
-                begin
-                    bit[31:0] phy_tx_mem_addr = 0;
-    
-                    //mac_phy_collision(1);//set collision
-    
-                    //phy recieve mac's tx data and store into it's tx_mem
-                    `ifdef HAS_ETH
-                    `ZQH_TOP.test_harness.eth_phy0.set_tx_mem_addr(phy_tx_mem_addr);
-                    `endif
-    
-                    //repeat(1333416) @(negedge `ZQH_TOP.clock); //after tx
-                    #1215734.75ns;
-                    //repeat(20127 - reset_time) @(negedge `ZQH_TOP.clock); //before tx, tx will be defer/collision
-                    //repeat(20907 - reset_time) @(negedge `ZQH_TOP.clock); //before tx, tx will be defer/collision
-    
-                    //prepare phy's data
-                    begin
-                        for (int pkt_idx = 0; pkt_idx < 0; pkt_idx++) begin
-                        //while(1) begin
-                            int rx_len = 64;
-                            int plus_drible_nibble = 0;
-                            bit drop = 1;
-                            bit[7:0] phy_data_q[$];
-                            //bit[47:0] dest_addr = 48'h000102030405;//unicast
-                            //bit[47:0] dest_addr = 48'h000102030406;//invalid unicast
-                            //bit[47:0] dest_addr = 48'hffffffffffff;//broadcast
-                            //bit[47:0] dest_addr = 48'h010203040506;//multicast and none pause frame
-                            bit[47:0] dest_addr = 48'h0180C2000001;//multicast and pause frame
-                            bit[47:0] source_addr = 48'h00ffffffffff;
-    
-                            //bit[15:0] type_len = 16'h0800;//ip
-                            bit[15:0] type_len = 16'h8808;//pause
-                            bit[15:0] pause_code = 16'h0001;
-                            bit[15:0] pause_para = 16'h000f;
-                            for (int i = 0; i < rx_len; i++) begin
-                                if (i < 6) begin
-                                    phy_data_q.push_back(dest_addr[(5 - i)*8 +: 8]);
-                                end
-                                else if (i < 12) begin
-                                    phy_data_q.push_back(source_addr[(5 - (i - 6))*8 +: 8]);
-                                end
-                                else if (i < 14) begin
-                                    phy_data_q.push_back(type_len[(1 - (i - 12))*8 +: 8]);
-                                end
-                                else if ((type_len == 16'h8808) && (i < 16)) begin
-                                    phy_data_q.push_back(pause_code[(1 - (i - 14))*8 +: 8]);
-                                end
-                                else if ((type_len == 16'h8808) && (i < 18)) begin
-                                    phy_data_q.push_back(pause_para[(1 - (i - 16))*8 +: 8]);
-                                end
-                                else begin
-                                    phy_data_q.push_back(i);
-                                end
-                            end
-                            mac_phy_set_rx_packet(50, phy_data_q, 1);
-                            //foreach(phy_data_q[i]) begin
-                            //    $display("phy_data_q[%0d] = %h", i, phy_data_q[i]);
-                            //end
-    
-                            //mac_phy_rx_err(1);//set rx_err
-                            //mac_phy_collision(1);//set collision
-    
-                            drop = 1;
-                            phy_data_q.delete();
-                            while(drop) begin
-                                mac_phy_send_rx_packet(
-                                    64'h0055_5555_5555_5555,
-                                    4'h7,
-                                    8'hD5,
-                                    50,
-                                    rx_len,
-                                    plus_drible_nibble,
-                                    drop);
-                            end
-    
-                            //mac_phy_carrier_sense(1);//set carrer_sense
-                        end
-                    end
-                end
+//tmp                begin
+//tmp                    bit[31:0] phy_tx_mem_addr = 0;
+//tmp    
+//tmp                    //mac_phy_collision(1);//set collision
+//tmp    
+//tmp                    //phy recieve mac's tx data and store into it's tx_mem
+//tmp                    `ifdef HAS_ETH
+//tmp                    `ZQH_TOP.test_harness.eth_phy0.set_tx_mem_addr(phy_tx_mem_addr);
+//tmp                    `endif
+//tmp    
+//tmp                    //repeat(1333416) @(negedge `ZQH_TOP.clock); //after tx
+//tmp                    #1215734.75ns;
+//tmp                    //repeat(20127 - reset_time) @(negedge `ZQH_TOP.clock); //before tx, tx will be defer/collision
+//tmp                    //repeat(20907 - reset_time) @(negedge `ZQH_TOP.clock); //before tx, tx will be defer/collision
+//tmp    
+//tmp                    //prepare phy's data
+//tmp                    begin
+//tmp                        for (int pkt_idx = 0; pkt_idx < 0; pkt_idx++) begin
+//tmp                        //while(1) begin
+//tmp                            int rx_len = 64;
+//tmp                            int plus_drible_nibble = 0;
+//tmp                            bit drop = 1;
+//tmp                            bit[7:0] phy_data_q[$];
+//tmp                            //bit[47:0] dest_addr = 48'h000102030405;//unicast
+//tmp                            //bit[47:0] dest_addr = 48'h000102030406;//invalid unicast
+//tmp                            //bit[47:0] dest_addr = 48'hffffffffffff;//broadcast
+//tmp                            //bit[47:0] dest_addr = 48'h010203040506;//multicast and none pause frame
+//tmp                            bit[47:0] dest_addr = 48'h0180C2000001;//multicast and pause frame
+//tmp                            bit[47:0] source_addr = 48'h00ffffffffff;
+//tmp    
+//tmp                            //bit[15:0] type_len = 16'h0800;//ip
+//tmp                            bit[15:0] type_len = 16'h8808;//pause
+//tmp                            bit[15:0] pause_code = 16'h0001;
+//tmp                            bit[15:0] pause_para = 16'h000f;
+//tmp                            for (int i = 0; i < rx_len; i++) begin
+//tmp                                if (i < 6) begin
+//tmp                                    phy_data_q.push_back(dest_addr[(5 - i)*8 +: 8]);
+//tmp                                end
+//tmp                                else if (i < 12) begin
+//tmp                                    phy_data_q.push_back(source_addr[(5 - (i - 6))*8 +: 8]);
+//tmp                                end
+//tmp                                else if (i < 14) begin
+//tmp                                    phy_data_q.push_back(type_len[(1 - (i - 12))*8 +: 8]);
+//tmp                                end
+//tmp                                else if ((type_len == 16'h8808) && (i < 16)) begin
+//tmp                                    phy_data_q.push_back(pause_code[(1 - (i - 14))*8 +: 8]);
+//tmp                                end
+//tmp                                else if ((type_len == 16'h8808) && (i < 18)) begin
+//tmp                                    phy_data_q.push_back(pause_para[(1 - (i - 16))*8 +: 8]);
+//tmp                                end
+//tmp                                else begin
+//tmp                                    phy_data_q.push_back(i);
+//tmp                                end
+//tmp                            end
+//tmp                            mac_phy_set_rx_packet(50, phy_data_q, 1);
+//tmp                            //foreach(phy_data_q[i]) begin
+//tmp                            //    $display("phy_data_q[%0d] = %h", i, phy_data_q[i]);
+//tmp                            //end
+//tmp    
+//tmp                            //mac_phy_rx_err(1);//set rx_err
+//tmp                            //mac_phy_collision(1);//set collision
+//tmp    
+//tmp                            drop = 1;
+//tmp                            phy_data_q.delete();
+//tmp                            while(drop) begin
+//tmp                                mac_phy_send_rx_packet(
+//tmp                                    64'h0055_5555_5555_5555,
+//tmp                                    4'h7,
+//tmp                                    8'hD5,
+//tmp                                    50,
+//tmp                                    rx_len,
+//tmp                                    plus_drible_nibble,
+//tmp                                    drop);
+//tmp                            end
+//tmp    
+//tmp                            //mac_phy_carrier_sense(1);//set carrer_sense
+//tmp                        end
+//tmp                    end
+//tmp                end
     
         join_none
         m_start_state = 2;
