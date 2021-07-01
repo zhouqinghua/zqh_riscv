@@ -25,9 +25,9 @@ class zqh_cfg_r1__no_eth(zqh_cfg_r1__basic):
         super(zqh_cfg_r1__no_eth, self).set_cfg()
         self.cfg_all('zqh_system_common_parameter', 'has_eth', 0)
 
-class zqh_cfg_r1__no_ddr__no_eth__no_print_monitor__no_axi4_sram__no_debug(zqh_cfg_r1__basic):
+class zqh_cfg_r1__fpga_base(zqh_cfg_r1__basic):
     def set_cfg(self):
-        super(zqh_cfg_r1__no_ddr__no_eth__no_print_monitor__no_axi4_sram__no_debug, self).set_cfg()
+        super(zqh_cfg_r1__fpga_base, self).set_cfg()
         self.cfg_all('zqh_system_common_parameter', 'has_ddr', 0)
         self.cfg_all('zqh_system_common_parameter', 'has_eth', 1)
         self.cfg_all('zqh_system_common_parameter', 'has_print_monitor', 1)
@@ -35,7 +35,7 @@ class zqh_cfg_r1__no_ddr__no_eth__no_print_monitor__no_axi4_sram__no_debug(zqh_c
         self.cfg_all('zqh_system_common_parameter', 'debug_dumy', 0)
         self.cfg_all('DefaultDebugModuleParams', 'dumy', 0)
 
-class zqh_cfg_r1__fpga_min(zqh_cfg_r1__no_ddr__no_eth__no_print_monitor__no_axi4_sram__no_debug):
+class zqh_cfg_r1__fpga_min(zqh_cfg_r1__fpga_base):
     def set_cfg(self):
         super(zqh_cfg_r1__fpga_min, self).set_cfg()
         self.cfg_all('zqh_full_chip_common_parameter', 'imp_mode', 'sim')
