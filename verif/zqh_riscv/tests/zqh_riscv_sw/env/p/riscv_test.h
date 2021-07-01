@@ -193,7 +193,7 @@ reset_vector:                                                           \
 
 #define TESTNUM gp
 //zqh added: TOHOST_ZQH
-#define TOHOST_ZQH  0x7ff0fff0
+#define TOHOST_ZQH  0x1ff0fff0
 
 #define RVTEST_FAIL                                                     \
         fence;                                                          \
