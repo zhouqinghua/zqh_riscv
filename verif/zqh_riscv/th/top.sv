@@ -290,14 +290,16 @@ module top;
             //initial mem_sram
             for (int idx = 0; idx < $size(`ZQH_DUT.system.mem_sram_control.data_array.m); idx++) begin
                 //tmp std::randomize(mem_random_data);
-                mem_random_data = {$urandom(), $urandom(), $urandom(), $urandom()};
+                //mem_random_data = {$urandom(), $urandom(), $urandom(), $urandom()};
+                mem_random_data = 0;
                 `ZQH_DUT.system.mem_sram_control.data_array.m[idx] = mem_random_data;
             end
 
             //initial mmio_sram
             for (int idx = 0; idx < $size(`ZQH_DUT.system.mmio_sram_control.data_array.m); idx++) begin
                 //tmp std::randomize(mem_random_data);
-                mem_random_data = {$urandom(), $urandom(), $urandom(), $urandom()};
+                //mem_random_data = {$urandom(), $urandom(), $urandom(), $urandom()};
+                mem_random_data = 0;
                 `ZQH_DUT.system.mmio_sram_control.data_array.m[idx] = mem_random_data;
             end
 
@@ -305,7 +307,8 @@ module top;
             `ifdef HAS_AXI4_SRAM
             for (int idx = 0; idx < $size(`ZQH_DUT.system.mem_axi4_sram_control.data_array.m); idx++) begin
                 //tmp std::randomize(mem_random_data);
-                mem_random_data = {$urandom(), $urandom(), $urandom(), $urandom()};
+                //mem_random_data = {$urandom(), $urandom(), $urandom(), $urandom()};
+                mem_random_data = 0;
                 `ZQH_DUT.system.mem_axi4_sram_control.data_array.m[idx] = mem_random_data;
             end
             `endif
@@ -313,20 +316,24 @@ module top;
             //initial DDR3 model
             `ifdef HAS_DDR
             for (int idx = 0; idx < $size(`ZQH_TOP.test_harness.ddr3_chips_0.memory); idx++) begin
-                mem_random_data = {$urandom(), $urandom(), $urandom(), $urandom()};
+                //mem_random_data = {$urandom(), $urandom(), $urandom(), $urandom()};
+                mem_random_data = 0;
                 `ZQH_TOP.test_harness.ddr3_chips_0.memory[idx] = mem_random_data;
             end
             for (int idx = 0; idx < $size(`ZQH_TOP.test_harness.ddr3_chips_1.memory); idx++) begin
-                mem_random_data = {$urandom(), $urandom(), $urandom(), $urandom()};
+                //mem_random_data = {$urandom(), $urandom(), $urandom(), $urandom()};
+                mem_random_data = 0;
                 `ZQH_TOP.test_harness.ddr3_chips_1.memory[idx] = mem_random_data;
             end
             `ifdef DDR_PHY_X8
             for (int idx = 0; idx < $size(`ZQH_TOP.test_harness.ddr3_chips_2.memory); idx++) begin
-                mem_random_data = {$urandom(), $urandom(), $urandom(), $urandom()};
+                //mem_random_data = {$urandom(), $urandom(), $urandom(), $urandom()};
+                mem_random_data = 0;
                 `ZQH_TOP.test_harness.ddr3_chips_2.memory[idx] = mem_random_data;
             end
             for (int idx = 0; idx < $size(`ZQH_TOP.test_harness.ddr3_chips_3.memory); idx++) begin
-                mem_random_data = {$urandom(), $urandom(), $urandom(), $urandom()};
+                //mem_random_data = {$urandom(), $urandom(), $urandom(), $urandom()};
+                mem_random_data = 0;
                 `ZQH_TOP.test_harness.ddr3_chips_3.memory[idx] = mem_random_data;
             end
             `endif
