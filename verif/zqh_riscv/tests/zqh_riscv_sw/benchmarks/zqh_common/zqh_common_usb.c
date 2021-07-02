@@ -10,7 +10,7 @@
 #include "zqh_common_funcs.c"
 
 void usb_host_initial_cfg() {
-    printf_zqh("USB_CTRL_VERSION(0) = %8x\n", *USB_CTRL_VERSION(0));
+    printf("USB_CTRL_VERSION(0) = %8x\n", *USB_CTRL_VERSION(0));
     *USB_CTRL_CONFIG(0) = (*USB_CTRL_CONFIG(0)) | (1 << 2);//host mode
     *USB_CTRL_CONFIG(0) = (*USB_CTRL_CONFIG(0)) & (0xfffffffd);//phy de-reset
     *USB_CTRL_HOST_INTERRUPT_EN(0) = 0;//disable int
@@ -29,21 +29,21 @@ void usb_host_initial_cfg() {
 
     //wait connection
     usb_host_wait_connection();
-    printf_zqh("usb host initial connection found\n");
+    printf("usb host initial connection found\n");
 
 
     //host drive usb line to se0 to reset all devices
     usb_host_line_reset();
     usb_host_wait_disconnection();
-    printf_zqh("usb host disconnection found\n");
+    printf("usb host disconnection found\n");
     //wait connection again
     usb_host_wait_connection();
-    printf_zqh("usb host 2nd connection found\n");
+    printf("usb host 2nd connection found\n");
     if (*USB_CTRL_UTMI_HOST_CONNECT_STATE(0) == 1) {
-        printf_zqh("usb speed is FULL\n");
+        printf("usb speed is FULL\n");
     }
     else if (*USB_CTRL_UTMI_HOST_CONNECT_STATE(0) == 2) {
-        printf_zqh("usb speed is LOW\n");
+        printf("usb speed is LOW\n");
     }
 
 
@@ -83,12 +83,12 @@ struct USB_SETUP_PACKET
  uint16_t wLength;
 }__attribute__((packed));
 void display_usb_setup_packet(struct USB_SETUP_PACKET *ptr) {
-    printf_zqh("USB_SETUP_PACKET:\n"); 
-    printf_zqh("bmRequestType = 0x%02x\n", (*ptr).bmRequestType);
-    printf_zqh("bRequest      = 0x%02x\n", (*ptr).bRequest     );
-    printf_zqh("wValue        = 0x%04x\n", (*ptr).wValue       );
-    printf_zqh("wIndex        = 0x%04x\n", (*ptr).wIndex       );
-    printf_zqh("wLength       = 0x%04x\n", (*ptr).wLength      );
+    printf("USB_SETUP_PACKET:\n"); 
+    printf("bmRequestType = 0x%02x\n", (*ptr).bmRequestType);
+    printf("bRequest      = 0x%02x\n", (*ptr).bRequest     );
+    printf("wValue        = 0x%04x\n", (*ptr).wValue       );
+    printf("wIndex        = 0x%04x\n", (*ptr).wIndex       );
+    printf("wLength       = 0x%04x\n", (*ptr).wLength      );
 }
 
 
@@ -116,21 +116,21 @@ struct USB_DEVICE_DESCRIPTOR
  uint8_t  bNumConfigurations;                    //
 }__attribute__((packed));
 void display_usb_device_dcescriptor(struct USB_DEVICE_DESCRIPTOR *ptr) {
-    printf_zqh("USB_DEVICE_DESCRIPTOR:\n"); 
-    printf_zqh("bLength            = 0x%02x\n", (*ptr).bLength           ); 
-    printf_zqh("bDescriptorType    = 0x%02x\n", (*ptr).bDescriptorType   ); 
-    printf_zqh("bcdUSB             = 0x%04x\n", (*ptr).bcdUSB            ); 
-    printf_zqh("bDeviceClass       = 0x%02x\n", (*ptr).bDeviceClass      ); 
-    printf_zqh("bDeviceSubClass    = 0x%02x\n", (*ptr).bDeviceSubClass   ); 
-    printf_zqh("bDeviceProtocol    = 0x%02x\n", (*ptr).bDeviceProtocol   ); 
-    printf_zqh("bMaxPacketSize0    = 0x%02x\n", (*ptr).bMaxPacketSize0   ); 
-    printf_zqh("idVendor           = 0x%04x\n", (*ptr).idVendor          ); 
-    printf_zqh("idProduct          = 0x%04x\n", (*ptr).idProduct         ); 
-    printf_zqh("bcdDevice          = 0x%04x\n", (*ptr).bcdDevice         ); 
-    printf_zqh("iManufacturer      = 0x%02x\n", (*ptr).iManufacturer     ); 
-    printf_zqh("iProduct           = 0x%02x\n", (*ptr).iProduct          ); 
-    printf_zqh("iSerialNumber      = 0x%02x\n", (*ptr).iSerialNumber     ); 
-    printf_zqh("bNumConfigurations = 0x%02x\n", (*ptr).bNumConfigurations); 
+    printf("USB_DEVICE_DESCRIPTOR:\n"); 
+    printf("bLength            = 0x%02x\n", (*ptr).bLength           ); 
+    printf("bDescriptorType    = 0x%02x\n", (*ptr).bDescriptorType   ); 
+    printf("bcdUSB             = 0x%04x\n", (*ptr).bcdUSB            ); 
+    printf("bDeviceClass       = 0x%02x\n", (*ptr).bDeviceClass      ); 
+    printf("bDeviceSubClass    = 0x%02x\n", (*ptr).bDeviceSubClass   ); 
+    printf("bDeviceProtocol    = 0x%02x\n", (*ptr).bDeviceProtocol   ); 
+    printf("bMaxPacketSize0    = 0x%02x\n", (*ptr).bMaxPacketSize0   ); 
+    printf("idVendor           = 0x%04x\n", (*ptr).idVendor          ); 
+    printf("idProduct          = 0x%04x\n", (*ptr).idProduct         ); 
+    printf("bcdDevice          = 0x%04x\n", (*ptr).bcdDevice         ); 
+    printf("iManufacturer      = 0x%02x\n", (*ptr).iManufacturer     ); 
+    printf("iProduct           = 0x%02x\n", (*ptr).iProduct          ); 
+    printf("iSerialNumber      = 0x%02x\n", (*ptr).iSerialNumber     ); 
+    printf("bNumConfigurations = 0x%02x\n", (*ptr).bNumConfigurations); 
 }
 
 
@@ -147,15 +147,15 @@ struct USB_CONFIGURATION_DESCRIPTOR
  uint8_t  MaxPower;                              //
 }__attribute__((packed));
 void display_usb_cfg_dcescriptor(struct USB_CONFIGURATION_DESCRIPTOR *ptr) {
-    printf_zqh("USB_CONFIGURATION_DESCRIPTOR:\n"); 
-    printf_zqh("bLength             = 0x%02x\n", (*ptr).bLength            ); 
-    printf_zqh("bDescriptorType     = 0x%02x\n", (*ptr).bDescriptorType    ); 
-    printf_zqh("wTotalLength        = 0x%04x\n", (*ptr).wTotalLength       ); 
-    printf_zqh("bNumInterfaces      = 0x%02x\n", (*ptr).bNumInterfaces     ); 
-    printf_zqh("bConfigurationValue = 0x%02x\n", (*ptr).bConfigurationValue); 
-    printf_zqh("iConfiguration      = 0x%02x\n", (*ptr).iConfiguration     ); 
-    printf_zqh("bmAttributes        = 0x%02x\n", (*ptr).bmAttributes       ); 
-    printf_zqh("MaxPower            = 0x%02x\n", (*ptr).MaxPower           ); 
+    printf("USB_CONFIGURATION_DESCRIPTOR:\n"); 
+    printf("bLength             = 0x%02x\n", (*ptr).bLength            ); 
+    printf("bDescriptorType     = 0x%02x\n", (*ptr).bDescriptorType    ); 
+    printf("wTotalLength        = 0x%04x\n", (*ptr).wTotalLength       ); 
+    printf("bNumInterfaces      = 0x%02x\n", (*ptr).bNumInterfaces     ); 
+    printf("bConfigurationValue = 0x%02x\n", (*ptr).bConfigurationValue); 
+    printf("iConfiguration      = 0x%02x\n", (*ptr).iConfiguration     ); 
+    printf("bmAttributes        = 0x%02x\n", (*ptr).bmAttributes       ); 
+    printf("MaxPower            = 0x%02x\n", (*ptr).MaxPower           ); 
 }
 
 
@@ -173,16 +173,16 @@ struct USB_INTERFACE_DESCRIPTOR
  uint8_t iInterface;                            //
 }__attribute__((packed));
 void display_usb_itf_dcescriptor(struct USB_INTERFACE_DESCRIPTOR *ptr) {
-    printf_zqh("USB_INTERFACE_DESCRIPTOR:\n"); 
-    printf_zqh("bLength            = 0x%02x\n", (*ptr).bLength           ); 
-    printf_zqh("bDescriptorType    = 0x%02x\n", (*ptr).bDescriptorType   ); 
-    printf_zqh("bInterfaceNumber   = 0x%02x\n", (*ptr).bInterfaceNumber  ); 
-    printf_zqh("bAlternateSetting  = 0x%02x\n", (*ptr).bAlternateSetting ); 
-    printf_zqh("bNumEndpoints      = 0x%02x\n", (*ptr).bNumEndpoints     ); 
-    printf_zqh("bInterfaceClass    = 0x%02x\n", (*ptr).bInterfaceClass   ); 
-    printf_zqh("bInterfaceSubClass = 0x%02x\n", (*ptr).bInterfaceSubClass); 
-    printf_zqh("bInterfaceProtocol = 0x%02x\n", (*ptr).bInterfaceProtocol); 
-    printf_zqh("iInterface         = 0x%02x\n", (*ptr).iInterface        ); 
+    printf("USB_INTERFACE_DESCRIPTOR:\n"); 
+    printf("bLength            = 0x%02x\n", (*ptr).bLength           ); 
+    printf("bDescriptorType    = 0x%02x\n", (*ptr).bDescriptorType   ); 
+    printf("bInterfaceNumber   = 0x%02x\n", (*ptr).bInterfaceNumber  ); 
+    printf("bAlternateSetting  = 0x%02x\n", (*ptr).bAlternateSetting ); 
+    printf("bNumEndpoints      = 0x%02x\n", (*ptr).bNumEndpoints     ); 
+    printf("bInterfaceClass    = 0x%02x\n", (*ptr).bInterfaceClass   ); 
+    printf("bInterfaceSubClass = 0x%02x\n", (*ptr).bInterfaceSubClass); 
+    printf("bInterfaceProtocol = 0x%02x\n", (*ptr).bInterfaceProtocol); 
+    printf("iInterface         = 0x%02x\n", (*ptr).iInterface        ); 
 }
 
 
@@ -197,13 +197,13 @@ struct USB_ENDPOINT_DESCRIPTOR
  uint8_t  bInterval;                             //
 }__attribute__((packed));
 void display_usb_ep_dcescriptor(struct USB_ENDPOINT_DESCRIPTOR *ptr) {
-    printf_zqh("USB_ENDPOINT_DESCRIPTOR:\n"); 
-    printf_zqh("bLength          = 0x%02x\n", (*ptr).bLength         ); 
-    printf_zqh("bDescriptorType  = 0x%02x\n", (*ptr).bDescriptorType ); 
-    printf_zqh("bEndpointAddress = 0x%02x\n", (*ptr).bEndpointAddress); 
-    printf_zqh("bmAttributes     = 0x%02x\n", (*ptr).bmAttributes    ); 
-    printf_zqh("wMaxPacketSize   = 0x%04x\n", (*ptr).wMaxPacketSize  ); 
-    printf_zqh("bInterval        = 0x%02x\n", (*ptr).bInterval       ); 
+    printf("USB_ENDPOINT_DESCRIPTOR:\n"); 
+    printf("bLength          = 0x%02x\n", (*ptr).bLength         ); 
+    printf("bDescriptorType  = 0x%02x\n", (*ptr).bDescriptorType ); 
+    printf("bEndpointAddress = 0x%02x\n", (*ptr).bEndpointAddress); 
+    printf("bmAttributes     = 0x%02x\n", (*ptr).bmAttributes    ); 
+    printf("wMaxPacketSize   = 0x%04x\n", (*ptr).wMaxPacketSize  ); 
+    printf("bInterval        = 0x%02x\n", (*ptr).bInterval       ); 
 }
 
 struct USB_HID_DESCRIPTOR
@@ -217,14 +217,14 @@ struct USB_HID_DESCRIPTOR
     uint16_t wDescriptorLength1;
 }__attribute__((packed));
 void display_usb_hid_dcescriptor(struct USB_HID_DESCRIPTOR *ptr) {
-    printf_zqh("USB_HID_DESCRIPTOR:\n"); 
-    printf_zqh("bLength            = 0x%02x\n", (*ptr).bLength         ); 
-    printf_zqh("bDescriptorType    = 0x%02x\n", (*ptr).bDescriptorType ); 
-    printf_zqh("bcdHID             = 0x%04x\n", (*ptr).bcdHID); 
-    printf_zqh("bCountryCode       = 0x%02x\n", (*ptr).bCountryCode); 
-    printf_zqh("bNumDescriptors    = 0x%02x\n", (*ptr).bNumDescriptors); 
-    printf_zqh("bDescriptorType1   = 0x%02x\n", (*ptr).bDescriptorType1); 
-    printf_zqh("wDescriptorLength1 = 0x%04x\n", (*ptr).wDescriptorLength1); 
+    printf("USB_HID_DESCRIPTOR:\n"); 
+    printf("bLength            = 0x%02x\n", (*ptr).bLength         ); 
+    printf("bDescriptorType    = 0x%02x\n", (*ptr).bDescriptorType ); 
+    printf("bcdHID             = 0x%04x\n", (*ptr).bcdHID); 
+    printf("bCountryCode       = 0x%02x\n", (*ptr).bCountryCode); 
+    printf("bNumDescriptors    = 0x%02x\n", (*ptr).bNumDescriptors); 
+    printf("bDescriptorType1   = 0x%02x\n", (*ptr).bDescriptorType1); 
+    printf("wDescriptorLength1 = 0x%04x\n", (*ptr).wDescriptorLength1); 
 }
 
 
@@ -239,21 +239,21 @@ struct USB_CBW
  uint8_t   CBWCB[16];
 }__attribute__((packed));
 void display_usb_cbw(struct USB_CBW *ptr) {
-    printf_zqh("USB_CBW:\n");
-    printf_zqh("dCBWSignature          = 0x%08x\n", (*ptr).dCBWSignature         );
-    printf_zqh("dCBWTag                = 0x%08x\n", (*ptr).dCBWTag               );
-    printf_zqh("dCBWDataTransferLength = 0x%08x\n", (*ptr).dCBWDataTransferLength);
-    printf_zqh("bmCBWFlag              = 0x%02x\n", (*ptr).bmCBWFlag             );
-    printf_zqh("bCBWLUN                = 0x%02x\n", (*ptr).bCBWLUN               );
-    printf_zqh("bCBWCBLength           = 0x%02x\n", (*ptr).bCBWCBLength          );
+    printf("USB_CBW:\n");
+    printf("dCBWSignature          = 0x%08x\n", (*ptr).dCBWSignature         );
+    printf("dCBWTag                = 0x%08x\n", (*ptr).dCBWTag               );
+    printf("dCBWDataTransferLength = 0x%08x\n", (*ptr).dCBWDataTransferLength);
+    printf("bmCBWFlag              = 0x%02x\n", (*ptr).bmCBWFlag             );
+    printf("bCBWLUN                = 0x%02x\n", (*ptr).bCBWLUN               );
+    printf("bCBWCBLength           = 0x%02x\n", (*ptr).bCBWCBLength          );
     //for (int i = 0; i < 16; i++) {
-    //    printf_zqh("CBWCB[%0d] = 0x%02x\n", i, (*ptr).CBWCB[i]);
+    //    printf("CBWCB[%0d] = 0x%02x\n", i, (*ptr).CBWCB[i]);
     //}
 }
 
 void display_usb_cbw_cbwcb(struct USB_CBW *ptr) {
     for (int i = 0; i < 16; i++) {
-        printf_zqh("CBWCB[%0d] = 0x%02x\n", i, (*ptr).CBWCB[i]);
+        printf("CBWCB[%0d] = 0x%02x\n", i, (*ptr).CBWCB[i]);
     }
 }
 
@@ -265,11 +265,11 @@ struct USB_CSW
  uint8_t   bCSWStatus;
 }__attribute__((packed));
 void display_usb_csw(struct USB_CSW *ptr) {
-    printf_zqh("USB_CSW:\n");
-    printf_zqh("dCSWSignature   = %08x\n", (*ptr).dCSWSignature  );
-    printf_zqh("dCSWTag         = %08x\n", (*ptr).dCSWTag        );
-    printf_zqh("dCSWDataResidue = %08x\n", (*ptr).dCSWDataResidue);
-    printf_zqh("bCSWStatus      = %02x\n", (*ptr).bCSWStatus     );
+    printf("USB_CSW:\n");
+    printf("dCSWSignature   = %08x\n", (*ptr).dCSWSignature  );
+    printf("dCSWTag         = %08x\n", (*ptr).dCSWTag        );
+    printf("dCSWDataResidue = %08x\n", (*ptr).dCSWDataResidue);
+    printf("bCSWStatus      = %02x\n", (*ptr).bCSWStatus     );
 }
 
 #define USB_CBS_SCSI_OPCODE_TEST_UNIT_READY 0x00
@@ -289,9 +289,9 @@ struct USB_CBW_SCSI_TEST_UNIT_READY
     uint8_t control;
 }__attribute__((packed));
 void display_usb_cbw_scsi_test_unit_ready (struct USB_CBW_SCSI_TEST_UNIT_READY *ptr) {
-    printf_zqh("USB_CBW_SCSI_TEST_UNIT_READY:\n");
-    printf_zqh("opcode    = 0x%02x\n", (*ptr).opcode   );
-    printf_zqh("control   = 0x%02x\n", (*ptr).control  );
+    printf("USB_CBW_SCSI_TEST_UNIT_READY:\n");
+    printf("opcode    = 0x%02x\n", (*ptr).opcode   );
+    printf("control   = 0x%02x\n", (*ptr).control  );
 }
 
 struct USB_CBW_SCSI_INQUIRY
@@ -303,12 +303,12 @@ struct USB_CBW_SCSI_INQUIRY
     uint8_t control;
 }__attribute__((packed));
 void display_usb_cbw_scsi_inquiry(struct USB_CBW_SCSI_INQUIRY *ptr) {
-    printf_zqh("USB_CBW_SCSI_INQUIRY:\n");
-    printf_zqh("opcode    = 0x%02x\n", (*ptr).opcode   );
-    printf_zqh("evpd      = 0x%02x\n", (*ptr).evpd     );
-    printf_zqh("page_code = 0x%02x\n", (*ptr).page_code);
-    printf_zqh("allo_len  = 0x%04x\n", (*ptr).allo_len );
-    printf_zqh("control   = 0x%02x\n", (*ptr).control  );
+    printf("USB_CBW_SCSI_INQUIRY:\n");
+    printf("opcode    = 0x%02x\n", (*ptr).opcode   );
+    printf("evpd      = 0x%02x\n", (*ptr).evpd     );
+    printf("page_code = 0x%02x\n", (*ptr).page_code);
+    printf("allo_len  = 0x%04x\n", (*ptr).allo_len );
+    printf("control   = 0x%02x\n", (*ptr).control  );
 }
 
 // The standard INQUIRY data shall contain at least 36 bytes
@@ -329,30 +329,30 @@ struct USB_CBW_SCSI_INQUIRY_DATA
 }__attribute__((packed));
 void display_usb_cbw_scsi_inquiry_data(struct USB_CBW_SCSI_INQUIRY_DATA *ptr) {
     uint8_t buf[20];
-    printf_zqh("USB_CBW_SCSI_INQUIRY_DATA:\n");
-    printf_zqh("peripheral       = %02x\n", (*ptr).peripheral      );
-    printf_zqh("rmb              = %02x\n", (*ptr).rmb             );
-    printf_zqh("version          = %02x\n", (*ptr).version         );
-    printf_zqh("resp_data_format = %02x\n", (*ptr).resp_data_format);
-    printf_zqh("additional_len   = %02x\n", (*ptr).additional_len  );
-    printf_zqh("sccstp           = %02x\n", (*ptr).sccstp          );
-    printf_zqh("bque             = %02x\n", (*ptr).bque            );
-    printf_zqh("cmdque           = %02x\n", (*ptr).cmdque          );
+    printf("USB_CBW_SCSI_INQUIRY_DATA:\n");
+    printf("peripheral       = %02x\n", (*ptr).peripheral      );
+    printf("rmb              = %02x\n", (*ptr).rmb             );
+    printf("version          = %02x\n", (*ptr).version         );
+    printf("resp_data_format = %02x\n", (*ptr).resp_data_format);
+    printf("additional_len   = %02x\n", (*ptr).additional_len  );
+    printf("sccstp           = %02x\n", (*ptr).sccstp          );
+    printf("bque             = %02x\n", (*ptr).bque            );
+    printf("cmdque           = %02x\n", (*ptr).cmdque          );
     for (int i = 0; i < 8; i++) {
         buf[i] = (*ptr).vendor_id[i];
     }
     buf[8] = 0;
-    printf_zqh("vendor_id = %s\n", buf);
+    printf("vendor_id = %s\n", buf);
     for (int i = 0; i < 16; i++) {
         buf[i] = (*ptr).product_id[i];
     }
     buf[16] = 0;
-    printf_zqh("product_id = %s\n", buf);
+    printf("product_id = %s\n", buf);
     for (int i = 0; i < 4; i++) {
         buf[i] = (*ptr).product_rev[i];
     }
     buf[4] = 0;
-    printf_zqh("product_rev = %s\n", buf);
+    printf("product_rev = %s\n", buf);
 }
 
 struct USB_CBW_SCSI_READ_CAPACITY_10
@@ -365,8 +365,8 @@ struct USB_CBW_SCSI_READ_CAPACITY_10
     uint8_t control;
 }__attribute__((packed));
 void display_usb_cbw_scsi_read_capacity_10(struct USB_CBW_SCSI_READ_CAPACITY_10 *ptr) {
-    printf_zqh("USB_CBW_SCSI_READ_CAPACITY_10:\n");
-    printf_zqh("opcode    = 0x%02x\n", (*ptr).opcode   );
+    printf("USB_CBW_SCSI_READ_CAPACITY_10:\n");
+    printf("opcode    = 0x%02x\n", (*ptr).opcode   );
 }
 
 struct USB_CBW_SCSI_READ_CAPACITY_10_DATA
@@ -388,9 +388,9 @@ void display_usb_cbw_scsi_read_capacity_10_data(struct USB_CBW_SCSI_READ_CAPACIT
     *(((uint8_t *)(&lb_len_le)) + 1) = (*ptr).lb_len[2];
     *(((uint8_t *)(&lb_len_le)) + 2) = (*ptr).lb_len[1];
     *(((uint8_t *)(&lb_len_le)) + 3) = (*ptr).lb_len[0];
-    printf_zqh("USB_CBW_SCSI_READ_CAPACITY_10_DATA:\n");
-    printf_zqh("lba_len = 0x%08x\n", lba_len_le);
-    printf_zqh("lb_len  = 0x%08x\n", lb_len_le);
+    printf("USB_CBW_SCSI_READ_CAPACITY_10_DATA:\n");
+    printf("lba_len = 0x%08x\n", lba_len_le);
+    printf("lb_len  = 0x%08x\n", lb_len_le);
 }
 
 struct USB_CBW_SCSI_MODE_SENSE_6
@@ -403,13 +403,13 @@ struct USB_CBW_SCSI_MODE_SENSE_6
     uint8_t control;
 }__attribute__((packed));
 void display_usb_cbw_scsi_mode_sense_6(struct USB_CBW_SCSI_MODE_SENSE_6 *ptr) {
-    printf_zqh("USB_CBW_SCSI_MODE_SENSE_6:\n");
-    printf_zqh("opcode       = 0x%02x\n", (*ptr).opcode      );
-    printf_zqh("dbd          = 0x%02x\n", (*ptr).dbd         );
-    printf_zqh("pc_page_code = 0x%02x\n", (*ptr).pc_page_code);
-    printf_zqh("subpage_code = 0x%02x\n", (*ptr).subpage_code);
-    printf_zqh("allo_len     = 0x%02x\n", (*ptr).allo_len    );
-    printf_zqh("control      = 0x%02x\n", (*ptr).control     );
+    printf("USB_CBW_SCSI_MODE_SENSE_6:\n");
+    printf("opcode       = 0x%02x\n", (*ptr).opcode      );
+    printf("dbd          = 0x%02x\n", (*ptr).dbd         );
+    printf("pc_page_code = 0x%02x\n", (*ptr).pc_page_code);
+    printf("subpage_code = 0x%02x\n", (*ptr).subpage_code);
+    printf("allo_len     = 0x%02x\n", (*ptr).allo_len    );
+    printf("control      = 0x%02x\n", (*ptr).control     );
 }
 
 struct USB_CBW_SCSI_MODE_SENSE_6_DATA
@@ -420,11 +420,11 @@ struct USB_CBW_SCSI_MODE_SENSE_6_DATA
     uint8_t block_dcp_len;
 }__attribute__((packed));
 void display_usb_cbw_scsi_mode_sense_6_data(struct USB_CBW_SCSI_MODE_SENSE_6_DATA *ptr) {
-    printf_zqh("USB_CBW_SCSI_MODE_SENSE_6_DATA:\n");
-    printf_zqh("mode_data_len   = 0x%02x\n", (*ptr).mode_data_len  );
-    printf_zqh("medium_type     = 0x%02x\n", (*ptr).medium_type    );
-    printf_zqh("device_spec_par = 0x%02x\n", (*ptr).device_spec_par);
-    printf_zqh("block_dcp_len   = 0x%02x\n", (*ptr).block_dcp_len  );
+    printf("USB_CBW_SCSI_MODE_SENSE_6_DATA:\n");
+    printf("mode_data_len   = 0x%02x\n", (*ptr).mode_data_len  );
+    printf("medium_type     = 0x%02x\n", (*ptr).medium_type    );
+    printf("device_spec_par = 0x%02x\n", (*ptr).device_spec_par);
+    printf("block_dcp_len   = 0x%02x\n", (*ptr).block_dcp_len  );
 }
 
 struct USB_CBW_SCSI_READ_FORMAT_CAPACITY
@@ -437,11 +437,11 @@ struct USB_CBW_SCSI_READ_FORMAT_CAPACITY
     uint8_t control;
 }__attribute__((packed));
 void display_usb_cbw_scsi_read_format_capacity(struct USB_CBW_SCSI_READ_FORMAT_CAPACITY *ptr) {
-    printf_zqh("USB_CBW_SCSI_READ_FORMAT_CAPACITY:\n");
-    printf_zqh("opcode   = 0x%02x\n", (*ptr).opcode  );
-    printf_zqh("lun_h    = 0x%02x\n", (*ptr).lun_h   );
-    printf_zqh("allo_len = 0x%04x\n", (*ptr).allo_len);
-    printf_zqh("control  = 0x%02x\n", (*ptr).control );
+    printf("USB_CBW_SCSI_READ_FORMAT_CAPACITY:\n");
+    printf("opcode   = 0x%02x\n", (*ptr).opcode  );
+    printf("lun_h    = 0x%02x\n", (*ptr).lun_h   );
+    printf("allo_len = 0x%04x\n", (*ptr).allo_len);
+    printf("control  = 0x%02x\n", (*ptr).control );
 }
 
 struct USB_CBW_SCSI_PRV_AL_RM
@@ -454,10 +454,10 @@ struct USB_CBW_SCSI_PRV_AL_RM
     uint8_t control;
 }__attribute__((packed));
 void display_usb_cbw_scsi_prv_al_rm(struct USB_CBW_SCSI_PRV_AL_RM *ptr) {
-    printf_zqh("USB_CBW_SCSI_PRV_AL_RM:\n");
-    printf_zqh("opcode  = 0x%02x\n", (*ptr).opcode);
-    printf_zqh("prevent = 0x%02x\n", (*ptr).prevent);
-    printf_zqh("control = 0x%02x\n", (*ptr).control);
+    printf("USB_CBW_SCSI_PRV_AL_RM:\n");
+    printf("opcode  = 0x%02x\n", (*ptr).opcode);
+    printf("prevent = 0x%02x\n", (*ptr).prevent);
+    printf("control = 0x%02x\n", (*ptr).control);
 }
 
 struct USB_CBW_SCSI_START_STOP
@@ -470,11 +470,11 @@ struct USB_CBW_SCSI_START_STOP
     uint8_t control;
 }__attribute__((packed));
 void display_usb_cbw_scsi_start_stop(struct USB_CBW_SCSI_START_STOP *ptr) {
-    printf_zqh("USB_CBW_SCSI_START_STOP:\n");
-    printf_zqh("opcode           = 0x%02x\n", (*ptr).opcode);
-    printf_zqh("power_cond_mdf   = 0x%02x\n", (*ptr).power_cond_mdf);
-    printf_zqh("power_cond_start = 0x%02x\n", (*ptr).power_cond_start);
-    printf_zqh("control          = 0x%02x\n", (*ptr).control);
+    printf("USB_CBW_SCSI_START_STOP:\n");
+    printf("opcode           = 0x%02x\n", (*ptr).opcode);
+    printf("power_cond_mdf   = 0x%02x\n", (*ptr).power_cond_mdf);
+    printf("power_cond_start = 0x%02x\n", (*ptr).power_cond_start);
+    printf("control          = 0x%02x\n", (*ptr).control);
 }
 
 struct USB_CBW_SCSI_READ_10
@@ -487,13 +487,13 @@ struct USB_CBW_SCSI_READ_10
     uint8_t control;
 }__attribute__((packed));
 void display_usb_cbw_scsi_read_10(struct USB_CBW_SCSI_READ_10 *ptr) {
-    printf_zqh("USB_CBW_SCSI_READ_10:\n");
-    printf_zqh("opcode            = 0x%02x\n", (*ptr).opcode           );
-    printf_zqh("prot_dpo_fua_rarc = 0x%02x\n", (*ptr).prot_dpo_fua_rarc);
-    printf_zqh("lba               = 0x%08x\n", (*ptr).lba              );
-    printf_zqh("group_num         = 0x%02x\n", (*ptr).group_num        );
-    printf_zqh("transfer_len      = 0x%04x\n", (*ptr).transfer_len     );
-    printf_zqh("control           = 0x%02x\n", (*ptr).control          );
+    printf("USB_CBW_SCSI_READ_10:\n");
+    printf("opcode            = 0x%02x\n", (*ptr).opcode           );
+    printf("prot_dpo_fua_rarc = 0x%02x\n", (*ptr).prot_dpo_fua_rarc);
+    printf("lba               = 0x%08x\n", (*ptr).lba              );
+    printf("group_num         = 0x%02x\n", (*ptr).group_num        );
+    printf("transfer_len      = 0x%04x\n", (*ptr).transfer_len     );
+    printf("control           = 0x%02x\n", (*ptr).control          );
 }
 
 struct USB_CBW_SCSI_REQUEST_SENSE
@@ -507,11 +507,11 @@ struct USB_CBW_SCSI_REQUEST_SENSE
 }__attribute__((packed));
 
 void display_usb_cbw_scsi_request_sense(struct USB_CBW_SCSI_REQUEST_SENSE *ptr) {
-    printf_zqh("USB_CBW_SCSI_REQUEST_SENSE:\n");
-    printf_zqh("opcode   = 0x%02x\n", (*ptr).opcode);
-    printf_zqh("desc     = 0x%02x\n", (*ptr).desc);
-    printf_zqh("allo_len = 0x%02x\n", (*ptr).allo_len);
-    printf_zqh("control  = 0x%02x\n", (*ptr).control);
+    printf("USB_CBW_SCSI_REQUEST_SENSE:\n");
+    printf("opcode   = 0x%02x\n", (*ptr).opcode);
+    printf("desc     = 0x%02x\n", (*ptr).desc);
+    printf("allo_len = 0x%02x\n", (*ptr).allo_len);
+    printf("control  = 0x%02x\n", (*ptr).control);
 }
 
 
@@ -574,27 +574,27 @@ uint32_t usb_host_wait_trans_done() {
 
 void host_rx_status_check(uint32_t status) {
     if (status & 0x01) {
-        printf_zqh("host_rx_status has crc_error\n");
+        printf("host_rx_status has crc_error\n");
         while(1);
     }
     else if (status & 0x02) {
-        printf_zqh("host_rx_status has bit_stuff_error\n");
+        printf("host_rx_status has bit_stuff_error\n");
         while(1);
     }
     else if (status & 0x08) {
-        printf_zqh("host_rx_status has rx_time_out\n");
+        printf("host_rx_status has rx_time_out\n");
         while(1);
     }
     else if (status & 0x10) {
-        printf_zqh("host_rx_status has nak_recved\n");
+        printf("host_rx_status has nak_recved\n");
         while(1);
     }
     else if (status & 0x20) {
-        printf_zqh("host_rx_status has stall_recved\n");
+        printf("host_rx_status has stall_recved\n");
         while(1);
     }
     else if (status & 0x40) {
-        printf_zqh("host_rx_status has ack_recved\n");
+        printf("host_rx_status has ack_recved\n");
     }
 }
 
@@ -674,17 +674,17 @@ void usb_host_trans_setup(uint8_t *ptr) {
         host_rx_status = usb_host_wait_trans_done();
         //tmp host_rx_status_check(host_rx_status);
         if (host_rx_status & 0x10) {
-            printf_zqh("host_rx_status has nak_recved\n");
-            printf_zqh("issue trans setup again\n");
+            printf("host_rx_status has nak_recved\n");
+            printf("issue trans setup again\n");
             delay_ms(1000);
         }
         else if (host_rx_status & 0x08) {
-            printf_zqh("host_rx_status has rx_time_out\n");
-            printf_zqh("issue trans setup again\n");
+            printf("host_rx_status has rx_time_out\n");
+            printf("issue trans setup again\n");
             delay_ms(1000);
         }
         else if (host_rx_status & 0x20) {
-            printf_zqh("host_rx_status has stall_recved\n");
+            printf("host_rx_status has stall_recved\n");
             usb_host_trans_stalled = 1;
             //while(1);
             break;
@@ -692,7 +692,7 @@ void usb_host_trans_setup(uint8_t *ptr) {
         else {
             //setup trans need initial data_seq to 1
             usb_host_trans_data_seq = 1;
-            //printf_zqh("host_rx_status ok\n");
+            //printf("host_rx_status ok\n");
             break;
         }
     }
@@ -707,26 +707,26 @@ void usb_host_trans_bulk_out(uint8_t *ptr, uint32_t len, uint32_t data_seq) {
         host_rx_status = usb_host_wait_trans_done();
         //tmp host_rx_status_check(host_rx_status);
         if (host_rx_status & 0x10) {
-            printf_zqh("host_rx_status has nak_recved\n");
-            printf_zqh("issue trans out again\n");
+            printf("host_rx_status has nak_recved\n");
+            printf("issue trans out again\n");
             //delay_ms(1000);
         }
         else if (host_rx_status & 0x08) {
-            printf_zqh("host_rx_status has rx_time_out\n");
-            printf_zqh("issue trans out again\n");
+            printf("host_rx_status has rx_time_out\n");
+            printf("issue trans out again\n");
             //delay_ms(1000);
         }
         else if (host_rx_status & 0x20) {
-            printf_zqh("host_rx_status has stall_recved\n");
+            printf("host_rx_status has stall_recved\n");
             usb_host_trans_stalled = 1;
             //while(1);
-            //printf_zqh("issue trans out again\n");
+            //printf("issue trans out again\n");
             //delay_ms(1000);
             break;
         }
         else {
             //flip data_seq
-            //printf_zqh("host_rx_status ok\n");
+            //printf("host_rx_status ok\n");
             usb_host_trans_data_seq = (usb_host_trans_data_seq + 1) & 1;
             break;
         }
@@ -739,29 +739,29 @@ void usb_host_trans_bulk_in() {
         usb_host_issue_trans_in();
         host_rx_status = usb_host_wait_trans_done();
         if (host_rx_status & 0x10) {
-            printf_zqh("host_rx_status has nak_recved\n");
-            printf_zqh("issue trans in again\n");
+            printf("host_rx_status has nak_recved\n");
+            printf("issue trans in again\n");
             //delay_ms(1000);
         }
         else if (host_rx_status & 0x08) {
-            printf_zqh("host_rx_status has rx_time_out\n");
-            printf_zqh("issue trans in again\n");
+            printf("host_rx_status has rx_time_out\n");
+            printf("issue trans in again\n");
             //delay_ms(1000);
         }
         else if (host_rx_status & 0x20) {
-            printf_zqh("host_rx_status has stall_recved\n");
+            printf("host_rx_status has stall_recved\n");
             usb_host_trans_stalled = 1;
             //while(1);
-            //printf_zqh("issue trans in again\n");
+            //printf("issue trans in again\n");
             //delay_ms(1000);
             break;
         }
         else if (host_rx_status & 0x01) {
-            printf_zqh("host_rx_status has crc_error\n");
+            printf("host_rx_status has crc_error\n");
             break;
         }
         else {
-            //printf_zqh("host_rx_status ok\n");
+            //printf("host_rx_status ok\n");
             break;
         }
     }
@@ -912,10 +912,10 @@ int usb_host_emum_common(uint8_t device_addr) {
     host_setup_pkt.wValue = (USB_DCP_TYPE_DEVICE << 8) | 0x00;
     host_setup_pkt.wIndex = 0x0000;
     host_setup_pkt.wLength = 0x0012;
-    printf_zqh("usb_host_control_get_descriptor device\n");
+    printf("usb_host_control_get_descriptor device\n");
     usb_host_control_get_descriptor(&host_setup_pkt, usb_host_rx_buf);
     usb_dcp_copy(&host_device_dcp, usb_host_rx_buf);
-    printf_zqh("device descriptor:\n");
+    printf("device descriptor:\n");
     display_usb_device_dcescriptor(&host_device_dcp);
 
 
@@ -923,7 +923,7 @@ int usb_host_emum_common(uint8_t device_addr) {
     usb_host_line_reset();
     usb_host_wait_disconnection();
     usb_host_wait_connection();
-    printf_zqh("usb host 3th connection found\n");
+    printf("usb host 3th connection found\n");
 
 
     //set address
@@ -934,7 +934,7 @@ int usb_host_emum_common(uint8_t device_addr) {
     host_setup_pkt.wLength = 0x0000;
     usb_host_control_set_address(&host_setup_pkt);
     *USB_CTRL_UTMI_HOST_TX_ADDR(0) = device_addr;
-    printf_zqh("usb_host_control_set_address to 0x%02x:\n", device_addr);
+    printf("usb_host_control_set_address to 0x%02x:\n", device_addr);
     delay_ms(10);
 
 
@@ -946,7 +946,7 @@ int usb_host_emum_common(uint8_t device_addr) {
     host_setup_pkt.wLength = 0x0040;
     usb_host_control_get_descriptor(&host_setup_pkt, usb_host_rx_buf);
     usb_dcp_copy(&host_cfg_dcp, usb_host_rx_buf);
-    printf_zqh("configuration descriptor:\n");
+    printf("configuration descriptor:\n");
     display_usb_cfg_dcescriptor(&host_cfg_dcp);
 
     //extract interface descriptor
@@ -956,7 +956,7 @@ int usb_host_emum_common(uint8_t device_addr) {
     for (int i = 0; i < host_cfg_dcp.bNumInterfaces; i++) {
         struct USB_INTERFACE_DESCRIPTOR tmp_itf_dcp;
         usb_dcp_copy(&tmp_itf_dcp, itf_dcp_ptr);
-        printf_zqh("interface %0d descriptor:\n", i);
+        printf("interface %0d descriptor:\n", i);
         display_usb_itf_dcescriptor(&tmp_itf_dcp);
         host_itf_dcp[i] = tmp_itf_dcp;
 
@@ -975,7 +975,7 @@ int usb_host_emum_common(uint8_t device_addr) {
         struct USB_ENDPOINT_DESCRIPTOR tmp_ep_dcp;
         for (int j = 0 ; j < tmp_itf_dcp.bNumEndpoints; j++) {
             usb_dcp_copy(&tmp_ep_dcp, ep_dcp_ptr);
-            printf_zqh("endpoint %0d descriptor:\n", j);
+            printf("endpoint %0d descriptor:\n", j);
             display_usb_ep_dcescriptor(&tmp_ep_dcp);
             if ((tmp_ep_dcp.bEndpointAddress & 0x80) == 0) {
                 host_ep_dcp_out[i] = tmp_ep_dcp;
@@ -998,8 +998,8 @@ int usb_host_emum_common(uint8_t device_addr) {
     host_setup_pkt.wLength = 0x0040;
     usb_host_control_get_descriptor(&host_setup_pkt, usb_host_rx_buf);
     langid = (usb_host_rx_buf[3] << 8) | usb_host_rx_buf[2];
-    printf_zqh("string descriptor len = %d\n", usb_host_rx_buf[0]);
-    printf_zqh("langid is %04x\n", langid);
+    printf("string descriptor len = %d\n", usb_host_rx_buf[0]);
+    printf("langid is %04x\n", langid);
     for (int i = 0 ; i < usb_host_rx_buf[0]; i++) {
         host_str_dcp[host_setup_pkt.wValue & 0x00ff][i] = usb_host_rx_buf[i];
     }
@@ -1013,11 +1013,11 @@ int usb_host_emum_common(uint8_t device_addr) {
         host_setup_pkt.wIndex = langid;
         host_setup_pkt.wLength = 0x0040;
         usb_host_control_get_descriptor(&host_setup_pkt, usb_host_rx_buf);
-        printf_zqh("string descriptor len = %d\n", usb_host_rx_buf[0]);
+        printf("string descriptor len = %d\n", usb_host_rx_buf[0]);
         usb_host_extract_str_dcp(usb_host_rx_buf, str_buf);
         str_buf[(usb_host_rx_buf[0] - 2)/2] = 0;
-        printf_zqh("string Manufacturer:\n");
-        printf_zqh("%s\n",str_buf);
+        printf("string Manufacturer:\n");
+        printf("%s\n",str_buf);
         for (int i = 0 ; i < usb_host_rx_buf[0]; i++) {
             host_str_dcp[host_setup_pkt.wValue & 0x00ff][i] = usb_host_rx_buf[i];
         }
@@ -1030,11 +1030,11 @@ int usb_host_emum_common(uint8_t device_addr) {
         host_setup_pkt.wIndex = langid;
         host_setup_pkt.wLength = 0x0040;
         usb_host_control_get_descriptor(&host_setup_pkt, usb_host_rx_buf);
-        printf_zqh("string descriptor len = %d\n", usb_host_rx_buf[0]);
+        printf("string descriptor len = %d\n", usb_host_rx_buf[0]);
         usb_host_extract_str_dcp(usb_host_rx_buf, str_buf);
         str_buf[(usb_host_rx_buf[0] - 2)/2] = 0;
-        printf_zqh("string Product:\n");
-        printf_zqh("%s\n",str_buf);
+        printf("string Product:\n");
+        printf("%s\n",str_buf);
         for (int i = 0 ; i < usb_host_rx_buf[0]; i++) {
             host_str_dcp[host_setup_pkt.wValue & 0x00ff][i] = usb_host_rx_buf[i];
         }
@@ -1047,11 +1047,11 @@ int usb_host_emum_common(uint8_t device_addr) {
         host_setup_pkt.wIndex = langid;
         host_setup_pkt.wLength = 0x0040;
         usb_host_control_get_descriptor(&host_setup_pkt, usb_host_rx_buf);
-        printf_zqh("string descriptor len = %d\n", usb_host_rx_buf[0]);
+        printf("string descriptor len = %d\n", usb_host_rx_buf[0]);
         usb_host_extract_str_dcp(usb_host_rx_buf, str_buf);
         str_buf[(usb_host_rx_buf[0] - 2)/2] = 0;
-        printf_zqh("string SerialNumber:\n");
-        printf_zqh("%s\n",str_buf);
+        printf("string SerialNumber:\n");
+        printf("%s\n",str_buf);
         for (int i = 0 ; i < usb_host_rx_buf[0]; i++) {
             host_str_dcp[host_setup_pkt.wValue & 0x00ff][i] = usb_host_rx_buf[i];
         }
@@ -1065,7 +1065,7 @@ int usb_host_emum_common(uint8_t device_addr) {
     host_setup_pkt.wIndex = 0x0000;
     host_setup_pkt.wLength = 0x0000;
     usb_host_control_set_cfg(&host_setup_pkt);
-    printf_zqh("usb_host_control_set_cfg value 0x%02x:\n", host_cfg_dcp.bConfigurationValue);
+    printf("usb_host_control_set_cfg value 0x%02x:\n", host_cfg_dcp.bConfigurationValue);
     delay_ms(10);
 }
 
@@ -1078,8 +1078,8 @@ int usb_host_mass_store_driver_cfg(){
     host_setup_pkt.wIndex = host_itf_dcp[0].bInterfaceNumber;
     host_setup_pkt.wLength = 0x0000;
     usb_host_control_set_itf(&host_setup_pkt);
-    printf_zqh("usb_host_control_set_itf bAlternateSetting = 0x%02x:\n", host_itf_dcp[0].bAlternateSetting);
-    printf_zqh("usb_host_control_set_itf bInterfaceNumber = 0x%02x:\n", host_itf_dcp[0].bInterfaceNumber);
+    printf("usb_host_control_set_itf bAlternateSetting = 0x%02x:\n", host_itf_dcp[0].bAlternateSetting);
+    printf("usb_host_control_set_itf bInterfaceNumber = 0x%02x:\n", host_itf_dcp[0].bInterfaceNumber);
     delay_ms(10);
 }
 
@@ -1091,9 +1091,9 @@ int usb_host_hid_driver_cfg() {
     host_setup_pkt.wIndex = 0x0000;
     host_setup_pkt.wLength = 0x40;//0x0079
     usb_host_control_get_descriptor(&host_setup_pkt, usb_host_rx_buf);
-    printf_zqh("HID class report descriptor:\n");
+    printf("HID class report descriptor:\n");
     for (int i = 0; i < 64; i++) {
-        printf_zqh("usb_host_rx_buf[%0d] = %02x\n", i, usb_host_rx_buf[i]);
+        printf("usb_host_rx_buf[%0d] = %02x\n", i, usb_host_rx_buf[i]);
     }
 
     //set idle
@@ -1103,7 +1103,7 @@ int usb_host_hid_driver_cfg() {
     host_setup_pkt.wIndex = 0x0000;
     host_setup_pkt.wLength = 0x0000;
     usb_host_control_set_idle(&host_setup_pkt);
-    printf_zqh("usb_host_control_set_idle done\n");
+    printf("usb_host_control_set_idle done\n");
 
     //set report
     host_setup_pkt.bmRequestType = 0x21;
@@ -1112,7 +1112,7 @@ int usb_host_hid_driver_cfg() {
     host_setup_pkt.wIndex = 0x0000;
     host_setup_pkt.wLength = 0x0001;
     usb_host_control_set_report(&host_setup_pkt);
-    printf_zqh("usb_host_control_set_report done\n");
+    printf("usb_host_control_set_report done\n");
 }
 
 int usb_host_hid_data_proc(uint8_t device_addr){
@@ -1122,9 +1122,9 @@ int usb_host_hid_data_proc(uint8_t device_addr){
     usb_host_tx_addr_cfg(device_addr, host_ep_dcp_in[1].bEndpointAddress);
     while(1) {
         usb_host_int_in(int_rx_buf);
-        printf_zqh("usb_host_int_in:\n");
+        printf("usb_host_int_in:\n");
         for (int i = 0; i < 8; i++) {
-            printf_zqh("int_rx_buf[%0d] = %02x\n", i, int_rx_buf[i]);
+            printf("int_rx_buf[%0d] = %02x\n", i, int_rx_buf[i]);
         }
         delay_ms(300);
     }
@@ -1220,14 +1220,14 @@ int usb_host_mass_store_data_proc(uint8_t device_addr) {
 
         usb_host_trans_stalled = 0;
 
-        printf_zqh("usb_host_control_clear_feature\n");
+        printf("usb_host_control_clear_feature\n");
         delay_ms(100);
     }
 
 //tmp    //read capacity 5 times
 //tmp    for (int cmd_cnt = 0; cmd_cnt < 5; cmd_cnt++) {
 //tmp        delay_ms(1000);
-//tmp        printf_zqh("cmd_cnt %0d\n", cmd_cnt);
+//tmp        printf("cmd_cnt %0d\n", cmd_cnt);
 //tmp        //read capacity
 //tmp        usb_host_cbw.dCBWSignature = 0x43425355;
 //tmp        usb_host_cbw.dCBWTag = 0;
@@ -1309,11 +1309,11 @@ int usb_host_mass_store_data_proc(uint8_t device_addr) {
     uint8_t cb_read_10_data[64];
     for (int trans_i = 0; trans_i < 8; trans_i++) {
         uint32_t rx_data_len;
-        printf_zqh("trans_i %0d\n", trans_i);
+        printf("trans_i %0d\n", trans_i);
         rx_data_len = usb_host_cbw_data_recv(cb_read_10_data);
-        printf_zqh("rx_data_len = %0d\n", rx_data_len);
+        printf("rx_data_len = %0d\n", rx_data_len);
         for (int i = 0; i < 64; i++) {
-            printf_zqh("cb_read_10_data[%0d] = 0x%02x\n", i, cb_read_10_data[i]);
+            printf("cb_read_10_data[%0d] = 0x%02x\n", i, cb_read_10_data[i]);
         }
     }
 
@@ -1355,7 +1355,7 @@ void usb_host_test() {
 //tmp    usb_host_tx_addr_cfg(usb_device_addr, 0);//control ep0
 //tmp    usb_host_control_clear_feature(&host_setup_pkt);
 //tmp
-//tmp    printf_zqh("usb_host_control_clear_feature\n");
+//tmp    printf("usb_host_control_clear_feature\n");
 //tmp    delay_ms(1000);
 //tmp
 //tmp    //request sense
@@ -1384,7 +1384,7 @@ void usb_host_test() {
 //tmp    uint8_t cb_req_sense_data[64];
 //tmp    usb_host_cbw_data_recv(cb_req_sense_data);
 //tmp    for (int i = 0; i < 64; i++) {
-//tmp        printf_zqh("cb_req_sense_data[%0d] = 0x%02x\n", i, cb_req_sense_data[i]);
+//tmp        printf("cb_req_sense_data[%0d] = 0x%02x\n", i, cb_req_sense_data[i]);
 //tmp    }
 //tmp
 //tmp    usb_host_tx_addr_cfg(usb_device_addr, ep_in_addr);
@@ -1417,7 +1417,7 @@ void usb_host_test() {
 //tmp    uint8_t cb_req_sense_data[64];
 //tmp    usb_host_cbw_data_recv(cb_req_sense_data);
 //tmp    for (int i = 0; i < 64; i++) {
-//tmp        printf_zqh("cb_req_sense_data[%0d] = 0x%02x\n", i, cb_req_sense_data[i]);
+//tmp        printf("cb_req_sense_data[%0d] = 0x%02x\n", i, cb_req_sense_data[i]);
 //tmp    }
 //tmp
 //tmp    usb_host_tx_addr_cfg(usb_device_addr, ep_in_addr);
@@ -1578,18 +1578,18 @@ uint32_t usb_device_rx_data_wait(uint32_t ep) {
         int_status = usb_device_read_int_status();
         device_status = *USB_CTRL_UTMI_DEVICE_STATUS(1, ep);
         if ((int_status & 0x20) != 0) {
-            printf_zqh("OUT trans status stall_sent\n");
+            printf("OUT trans status stall_sent\n");
             while(1);
         }
         else if ((int_status & 0x04) != 0) {
-            printf_zqh("OUT trans reset event found\n");
+            printf("OUT trans reset event found\n");
             while(1);
         }
         else if ((int_status & 0x01) != 0) {
-            //printf_zqh("OUT trans done\n");
+            //printf("OUT trans done\n");
             if ((device_status & 0x0008) != 0) {
                 //usb_device_ready_trans(ep, data_seq, buf_ptr, pkt_len);
-                printf_zqh("OUT trans timeout\n");
+                printf("OUT trans timeout\n");
                 while(1);
                 //continue;
                 //break;
@@ -1626,11 +1626,11 @@ uint32_t usb_device_tx_data_wait(uint32_t ep, uint32_t data_seq, uint8_t *buf_pt
         int_status = usb_device_read_int_status();
         device_status = *USB_CTRL_UTMI_DEVICE_STATUS(1, ep);
         if ((int_status & 0x20) != 0) {
-            printf_zqh("IN trans status stall_sent\n");
+            printf("IN trans status stall_sent\n");
             while(1);
         }
         else if ((int_status & 0x04) != 0) {
-            printf_zqh("IN trans reset event found\n");
+            printf("IN trans reset event found\n");
             while(1);
         }
         else if ((int_status & 0x01) != 0) {
@@ -1638,13 +1638,13 @@ uint32_t usb_device_tx_data_wait(uint32_t ep, uint32_t data_seq, uint8_t *buf_pt
             //*USB_CTRL_UTMI_DEVICE_STATUS(1, ep) = 0;
             if ((device_status & 0x0008) != 0) {
                 //usb_device_ready_trans(ep, data_seq, buf_ptr, pkt_len);
-                printf_zqh("IN trans timeout\n");
+                printf("IN trans timeout\n");
                 //while(1);
                 //continue;
                 break;
             }
             else {
-                //printf_zqh("IN trans done\n");
+                //printf("IN trans done\n");
                 break;
             }
         }
@@ -1670,7 +1670,7 @@ uint32_t usb_device_tx_data_wait(uint32_t ep, uint32_t data_seq, uint8_t *buf_pt
 
 
 void usb_device_initial_cfg() {
-    printf_zqh("USB_CTRL_VERSION(1) = %8x\n", *USB_CTRL_VERSION(1));
+    printf("USB_CTRL_VERSION(1) = %8x\n", *USB_CTRL_VERSION(1));
     *USB_CTRL_CONFIG(1) = (*USB_CTRL_CONFIG(1)) | (0 << 2);//device mode
     *USB_CTRL_CONFIG(1) = (*USB_CTRL_CONFIG(1)) & (0xfffffffd);//phy de-reset
     *USB_CTRL_DEVICE_INTERRUPT_EN(1) = 0;//disable int
@@ -1695,6 +1695,6 @@ void usb_device_initial_cfg() {
 
     //ep0 ready for recieve setup pkt
     usb_device_ready_trans(0, 0, NULL, 0);
-    printf_zqh("usb device reset event found\n");
+    printf("usb device reset event found\n");
 }
 #endif

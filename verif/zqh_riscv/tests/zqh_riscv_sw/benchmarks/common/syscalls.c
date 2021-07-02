@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <limits.h>
 #include <sys/signal.h>
+#include <math.h>
 #include "util.h"
 
 #define SYS_write 64
@@ -76,10 +77,65 @@ void abort()
   exit(128 + SIGABRT);
 }
 
-void __attribute__((weak)) printstr(const char* s)
+size_t strlen(const char *s)
 {
-  syscall(SYS_write, 1, (uintptr_t)s, strlen(s));
+  const char *p = s;
+  while (*p)
+    p++;
+  return p - s;
 }
+
+#undef putchar
+//zqh int putchar(int ch)
+//zqh {
+//zqh   static __thread char buf[64] __attribute__((aligned(64)));
+//zqh   static __thread int buflen = 0;
+//zqh 
+//zqh   buf[buflen++] = ch;
+//zqh 
+//zqh   if (ch == '\n' || buflen == sizeof(buf))
+//zqh   {
+//zqh     syscall(SYS_write, 1, (uintptr_t)buf, buflen);
+//zqh     buflen = 0;
+//zqh   }
+//zqh 
+//zqh   return 0;
+//zqh }
+
+//zqh
+#define UART_TX_PTR    ((volatile uint32_t *) (0x10013000 + 0x000))
+#define PRT_PTR(H) ((uint8_t *)((0x1f000000 | 0x00f0ff00) + (H << 16)))
+int putchar(int ch)
+{
+    //user uart
+    #if PRINT_USE_UART == 1
+        while(((*UART_TX_PTR) & 0x80000000) != 0);
+        *UART_TX_PTR = ch;
+    //use print_monitor
+    #else
+        *(PRT_PTR(0)) = ch;
+    #endif
+
+    return 0;
+}
+
+
+//zqh void printstr(const char* s)
+//zqh {
+//zqh   syscall(SYS_write, 1, (uintptr_t)s, strlen(s));
+//zqh }
+//
+//zqh
+void printstr(const char* s)
+{
+    int len;
+
+    len = strlen(s);
+    for (int i = 0; i < len; i++) {
+        putchar(*(s+i));
+    }
+}
+
 
 void __attribute__((weak)) thread_entry(int cid, int nc)
 {
@@ -125,22 +181,6 @@ void _init(int cid, int nc)
   exit(ret);
 }
 
-#undef putchar
-int __attribute__((weak)) putchar(int ch)
-{
-  static __thread char buf[64] __attribute__((aligned(64)));
-  static __thread int buflen = 0;
-
-  buf[buflen++] = ch;
-
-  if (ch == '\n' || buflen == sizeof(buf))
-  {
-    syscall(SYS_write, 1, (uintptr_t)buf, buflen);
-    buflen = 0;
-  }
-
-  return 0;
-}
 
 void printhex(uint64_t x)
 {
@@ -412,14 +452,6 @@ void* memset(void* dest, int byte, size_t len)
       *d++ = byte;
   }
   return dest;
-}
-
-size_t strlen(const char *s)
-{
-  const char *p = s;
-  while (*p)
-    p++;
-  return p - s;
 }
 
 size_t strnlen(const char *s, size_t n)

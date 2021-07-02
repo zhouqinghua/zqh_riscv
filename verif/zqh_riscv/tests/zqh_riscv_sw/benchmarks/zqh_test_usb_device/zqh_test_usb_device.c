@@ -12,6 +12,7 @@
 int main (int argc, char** argv)
 {
     zqh_common_csr_cfg();
+    setStats(1);
     //gpio hw iof enable
     *GPIO_IOF_EN(1) = *GPIO_IOF_EN(1) | 0xc0000000;
 
@@ -49,14 +50,14 @@ int main (int argc, char** argv)
         //scan device_int_status
         device_int_status = usb_device_read_int_status();
         if ((device_int_status & 0x20) != 0) {
-            printf_zqh("usb int status stall_sent\n");
+            printf("usb int status stall_sent\n");
             //delay_ms(100);
             //while(1);
             continue;
         }
         else if ((device_int_status & 0x04) != 0) {
-            printf_zqh("usb int status reset_event\n");
-            printf_zqh("usb device 2nd reset event found\n");
+            printf("usb int status reset_event\n");
+            printf("usb device 2nd reset event found\n");
             device_ctrl_transfer_stage = 0;
             usb_device_ready_trans(0, 0, NULL, 0);
             usb_device_ready_trans(1, 0, NULL, 0);
@@ -85,13 +86,13 @@ int main (int argc, char** argv)
 
             //check ep's status
             if ((device_ep_status & 0x0001) != 0) {
-                printf_zqh("device ep crc_error\n");
+                printf("device ep crc_error\n");
                 while(1);
             }
             else if ((device_ep_status & 0x0008) != 0) {
-                printf_zqh("device ep rx_time_out\n");
+                printf("device ep rx_time_out\n");
             }
-            printf_zqh("usb int status trans_done\n");
+            printf("usb int status trans_done\n");
 
 
             //0: setup, 1: bulk in, 2: bulk out
@@ -115,10 +116,10 @@ int main (int argc, char** argv)
                 if (device_ctrl_transfer_stage == 0) {
                     //usb_host_trans_data_seq = 1;
                     usb_device_trans_data_seq = 1;
-                    printf_zqh("setup trans found\n");
+                    printf("setup trans found\n");
                     //recieve setup cmd
                     pkt_len = usb_device_read_rx_data(0, &device_setup_pkt);
-                    printf_zqh("setup pkt_len = %0d\n", pkt_len);
+                    printf("setup pkt_len = %0d\n", pkt_len);
                     display_usb_setup_packet(&device_setup_pkt);
 
                     //read: device -> host
@@ -148,7 +149,7 @@ int main (int argc, char** argv)
 
                         if ((device_setup_pkt.wValue >> 8) == 1) {
                             usb_host_control_get_descriptor(&host_setup_pkt, usb_host_rx_buf);
-                            printf_zqh("get descriptor device\n");
+                            printf("get descriptor device\n");
                             usb_dcp_copy(&device_device_dcp, usb_host_rx_buf);
                             display_usb_device_dcescriptor(&device_device_dcp);
                             pkt_len = usb_host_rx_buf[0];
@@ -158,7 +159,7 @@ int main (int argc, char** argv)
                         }
                         else if ((device_setup_pkt.wValue >> 8) == 2) {
                             usb_host_control_get_descriptor(&host_setup_pkt, usb_host_rx_buf);
-                            printf_zqh("get descriptor configuration\n");
+                            printf("get descriptor configuration\n");
                             usb_dcp_copy(&device_cfg_dcp, usb_host_rx_buf);
                             display_usb_cfg_dcescriptor(&device_cfg_dcp);
                             pkt_len = usb_host_rx_buf[2] + (usb_host_rx_buf[3] * 256);
@@ -167,12 +168,12 @@ int main (int argc, char** argv)
                             }
                         }
                         else if ((device_setup_pkt.wValue >> 8) == 3) {
-                            printf_zqh("get descriptor string\n");
+                            printf("get descriptor string\n");
                             debug_cnt++;
                             //tmp pkt_len = usb_host_rx_buf[0];
-                            //tmp printf_zqh("string dcp len = %d\n", pkt_len);
-                            //tmp printf_zqh("string idx = %d\n", device_setup_pkt.wValue & 0x00ff);
-                            //tmp printf_zqh("stored dcp len = %d\n", host_str_dcp[device_setup_pkt.wValue & 0x00ff][0]);
+                            //tmp printf("string dcp len = %d\n", pkt_len);
+                            //tmp printf("string idx = %d\n", device_setup_pkt.wValue & 0x00ff);
+                            //tmp printf("stored dcp len = %d\n", host_str_dcp[device_setup_pkt.wValue & 0x00ff][0]);
                             //tmp if (device_setup_pkt.wLength < pkt_len) {
                             //tmp     pkt_len = device_setup_pkt.wLength;
                             //tmp }
@@ -187,24 +188,24 @@ int main (int argc, char** argv)
                         }
                         else if ((device_setup_pkt.wValue >> 8) == 6) {
                             usb_host_control_get_descriptor(&host_setup_pkt, usb_host_rx_buf);
-                            printf_zqh("get descriptor %0x\n", device_setup_pkt.wValue >> 8);
+                            printf("get descriptor %0x\n", device_setup_pkt.wValue >> 8);
                             pkt_len = usb_host_rx_buf[0];
                             if (device_setup_pkt.wLength < pkt_len) {
                                 pkt_len = device_setup_pkt.wLength;
                             }
                             pkt_len = device_setup_pkt.wLength;
                             //for (int i = 0; i < 64; i++) {
-                            //    printf_zqh("usb_host_rx_buf[%0d] = %x\n", i, usb_host_rx_buf[i]);
+                            //    printf("usb_host_rx_buf[%0d] = %x\n", i, usb_host_rx_buf[i]);
                             //}
                         }
                         else {
-                            printf_zqh("get descriptor unknown %0x\n", device_setup_pkt.wValue >> 8);
+                            printf("get descriptor unknown %0x\n", device_setup_pkt.wValue >> 8);
                             while(1);
                         }
                     }
                     else {
-                        printf_zqh("get unknown\n");
-                        printf_zqh("setup get trans forward to host. wLength = 0x%04d\n", device_setup_pkt.wLength);
+                        printf("get unknown\n");
+                        printf("setup get trans forward to host. wLength = 0x%04d\n", device_setup_pkt.wLength);
                         //forward to host port to get data
                         usb_host_tx_addr_cfg(device_addr, 0);
                         pkt_len = usb_host_control_get_descriptor(&host_setup_pkt, usb_host_rx_buf);
@@ -212,7 +213,7 @@ int main (int argc, char** argv)
                             pkt_len = device_setup_pkt.wLength;
                         }
                         for (int i = 0; i < pkt_len; i++) {
-                            printf_zqh("usb_host_rx_buf[%0d] = 0x%02x\n", i, usb_host_rx_buf[i]);
+                            printf("usb_host_rx_buf[%0d] = 0x%02x\n", i, usb_host_rx_buf[i]);
                         }
                     }
                     //return get data
@@ -241,19 +242,19 @@ int main (int argc, char** argv)
                     else {
                         if ((device_setup_pkt.bmRequestType == 0x00) && 
                             (device_setup_pkt.bRequest == USB_REQ_SET_CONFIGURATION)) {
-                            printf_zqh("set configuration\n");
+                            printf("set configuration\n");
                             usb_host_tx_addr_cfg(device_addr, 0);
                             usb_host_control_set_cfg(&host_setup_pkt);
                         }
                         else if ((device_setup_pkt.bmRequestType == 0x01) && 
                             (device_setup_pkt.bRequest == USB_REQ_SET_INTERFACE)) {
-                            printf_zqh("set interface\n");
+                            printf("set interface\n");
                             usb_host_tx_addr_cfg(device_addr, 0);
                             usb_host_control_set_itf(&host_setup_pkt);
                         }
                         else if (device_setup_pkt.bRequest == USB_REQ_CLEAR_FEATURE) {
                             uint32_t clean_ep;
-                            printf_zqh("clear feature\n");
+                            printf("clear feature\n");
                             clean_ep = device_setup_pkt.wIndex & 0x000f;
                             usb_host_tx_addr_cfg(device_addr, 0);
                             usb_host_control_clear_feature(&host_setup_pkt);
@@ -266,10 +267,10 @@ int main (int argc, char** argv)
                             //debug_more = 1;
                         }
                         else {
-                            printf_zqh("set unknown\n");
+                            printf("set unknown\n");
                             while(1);
                         }
-                        //tmp printf_zqh("setup set trans forward to host. wLength = 0x%04d\n", device_setup_pkt.wLength);
+                        //tmp printf("setup set trans forward to host. wLength = 0x%04d\n", device_setup_pkt.wLength);
                         //tmp usb_setup_pkt_copy(&host_setup_pkt, &device_setup_pkt);
                         //tmp //forward setup pkt to host port
                         //tmp usb_host_tx_addr_cfg(device_addr, 0);
@@ -287,17 +288,17 @@ int main (int argc, char** argv)
                 if (device_ctrl_transfer_stage == 4) {
                     //ready to recieve zero len OUT trans
                     usb_device_rx_data_wait(0);
-                    printf_zqh("zero len OUT trans pkt len = %0d\n", *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,0));
+                    printf("zero len OUT trans pkt len = %0d\n", *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,0));
                     device_ep_status = *USB_CTRL_UTMI_DEVICE_STATUS(1,0);
                     *USB_CTRL_UTMI_DEVICE_STATUS(1,0) = 0;
-                    printf_zqh("device_ep_status = %0x\n", device_ep_status);
+                    printf("device_ep_status = %0x\n", device_ep_status);
 
                     //timeout no need read out data
                     if ((device_ep_status & 0x0008) == 0) {
                         //read out host's zero len out trans data
                         usb_device_drop_rx_data(3, usb_device_rx_buf);
                     }
-                    printf_zqh("device control transfer read done\n");
+                    printf("device control transfer read done\n");
 
                     //ready to recieve next setup cmd
                     //usb_device_rx_data_ready(0);
@@ -312,20 +313,20 @@ int main (int argc, char** argv)
                     if ((device_setup_pkt.bmRequestType == 0x00) && 
                         (device_setup_pkt.bRequest == USB_REQ_SET_ADDRESS)) {
                         *USB_CTRL_UTMI_DEVICE_ADDR(1) = device_setup_pkt.wValue;
-                        printf_zqh("set address to 0x%02x\n", device_setup_pkt.wValue);
+                        printf("set address to 0x%02x\n", device_setup_pkt.wValue);
                     }
                     else if (device_setup_pkt.bRequest == USB_REQ_CLEAR_FEATURE) {
-                        printf_zqh("clear feature post: read out the left csw of previous stalled cbw\n");
+                        printf("clear feature post: read out the left csw of previous stalled cbw\n");
                         usb_host_tx_addr_cfg(device_addr, ep_in_addr);
                         pkt_len = usb_host_csw_recv(&usb_device_csw);
-                        printf_zqh("pkt_len = %0d\n", pkt_len);
+                        printf("pkt_len = %0d\n", pkt_len);
                         display_usb_csw(&usb_device_csw);
                         //return the csw to host
                         usb_device_tx_data_wait(ep_in_addr, usb_device_trans_data_seq, &usb_device_csw, pkt_len);
                         usb_device_trans_data_seq = (usb_device_trans_data_seq + 1) & 1;
                     }
 
-                    printf_zqh("device control transfer write done\n");
+                    printf("device control transfer write done\n");
 
                     //ready to recieve next setup cmd
                     //usb_device_rx_data_ready(0);
@@ -334,26 +335,26 @@ int main (int argc, char** argv)
             }
             //bulk out cbw cmd
             else if (*USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,ep_out_addr) != 0) {
-//                printf_zqh("bulk out trans cbw found\n");
+//                printf("bulk out trans cbw found\n");
                 //for (int i = 0; i < 4; i++) {
-                //    printf_zqh("ep%0d USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT = %x\n", i, *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,i));
-                //    printf_zqh("ep%0d USB_CTRL_UTMI_DEVICE_CONTROL = %x\n", i, *USB_CTRL_UTMI_DEVICE_CONTROL(1,i));
+                //    printf("ep%0d USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT = %x\n", i, *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,i));
+                //    printf("ep%0d USB_CTRL_UTMI_DEVICE_CONTROL = %x\n", i, *USB_CTRL_UTMI_DEVICE_CONTROL(1,i));
                 //}
                 pkt_len = usb_device_read_rx_data(ep_out_addr, &usb_device_cbw);
-//                printf_zqh("bulk pkt_len = %0d\n", pkt_len);
+//                printf("bulk pkt_len = %0d\n", pkt_len);
                 display_usb_cbw(&usb_device_cbw);
 //                display_usb_cbw_cbwcb(&usb_device_cbw);
 
                 //read: device -> host
                 if ((usb_device_cbw.bmCBWFlag & 0x80) != 0) {
-                    printf_zqh("bulk cbw read\n");
+                    printf("bulk cbw read\n");
 
                     //forward cbw requset to host port
-//                    printf_zqh("bulk cbw read req forward to host\n");
+//                    printf("bulk cbw read req forward to host\n");
                     usb_host_tx_addr_cfg(device_addr, ep_out_addr);
                     usb_host_cbw_send(&usb_device_cbw, 0);
                     if (usb_host_trans_stalled) {
-                        printf_zqh("usb_host_cbw_send has stall\n");
+                        printf("usb_host_cbw_send has stall\n");
                     }
 
 
@@ -369,17 +370,17 @@ int main (int argc, char** argv)
                     for (int i = 0; i < read_cnt; i++) {
                         pkt_len = usb_host_cbw_data_recv(usb_host_rx_buf);
                         //if (usb_host_trans_stalled) {
-                        //    printf_zqh("usb_host_cbw_data_recv has stall\n");
+                        //    printf("usb_host_cbw_data_recv has stall\n");
                         //    break;
                         //}
 
-                        //printf_zqh("round %0d's pkt_len = %0d\n", i, pkt_len);
-//                        printf_zqh("round %0d\n", i);
+                        //printf("round %0d's pkt_len = %0d\n", i, pkt_len);
+//                        printf("round %0d\n", i);
                         //for (int j = 0; j < pkt_len; j++) {
-                        //    printf_zqh("pkt[%0d] = 0x%02x\n", j, usb_host_rx_buf[j]);
+                        //    printf("pkt[%0d] = 0x%02x\n", j, usb_host_rx_buf[j]);
                         //}
                         //return cbw data
-                        //printf_zqh("return cbw data to host\n");
+                        //printf("return cbw data to host\n");
                         usb_device_tx_data_wait(ep_in_addr, usb_device_trans_data_seq, usb_host_rx_buf, pkt_len);
                         usb_device_trans_data_seq = (usb_device_trans_data_seq + 1) & 1;
                     }
@@ -387,14 +388,14 @@ int main (int argc, char** argv)
 
                     //check if host port forward trans has stall or not
                     if (usb_host_trans_stalled) {
-                        printf_zqh("bulk cbw data read has stall\n");
+                        printf("bulk cbw data read has stall\n");
                         //send stall to next trans
                         *USB_CTRL_UTMI_DEVICE_CONTROL(1,ep_in_addr) = *USB_CTRL_UTMI_DEVICE_CONTROL(1,ep_in_addr) | 0x10;
                         *USB_CTRL_UTMI_DEVICE_CONTROL(1,ep_out_addr) = *USB_CTRL_UTMI_DEVICE_CONTROL(1,ep_out_addr) | 0x10;
                         usb_device_wait_stall_sent(ep_in_addr);
-                        printf_zqh("stall_sent found 1\n");
+                        printf("stall_sent found 1\n");
                         //usb_device_wait_stall_sent(ep_in_addr);
-                        //printf_zqh("stall_sent found 2\n");
+                        //printf("stall_sent found 2\n");
 
                         //delay_ms(100);
                     }
@@ -404,12 +405,12 @@ int main (int argc, char** argv)
                         pkt_len = usb_host_csw_recv(&usb_device_csw);
                         display_usb_csw(&usb_device_csw);
                         if (usb_host_trans_stalled) {
-                            printf_zqh("usb_host_csw_recv has stall\n");
+                            printf("usb_host_csw_recv has stall\n");
                         }
 
                         //return csw
-                        printf_zqh("return csw to host\n");
-                        printf_zqh("pkt_len = %0d\n", pkt_len);
+                        printf("return csw to host\n");
+                        printf("pkt_len = %0d\n", pkt_len);
                         usb_device_tx_data_wait(ep_in_addr, usb_device_trans_data_seq, &usb_device_csw, pkt_len);
                         usb_device_trans_data_seq = (usb_device_trans_data_seq + 1) & 1;
                     }
@@ -421,12 +422,12 @@ int main (int argc, char** argv)
                 }
                 //out: host -> device
                 else {
-                    printf_zqh("bulk cbw write\n");
+                    printf("bulk cbw write\n");
                     //forward cbw requset to host port
-//                    printf_zqh("bulk cbw write req forward to host\n");
-                    //printf_zqh("debug_cnt = %0d\n", debug_cnt);
+//                    printf("bulk cbw write req forward to host\n");
+                    //printf("debug_cnt = %0d\n", debug_cnt);
                     //if (debug_cnt == 10) {
-                    //    printf_zqh("usb_host_trans_data_seq = %0d\n", usb_host_trans_data_seq);
+                    //    printf("usb_host_trans_data_seq = %0d\n", usb_host_trans_data_seq);
                     //    //usb_host_trans_data_seq = (usb_host_trans_data_seq + 1) & 1;
                     //    //debug_more = 1;
                     //}
@@ -435,27 +436,27 @@ int main (int argc, char** argv)
                     usb_host_tx_addr_cfg(device_addr, ep_out_addr);
                     usb_host_cbw_send(&usb_device_cbw, 0);
                     if (usb_host_trans_stalled) {
-                        printf_zqh("usb_host_cbw_send has stall\n");
+                        printf("usb_host_cbw_send has stall\n");
                     }
 
 
                     //write cbw's data to meadia
                     //if (usb_device_cbw.dCBWDataTransferLength != 0) {
-                    //    printf_zqh("unknown cbw write:\n");
+                    //    printf("unknown cbw write:\n");
                     //    display_usb_cbw_cbwcb(&usb_device_cbw);
                     //    while(1);
                     //}
                     uint32_t write_cnt;
                     if (usb_device_cbw.CBWCB[0] == USB_CBS_SCSI_OPCODE_TEST_UNIT_READY) {
-                        printf_zqh("TEST_UNIT_READY\n");
+                        printf("TEST_UNIT_READY\n");
                         write_cnt = 0;
                     }
                     else if (usb_device_cbw.CBWCB[0] == USB_CBS_SCSI_OPCODE_WRITE_10) {
-                        printf_zqh("WRITE_10\n");
+                        printf("WRITE_10\n");
                         write_cnt = usb_device_cbw.dCBWDataTransferLength/ep_out_mps;
                     }
                     else {
-                        printf_zqh("write other\n");
+                        printf("write other\n");
                         if (usb_device_cbw.dCBWDataTransferLength != 0) {
                             write_cnt = 1;
                         }
@@ -467,14 +468,14 @@ int main (int argc, char** argv)
                         //read data from host
                         usb_device_rx_data_wait(ep_out_addr);
                         pkt_len = usb_device_read_rx_data(ep_out_addr, usb_device_rx_buf);
-                        //printf_zqh("pkt_len = %0d\n", pkt_len);
+                        //printf("pkt_len = %0d\n", pkt_len);
 
                         //write data to host port
                         usb_host_tx_addr_cfg(device_addr, ep_out_addr);
                         usb_host_trans_bulk_out(usb_device_rx_buf, pkt_len, 0);
                     }
                     if (usb_host_trans_stalled) {
-                        printf_zqh("usb_host_trans_bulk_out has stall\n");
+                        printf("usb_host_trans_bulk_out has stall\n");
                     }
 
 
@@ -484,23 +485,23 @@ int main (int argc, char** argv)
                     pkt_len = usb_host_csw_recv(&usb_device_csw);
                     display_usb_csw(&usb_device_csw);
                     if (usb_host_trans_stalled) {
-                        printf_zqh("usb_host_csw_recv has stall\n");
+                        printf("usb_host_csw_recv has stall\n");
                     }
 
                     //return csw
-                    printf_zqh("return csw to host\n");
-                    printf_zqh("pkt_len = %0d\n", pkt_len);
+                    printf("return csw to host\n");
+                    printf("pkt_len = %0d\n", pkt_len);
                     usb_device_tx_data_wait(ep_in_addr, usb_device_trans_data_seq, &usb_device_csw, pkt_len);
                     usb_device_trans_data_seq = (usb_device_trans_data_seq + 1) & 1;
 
                     //retrun data again
                     //if (debug_cnt == 10) {
-                    //    printf_zqh("return data again to host\n");
+                    //    printf("return data again to host\n");
                     //    //usb_host_tx_addr_cfg(device_addr, ep_in_addr);
                     //    //pkt_len = usb_host_csw_recv(&usb_device_csw);
                     //    //display_usb_csw(&usb_device_csw);
 
-                    //    printf_zqh("pkt_len = %0d\n", pkt_len);
+                    //    printf("pkt_len = %0d\n", pkt_len);
                     //    usb_device_tx_data_wait(ep_in_addr, usb_device_trans_data_seq, &usb_device_csw, pkt_len);
                     //    usb_device_trans_data_seq = (usb_device_trans_data_seq + 1) & 1;
                     //    debug_cnt = 0;
@@ -511,37 +512,37 @@ int main (int argc, char** argv)
                 }
             }
             else {
-                //tmp printf_zqh("ep_in fifo size = %0d\n", *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,ep_in_addr));
-                //tmp printf_zqh("ep_out fifo size = %0d\n", *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,ep_out_addr));
-                //tmp printf_zqh("ep0 fifo size = %0d\n", *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,0));
-                //tmp printf_zqh("ep_in status = %0x\n", *USB_CTRL_UTMI_DEVICE_STATUS(1,ep_in_addr));
-                //tmp printf_zqh("ep_out status = %0x\n", *USB_CTRL_UTMI_DEVICE_STATUS(1,ep_out_addr));
-                //tmp printf_zqh("ep0 status = %0x\n", *USB_CTRL_UTMI_DEVICE_STATUS(1,0));
+                //tmp printf("ep_in fifo size = %0d\n", *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,ep_in_addr));
+                //tmp printf("ep_out fifo size = %0d\n", *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,ep_out_addr));
+                //tmp printf("ep0 fifo size = %0d\n", *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,0));
+                //tmp printf("ep_in status = %0x\n", *USB_CTRL_UTMI_DEVICE_STATUS(1,ep_in_addr));
+                //tmp printf("ep_out status = %0x\n", *USB_CTRL_UTMI_DEVICE_STATUS(1,ep_out_addr));
+                //tmp printf("ep0 status = %0x\n", *USB_CTRL_UTMI_DEVICE_STATUS(1,0));
 
                 //tmp //clean for next time
                 //tmp *USB_CTRL_UTMI_DEVICE_STATUS(1,ep_in_addr) = 0;
                 //tmp *USB_CTRL_UTMI_DEVICE_STATUS(1,ep_out_addr) = 0;
                 //tmp *USB_CTRL_UTMI_DEVICE_STATUS(1,0) = 0;
 
-                printf_zqh("illegal trans\n");
+                printf("illegal trans\n");
                 //while(1);
             }
         }
         //nak_sent
         else if ((device_int_status & 0x10) != 0) {
             if (debug_more) {
-                printf_zqh("usb int status nak_sent\n");
-                printf_zqh("device_int_status = %x\n", device_int_status);
-                printf_zqh("new device int status = %x\n", *USB_CTRL_DEVICE_INTERRUPT_STATUS(1));
+                printf("usb int status nak_sent\n");
+                printf("device_int_status = %x\n", device_int_status);
+                printf("new device int status = %x\n", *USB_CTRL_DEVICE_INTERRUPT_STATUS(1));
 
                 //usb_device_ready_trans(1, 1, NULL, 0);
                 usb_device_ready_trans(1, 1, usb_device_rx_buf, 0);
 
                 //for (int i = 0; i < 4; i++) {
-                //    printf_zqh("USB_CTRL_UTMI_DEVICE_CONTROL(1,%0d) = %x\n", i, *USB_CTRL_UTMI_DEVICE_CONTROL(1,i));
-                //    printf_zqh("USB_CTRL_UTMI_DEVICE_STATUS(1,%0d) = %x\n", i, *USB_CTRL_UTMI_DEVICE_STATUS(1,i));
-                //    printf_zqh("USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,%0d) = %x\n", i, *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,i));
-                //    printf_zqh("USB_CTRL_DEVICE_TX_FIFO_DATA_COUNT(1,%0d) = %x\n", i, *USB_CTRL_DEVICE_TX_FIFO_DATA_COUNT(1,i));
+                //    printf("USB_CTRL_UTMI_DEVICE_CONTROL(1,%0d) = %x\n", i, *USB_CTRL_UTMI_DEVICE_CONTROL(1,i));
+                //    printf("USB_CTRL_UTMI_DEVICE_STATUS(1,%0d) = %x\n", i, *USB_CTRL_UTMI_DEVICE_STATUS(1,i));
+                //    printf("USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,%0d) = %x\n", i, *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,i));
+                //    printf("USB_CTRL_DEVICE_TX_FIFO_DATA_COUNT(1,%0d) = %x\n", i, *USB_CTRL_DEVICE_TX_FIFO_DATA_COUNT(1,i));
                 //}
                 ////clean regs to see which ep is modified in next print
                 //for (int i = 0; i < 4; i++) {
@@ -559,6 +560,6 @@ int main (int argc, char** argv)
         }
     }
 
-    //post_stop(0x01);
+    setStats(0);
     return 0;
 }

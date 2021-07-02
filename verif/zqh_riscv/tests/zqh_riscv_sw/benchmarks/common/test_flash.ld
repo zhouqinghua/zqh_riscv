@@ -41,6 +41,9 @@ SECTIONS
   /* data segment */
   .data : { *(.data) }
 
+  . = ALIGN(0x1000);
+  .tohost : { *(.tohost) }
+
   .sdata : {
     __global_pointer$ = . + 0x800;
     *(.srodata.cst16) *(.srodata.cst8) *(.srodata.cst4) *(.srodata.cst2) *(.srodata*)
@@ -53,9 +56,6 @@ SECTIONS
     *(.scommon)
   }
   .bss : { *(.bss) }
-
-  . = ALIGN(0x1000);
-  .tohost : { *(.tohost) }
 
   /* thread-local data segment */
   .tdata :

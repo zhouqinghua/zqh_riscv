@@ -409,7 +409,6 @@ int ddr_init() {
     while(1) {
         ddr_mc_reg = *DDR_MC_CTRL_CFG_REG(104);
         if (((*DDR_MC_CTRL_CFG_REG(104)) & 0x0100) != 0) {
-            //printf_zqh("cke_status assert\n");
             delay_sw(300);//wait txpr ddr cycle
             simple_print_str("ddr_mc cke_status done\n");
             #ifndef IMP_MODE_SIM
@@ -432,7 +431,6 @@ int ddr_init() {
     //wait mrs done
     while(1) {
         if (((*DDR_MC_CTRL_CFG_REG(49)) & 0x00020000) != 0) {
-            //printf_zqh("int_status mr write completed\n");
             simple_print_str("ddr_mc mrs done\n");
             #ifndef IMP_MODE_SIM
             delay_ms(1000);
@@ -444,7 +442,6 @@ int ddr_init() {
    simple_print_str("ddr_init step 3\n");
     while(1) {
         if ((*DDR_MC_CTRL_CFG_REG(49) & 0x10) != 0) {
-            //printf_zqh("int_status mc init completed\n");
             simple_print_str("ddr_mc init completed\n");
             #ifndef IMP_MODE_SIM
             delay_ms(1000);
@@ -457,14 +454,6 @@ int ddr_init() {
     //enable ap
     *DDR_MC_AP_CFG_REG(0) = 0xc0000000;//
     *DDR_MC_AP_CFG_REG(1) = 0x80000000;//enable
-
-
-    //printf_zqh("DDR_MC_PHY_DS_CFG_REG(%0d) = %x\n", 0, *DDR_MC_PHY_DS_CFG_REG(0));
-    //printf_zqh("DDR_MC_PHY_DS_CFG_REG(%0d) = %x\n", 1, *DDR_MC_PHY_DS_CFG_REG(1));
-    //printf_zqh("DDR_MC_PHY_DS_CFG_REG(%0d) = %x\n", 2, *DDR_MC_PHY_DS_CFG_REG(2));
-    //printf_zqh("DDR_MC_PHY_DS_CFG_REG(%0d) = %x\n", 3, *DDR_MC_PHY_DS_CFG_REG(3));
-    //printf_zqh("DDR_MC_PHY_DS_CFG_REG(%0d) = %x\n", 4, *DDR_MC_PHY_DS_CFG_REG(4));
-
 }
 
 
@@ -485,7 +474,6 @@ void uart0_init() {
     //gpio hw iof enable
     *GPIO_IOF_EN(0) = *GPIO_IOF_EN(0) | 0x3;
 
-    //printf maybe use uart, need config it first
     *UART0_TXCTRL = 1;//enable tx, nstop = 0(1 stop bit)
     //*UART0_TXCTRL = 0;//disable tx
     //*UART0_TXCTRL = 3;//enable tx, nstop = 1(2 stop bit)
@@ -500,13 +488,6 @@ void uart0_init() {
     *UART0_IE     = 0;
     //*UART0_DIV    = 2; //speedup simulation, use fastest speed
     *UART0_DIV    = 53; //57600 baud ratio @ 50MHz clock(FPGA)
-    //printf_zqh("UART0_TXCTRL %x\n", *UART0_TXCTRL);
-    //printf_zqh("UART0_TXDATA %x\n", *UART0_TXDATA);
-    //printf_zqh("UART0_RXCTRL %x\n", *UART0_RXCTRL);
-    //printf_zqh("UART0_RXCTRL %x\n", *UART0_RXDATA);
-    //printf_zqh("UART0_IE     %x\n", *UART0_IE    );
-    //printf_zqh("UART0_DIV    %x\n", *UART0_DIV   );
- 
 }
 
 void hw_init() {

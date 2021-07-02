@@ -45,10 +45,12 @@ int main (int argc, char** argv)
 
     zqh_common_csr_cfg();
 
+    setStats(1);
+
     //
     //float test
     //{{{
-    printf_zqh("float test start\n");
+    printf("float test start\n");
     double da, db;
     float fa, fb;
     a = 0;
@@ -67,40 +69,40 @@ int main (int argc, char** argv)
         da = da + 2.971;
         db = db - 2.971;
 
-        //printf_zqh("read_csr %x\n",read_csr(mstatus));
+        //printf("read_csr %x\n",read_csr(mstatus));
 
-        printf_zqh("#####zhou do %d times!#####\n",i);
-        printf_zqh("mul  a(%d) b(%d), r(%d)\n",a,b,a*b);
+        printf("#####zhou do %d times!#####\n",i);
+        printf("mul  a(%d) b(%d), r(%d)\n",a,b,a*b);
 
-        printf_zqh("fmul fa(%s)\n",f2str(fa, str_buf));
-        printf_zqh("fmul fb(%s)\n",f2str(fb, str_buf));
-        printf_zqh("fmul r(%s)\n",f2str(fa*fb, str_buf));
+        printf("fmul fa(%s)\n",f2str(fa, str_buf));
+        printf("fmul fb(%s)\n",f2str(fb, str_buf));
+        printf("fmul r(%s)\n",f2str(fa*fb, str_buf));
 
-        printf_zqh("fmul da(%s)\n",f2str(da, str_buf));
-        printf_zqh("fmul db(%s)\n",f2str(db, str_buf));
-        printf_zqh("fmul r(%s)\n",f2str(da*db, str_buf));
+        printf("fmul da(%s)\n",f2str(da, str_buf));
+        printf("fmul db(%s)\n",f2str(db, str_buf));
+        printf("fmul r(%s)\n",f2str(da*db, str_buf));
 
-        printf_zqh("div  a(%d) b(%d), r(%d)\n",a*100,b,a*100/b);
+        printf("div  a(%d) b(%d), r(%d)\n",a*100,b,a*100/b);
 
-        printf_zqh("fdiv fa(%s)\n",f2str(fa*100.00, str_buf));
-        printf_zqh("fdiv fb(%s)\n",f2str(fb, str_buf));
-        printf_zqh("fdiv r(%s)\n",f2str(fa*100.00/fb, str_buf));
+        printf("fdiv fa(%s)\n",f2str(fa*100.00, str_buf));
+        printf("fdiv fb(%s)\n",f2str(fb, str_buf));
+        printf("fdiv r(%s)\n",f2str(fa*100.00/fb, str_buf));
 
-        printf_zqh("fdiv da(%s)\n",f2str(da*100.00, str_buf));
-        printf_zqh("fdiv db(%s)\n",f2str(db, str_buf));
-        printf_zqh("fdiv r(%s)\n",f2str(da*100.00/db, str_buf));
+        printf("fdiv da(%s)\n",f2str(da*100.00, str_buf));
+        printf("fdiv db(%s)\n",f2str(db, str_buf));
+        printf("fdiv r(%s)\n",f2str(da*100.00/db, str_buf));
 
-        printf_zqh("divSqrt fa(%s)\n",f2str(fa*200.00, str_buf));
-        printf_zqh("divSqrt fb(%s)\n",f2str(fb, str_buf));
-        printf_zqh("divSqrt r(%s)\n",f2str(sqrt(fa*200.00), str_buf));
+        printf("divSqrt fa(%s)\n",f2str(fa*200.00, str_buf));
+        printf("divSqrt fb(%s)\n",f2str(fb, str_buf));
+        printf("divSqrt r(%s)\n",f2str(sqrt(fa*200.00), str_buf));
 
-        printf_zqh("divSqrt da(%s)\n",f2str(da*200.00, str_buf));
-        printf_zqh("divSqrt db(%s)\n",f2str(db, str_buf));
-        printf_zqh("divSqrt r(%s)\n",f2str(sqrt(da*200.00), str_buf));
+        printf("divSqrt da(%s)\n",f2str(da*200.00, str_buf));
+        printf("divSqrt db(%s)\n",f2str(db, str_buf));
+        printf("divSqrt r(%s)\n",f2str(sqrt(da*200.00), str_buf));
 
         //*uc_addr = i;
     }
-    printf_zqh("float test end\n");
+    printf("float test end\n");
     //}}}
 
 //    //datatimpad access test
@@ -111,16 +113,16 @@ int main (int argc, char** argv)
 //        tim_wdata = i;
 //        //*(dtim_addr + i) = tim_wdata;
 //        *(dtim_addr) = tim_wdata;
-//        printf_zqh("tim[%x] write %x\n",dtim_addr, tim_wdata);
+//        printf("tim[%x] write %x\n",dtim_addr, tim_wdata);
 //        tim_rdata = *(dtim_addr);
-//        //printf_zqh("tim[%x] write %x\n",dtim_addr + i, tim_wdata);
-//        printf_zqh("tim[%x] read  %x\n",dtim_addr, tim_rdata);
+//        //printf("tim[%x] write %x\n",dtim_addr + i, tim_wdata);
+//        printf("tim[%x] read  %x\n",dtim_addr, tim_rdata);
 //    }
 
 //    for (int i = 0; i < 10; i++) {
-//        printf_zqh("tim[%x] before add %x\n", i, *dtim_addr);
+//        printf("tim[%x] before add %x\n", i, *dtim_addr);
 //        *dtim_addr = *dtim_addr + 1;
-//        printf_zqh("tim[%x] after  add %x\n", i, *dtim_addr);
+//        printf("tim[%x] after  add %x\n", i, *dtim_addr);
 //    }
  
     //while(hart_id != 0);
@@ -130,18 +132,18 @@ int main (int argc, char** argv)
     cnt1 = 3;
 //    if (hart_id == 0) {
         //for (int i = 0; i < cnt0; i++) {
-        //    printf_zqh("tim[%x] before add %x\n", i, *dtim_addr);
+        //    printf("tim[%x] before add %x\n", i, *dtim_addr);
         //    *dtim_addr = *dtim_addr + 1;
-        //    printf_zqh("tim[%x] after  add %x\n", i, *dtim_addr);
+        //    printf("tim[%x] after  add %x\n", i, *dtim_addr);
         //}
-        //printf_zqh("tim last value %d\n", *dtim_addr);
+        //printf("tim last value %d\n", *dtim_addr);
         //if (*dtim_addr != cnt0) {
         //    stop_code = 1;
         //}
 
         for (int i = 0; i < cnt0; i++) {
             *uc_addr = i;
-            //printf_zqh("cnt[%x] %x\n", i, i);
+            //printf("cnt[%x] %x\n", i, i);
         }
 
         //*CLINT_MTIMECMP = 0x8; // set timercmp
@@ -172,7 +174,7 @@ int main (int argc, char** argv)
             //else {
             //    sp_t_id = 0;
             //}
-            //printf_zqh("tim[%x] %x\n", i, *dtim_addr);
+            //printf("tim[%x] %x\n", i, *dtim_addr);
 
             //*dtim_addr = i;
             //*(dtim_addr + ((i * 64) >> 3)) = i;
@@ -182,7 +184,7 @@ int main (int argc, char** argv)
             //cas64_get_lock(lock_ptr);
             //swap64_get_lock(lock_ptr);
             swap32_get_lock(lock_ptr);
-            printf_zqh("get lock\n");
+            printf("get lock\n");
             (*c_addr)++;
             //(*axi4_c_addr)++;
             //tmp (*(itim_addr + itim_offset))++;
@@ -193,22 +195,22 @@ int main (int argc, char** argv)
             //ret_v = amo64_swap(CLINT_MTIMECMP(hart_id), 0x0000000000000001 << i);
             //ret_v = amo64_swap(c_addr, 0x0000000000000001 << i);
             //ret_v = amo64_swap(dtim_addr , 0x0000000000000001 << i);
-            //printf_zqh("ret_v %x\n", ret_v);
-            //printf_zqh("c_addr[%d] %x\n", i, *CLINT_MTIMECMP(hart_id));
-            printf_zqh("c_addr[%d] %x\n", i, *c_addr);
-            //printf_zqh("axi4_c_addr[%d] %x\n", i, *axi4_c_addr);
-            //tmp printf_zqh("itim_offset[%d] %x\n", i, *(itim_addr + itim_offset));
-            //tmp printf_zqh("dtim_offset[%d] %x\n", i, *(dtim_addr + dtim_offset));
-            //printf_zqh("itim_io_offset[%d] %x\n", i, *(ITIM_IO_ADDR(hart_id, itim_io_offset)));
-            //printf_zqh("dtim_io_offset[%d] %x\n", i, *(DTIM_IO_ADDR(hart_id, dtim_io_offset)));
-            //printf_zqh("itim_offset * c_addr[%d] %x\n", i, *(ITIM_ADDR(itim_offset)) * *c_addr);
-            //printf_zqh("dtim_offset * c_addr[%d] %x\n", i, *(DTIM_ADDR(dtim_offset)) * *c_addr);
-            //printf_zqh("itim_offset * axi4_c_addr[%d] %x\n", i, *(ITIM_ADDR(itim_offset)) * *axi4_c_addr);
-            //printf_zqh("dtim_offset * axi4_c_addr[%d] %x\n", i, *(DTIM_ADDR(dtim_offset)) * *axi4_c_addr);
-            //printf_zqh("float[%d] %s\n", i, f2str(*dtim_addr + 23.12345678, str_buf));
-            //printf_zqh("c_addr[%d] %x\n", i, *dtim_addr);
-            //printf_zqh("c_addr[%d] %x\n", i, *c_addr);
-            //printf_zqh("put lock\n");
+            //printf("ret_v %x\n", ret_v);
+            //printf("c_addr[%d] %x\n", i, *CLINT_MTIMECMP(hart_id));
+            printf("c_addr[%d] %x\n", i, *c_addr);
+            //printf("axi4_c_addr[%d] %x\n", i, *axi4_c_addr);
+            //tmp printf("itim_offset[%d] %x\n", i, *(itim_addr + itim_offset));
+            //tmp printf("dtim_offset[%d] %x\n", i, *(dtim_addr + dtim_offset));
+            //printf("itim_io_offset[%d] %x\n", i, *(ITIM_IO_ADDR(hart_id, itim_io_offset)));
+            //printf("dtim_io_offset[%d] %x\n", i, *(DTIM_IO_ADDR(hart_id, dtim_io_offset)));
+            //printf("itim_offset * c_addr[%d] %x\n", i, *(ITIM_ADDR(itim_offset)) * *c_addr);
+            //printf("dtim_offset * c_addr[%d] %x\n", i, *(DTIM_ADDR(dtim_offset)) * *c_addr);
+            //printf("itim_offset * axi4_c_addr[%d] %x\n", i, *(ITIM_ADDR(itim_offset)) * *axi4_c_addr);
+            //printf("dtim_offset * axi4_c_addr[%d] %x\n", i, *(DTIM_ADDR(dtim_offset)) * *axi4_c_addr);
+            //printf("float[%d] %s\n", i, f2str(*dtim_addr + 23.12345678, str_buf));
+            //printf("c_addr[%d] %x\n", i, *dtim_addr);
+            //printf("c_addr[%d] %x\n", i, *c_addr);
+            //printf("put lock\n");
             //while(cas(lock_ptr, 1, 0));
             //cas64_put_lock(lock_ptr);
             //swap64_put_lock(lock_ptr);
@@ -221,10 +223,10 @@ int main (int argc, char** argv)
             delay_zqh(20);
             //soft_scan_eip(PLIC_CLAIM_COMPLETE_M(hart_id);
             //soft_scan_eip(PLIC_CLAIM_COMPLETE_S(hart_id);
-            //printf_zqh("dtim_addr[%x] %x\n", i, *(dtim_addr + ((i * 64) >> 3)));
-            //printf_zqh("c_addr[%x] %x\n", i, *(c_addr + hart_id * 0x1000 + i * 64));
-            //printf_zqh("dtim_io_addr[%x] %x\n", i, *(dtim_io_addr + (0x00100000 >> 3) * hart_id));
-            //printf_zqh("c_addr[%x] %x\n", i, *c_addr);
+            //printf("dtim_addr[%x] %x\n", i, *(dtim_addr + ((i * 64) >> 3)));
+            //printf("c_addr[%x] %x\n", i, *(c_addr + hart_id * 0x1000 + i * 64));
+            //printf("dtim_io_addr[%x] %x\n", i, *(dtim_io_addr + (0x00100000 >> 3) * hart_id));
+            //printf("c_addr[%x] %x\n", i, *c_addr);
 
 //tmp            //*CLINT_MSIP = i;
 //tmp            *PLIC_PRIORITY         = i+0;
@@ -236,23 +238,23 @@ int main (int argc, char** argv)
 //tmp            *PLIC_THRESHOLD_S      = i+6;
 //tmp            *PLIC_CLAIM_COMPLETE_M = i+7;
 //tmp            *PLIC_CLAIM_COMPLETE_S = i+8;
-//tmp            printf_zqh("PLIC_PRIORITY         %x\n", *PLIC_PRIORITY);
-//tmp            printf_zqh("PLIC_PRIORITY + 1     %x\n", *(PLIC_PRIORITY + 1));
-//tmp            printf_zqh("PLIC_PENDING          %x\n", *PLIC_PENDING);
-//tmp            printf_zqh("PLIC_ENABLE_M         %x\n", *PLIC_ENABLE_M        );
-//tmp            printf_zqh("PLIC_ENABLE_S         %x\n", *PLIC_ENABLE_S        );
-//tmp            printf_zqh("PLIC_THRESHOLD_M      %x\n", *PLIC_THRESHOLD_M     );
-//tmp            printf_zqh("PLIC_THRESHOLD_S      %x\n", *PLIC_THRESHOLD_S     );
-//tmp            printf_zqh("PLIC_CLAIM_COMPLETE_M %x\n", *PLIC_CLAIM_COMPLETE_M);
-//tmp            printf_zqh("PLIC_CLAIM_COMPLETE_S %x\n", *PLIC_CLAIM_COMPLETE_S);
+//tmp            printf("PLIC_PRIORITY         %x\n", *PLIC_PRIORITY);
+//tmp            printf("PLIC_PRIORITY + 1     %x\n", *(PLIC_PRIORITY + 1));
+//tmp            printf("PLIC_PENDING          %x\n", *PLIC_PENDING);
+//tmp            printf("PLIC_ENABLE_M         %x\n", *PLIC_ENABLE_M        );
+//tmp            printf("PLIC_ENABLE_S         %x\n", *PLIC_ENABLE_S        );
+//tmp            printf("PLIC_THRESHOLD_M      %x\n", *PLIC_THRESHOLD_M     );
+//tmp            printf("PLIC_THRESHOLD_S      %x\n", *PLIC_THRESHOLD_S     );
+//tmp            printf("PLIC_CLAIM_COMPLETE_M %x\n", *PLIC_CLAIM_COMPLETE_M);
+//tmp            printf("PLIC_CLAIM_COMPLETE_S %x\n", *PLIC_CLAIM_COMPLETE_S);
 
         }
         delay_zqh(200);
-        //printf_zqh("c_addr[%x] %x\n", cnt0, *c_addr);
+        //printf("c_addr[%x] %x\n", cnt0, *c_addr);
 //    }
 //    else {
 //        //for (int i = 0; i < cnt1; i++) {
-//        //    printf_zqh("uc_addr[%x] before add %x\n", i, *uc_addr);
+//        //    printf("uc_addr[%x] before add %x\n", i, *uc_addr);
 //        //    *uc_addr = *uc_addr + 1;
 //
 //        //    //*uc_addr = 0;
@@ -264,14 +266,14 @@ int main (int argc, char** argv)
 //        //    //*uc_addr = 6;
 //        //    //*uc_addr = 7;
 //        //    delay_zqh(100);
-//        //    //printf_zqh("uc_addr[%x] after  add %x\n", i, *uc_addr);
+//        //    //printf("uc_addr[%x] after  add %x\n", i, *uc_addr);
 //        //}
 //        for (int i = 0; i < cnt1; i++) {
 //            *uc_addr = cnt1;
-//            printf_zqh("uc_addr[%x] %x\n", i, *uc_addr);
+//            printf("uc_addr[%x] %x\n", i, *uc_addr);
 //            delay_zqh(100);
 //        }
-//        printf_zqh("uc_addr last value %d\n", *uc_addr);
+//        printf("uc_addr last value %d\n", *uc_addr);
 //        //if (*uc_addr != cnt1) {
 //        //    stop_code = 1;
 //        //}
@@ -288,6 +290,6 @@ int main (int argc, char** argv)
 //        *(dtim_addr) = 0;
 //    }
 
-    //post_stop(0x01);
+    setStats(0);
     return 0;
 }

@@ -12,6 +12,7 @@
 int main (int argc, char** argv)
 {
     zqh_common_csr_cfg();
+    setStats(1);
 
     volatile uint32_t * lock_ptr = TL_SRAM_MEM_BASE; //tl_sram
     volatile char * dtim_addr = DTIM_BASE;
@@ -20,7 +21,7 @@ int main (int argc, char** argv)
     int cnt0;
     cnt0 = 5;
 
-    printf_zqh("dtim test start\n");
+    printf("dtim test start\n");
 
     if (hart_id == 0) {
         *lock_ptr = 0;
@@ -31,23 +32,23 @@ int main (int argc, char** argv)
     *dtim_io_amo_addr = 0xaaaaaa00;
     for (int i = 0; i < cnt0; i++) {
         swap32_get_lock(lock_ptr);
-        printf_zqh("get lock\n");
+        printf("get lock\n");
 
         (*(dtim_addr))++;
-        printf_zqh("dtim_addr[%d] = 0x%x\n", i, *(dtim_addr));
+        printf("dtim_addr[%d] = 0x%x\n", i, *(dtim_addr));
 
         amo32_add(dtim_amo_addr, 1);
-        printf_zqh("dtim_amo_addr[%d] = 0x%x\n", i, *(dtim_amo_addr));
+        printf("dtim_amo_addr[%d] = 0x%x\n", i, *(dtim_amo_addr));
 
         amo32_add(dtim_io_amo_addr, 1);
-        printf_zqh("dtim_io_amo_addr[%d] = 0x%x\n", i, *(dtim_io_amo_addr));
+        printf("dtim_io_amo_addr[%d] = 0x%x\n", i, *(dtim_io_amo_addr));
 
         swap32_put_lock(lock_ptr);
         delay_zqh(20);
     }
     delay_zqh(200);
-    printf_zqh("dtim test end\n");
+    printf("dtim test end\n");
 
-    //post_stop(0x01);
+    setStats(0);
     return 0;
 }

@@ -12,6 +12,7 @@
 int main (int argc, char** argv)
 {
     zqh_common_csr_cfg();
+    setStats(1);
     //gpio hw iof enable
     *GPIO_IOF_EN(1) = *GPIO_IOF_EN(1) | 0x0fffffff;
     delay_ms(100);
@@ -25,11 +26,11 @@ int main (int argc, char** argv)
     //
     //mac test
     //{{{
-    printf_zqh("mac test start\n");
+    printf("mac test start\n");
     eth_mac_tx_rx_test();
-    printf_zqh("mac test end\n");
+    printf("mac test end\n");
     //}}}
 
-    //post_stop(0x01);
+    setStats(0);
     return 0;
 }

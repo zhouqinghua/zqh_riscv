@@ -11,6 +11,7 @@
 int main (int argc, char** argv)
 {
     zqh_common_csr_cfg();
+    setStats(1);
     //gpio hw iof enable
     *GPIO_IOF_EN(0) = *GPIO_IOF_EN(0) | 0x3c;
 
@@ -31,18 +32,18 @@ int main (int argc, char** argv)
     //*PWM0_PWMCFG = 0x000f1000;//cmpgang=0x0, cmpcenter=0xf, enalways=1,  deglitch=0, zerocmp=0, sticky=0, scale=0
     //*PWM0_PWMCFG = 0x000f1400;//cmpgang=0x0, cmpcenter=0xf, enalways=1,  deglitch=1, zerocmp=0, sticky=0, scale=0
     //*PWM0_PWMCFG = 0x07001200;//cmpgang=0x2, cmpcenter=0x0, enalways=1,  deglitch=0, zerocmp=1, sticky=0, scale=0
-    //printf_zqh("PWM0_PWMCFG %x\n", *PWM0_PWMCFG);
+    //printf("PWM0_PWMCFG %x\n", *PWM0_PWMCFG);
  
     //
     //pwm test
     //{{{
-    printf_zqh("pwm test start\n");
+    printf("pwm test start\n");
     delay_zqh(3000);
 
-    printf_zqh("pwm test end\n");
+    printf("pwm test end\n");
     //}}}
 
 
-    //post_stop(0x01);
+    setStats(0);
     return 0;
 }

@@ -12,13 +12,14 @@
 int main (int argc, char** argv)
 {
     zqh_common_csr_cfg();
+    setStats(1);
     //gpio hw iof enable
     *GPIO_IOF_EN(1) = *GPIO_IOF_EN(1) | 0x30000000;
 
-    printf_zqh("usb host test start\n");
+    printf("usb host test start\n");
     usb_host_test();
-    printf_zqh("usb host test end\n");
+    printf("usb host test end\n");
 
-    //post_stop(0x01);
+    setStats(0);
     return 0;
 }

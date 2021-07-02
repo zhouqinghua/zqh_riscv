@@ -14,17 +14,17 @@ void zqh_common_csr_cfg() {
     hart_id = read_csr(mhartid);
     support_vm = (read_csr(misa) >> 18) & 1;
     support_user = (read_csr(misa) >> 20) & 1;
-    printf_zqh("mhartid %x\n", hart_id);
+    printf("mhartid %x\n", hart_id);
 
     //set timer
     //test partial write to 8B reg
     *CLINT_MTIMECMP(hart_id) = 0xffffffffffffffff; //set mtimecmp to max value
-    printf_zqh("CLINT_MTIMECMP_H %x\n", *CLINT_MTIMECMP_H(hart_id));
-    printf_zqh("CLINT_MTIMECMP_L %x\n", *CLINT_MTIMECMP_L(hart_id));
+    printf("CLINT_MTIMECMP_H %x\n", *CLINT_MTIMECMP_H(hart_id));
+    printf("CLINT_MTIMECMP_L %x\n", *CLINT_MTIMECMP_L(hart_id));
 
     //test none exist mmio address access
     *CLINT_MSIP(1) = 0;
-    printf_zqh("CLINT_MSIP(1) %x\n", *CLINT_MSIP(1));
+    printf("CLINT_MSIP(1) %x\n", *CLINT_MSIP(1));
 
     //set plic reg
     *PLIC_PRIORITY = 0;
@@ -63,7 +63,7 @@ void zqh_common_csr_cfg() {
     for (int i = 0; i < PLIC_INT_NUM; i++) {
         uint32_t int_id;
         int_id = *PLIC_CLAIM_COMPLETE_M(hart_id);
-        printf_zqh("plic claim %0d time, int_id = %x\n", i, int_id);
+        printf("plic claim %0d time, int_id = %x\n", i, int_id);
         if (int_id == 0) {
             break;
         }
@@ -75,7 +75,7 @@ void zqh_common_csr_cfg() {
     //counters
     if (support_vm || support_user) {
         write_csr(mcounteren,0);
-        printf_zqh("mcounteren post initial %x\n", read_csr(mcounteren));
+        printf("mcounteren post initial %x\n", read_csr(mcounteren));
     }
 
     //hpm counters

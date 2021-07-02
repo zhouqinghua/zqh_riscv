@@ -66,12 +66,12 @@ int main (int argc, char** argv)
 //tmp    //*UART0_DIV    = 4000 - 1; //250000 baud ratio
 //tmp    //*UART0_DIV    = 542 - 1; //1843200 baud ratio
 //tmp    *UART0_DIV    = 32 - 1; //speedup simulation, use fastest speed
-//tmp    //printf_zqh("UART0_TXCTRL %x\n", *UART0_TXCTRL);
-//tmp    //printf_zqh("UART0_TXDATA %x\n", *UART0_TXDATA);
-//tmp    //printf_zqh("UART0_RXCTRL %x\n", *UART0_RXCTRL);
-//tmp    //printf_zqh("UART0_RXCTRL %x\n", *UART0_RXDATA);
-//tmp    //printf_zqh("UART0_IE     %x\n", *UART0_IE    );
-//tmp    //printf_zqh("UART0_DIV    %x\n", *UART0_DIV   );
+//tmp    //printf("UART0_TXCTRL %x\n", *UART0_TXCTRL);
+//tmp    //printf("UART0_TXDATA %x\n", *UART0_TXDATA);
+//tmp    //printf("UART0_RXCTRL %x\n", *UART0_RXCTRL);
+//tmp    //printf("UART0_RXCTRL %x\n", *UART0_RXDATA);
+//tmp    //printf("UART0_IE     %x\n", *UART0_IE    );
+//tmp    //printf("UART0_DIV    %x\n", *UART0_DIV   );
 
 
     //printf("zqh_test0 done\n");
@@ -81,71 +81,71 @@ int main (int argc, char** argv)
     hart_id = read_csr(mhartid);
     support_vm = (read_csr(misa) >> 18) & 1;
     support_user = (read_csr(misa) >> 20) & 1;
-    printf_zqh("mhartid %x\n", hart_id);
+    printf("mhartid %x\n", hart_id);
 
 
     //ddr read/write simple est
     //volatile uint32_t *ddr_ptr;
     //ddr_ptr = MAIN_MEM_BASE + 0x00010000;
     //*ddr_ptr = 0x0706050403020100;
-    //printf_zqh("ddr read/write test end\n");
+    //printf("ddr read/write test end\n");
     //while(1);
 
     //while(1);
 
 
 //tmp a    //crg_ctrl config:pll cfg
-//tmp a    //printf_zqh("clock_ref_cfg init data = %x\n", *CRG_CTRL_CLOCK_REF_CFG);
-//tmp a    //printf_zqh("core_pll_cfg init data = %x\n", *CRG_CTRL_CORE_PLL_CFG);
-//tmp a    //printf_zqh("eth_pll_cfg init data = %x\n", *CRG_CTRL_ETH_PLL_CFG);
-//tmp a    //printf_zqh("reset_cfg init data = %x\n", *CRG_CTRL_RESET_CFG);
+//tmp a    //printf("clock_ref_cfg init data = %x\n", *CRG_CTRL_CLOCK_REF_CFG);
+//tmp a    //printf("core_pll_cfg init data = %x\n", *CRG_CTRL_CORE_PLL_CFG);
+//tmp a    //printf("eth_pll_cfg init data = %x\n", *CRG_CTRL_ETH_PLL_CFG);
+//tmp a    //printf("reset_cfg init data = %x\n", *CRG_CTRL_RESET_CFG);
 //tmp a    //*CRG_CTRL_CLOCK_REF_CFG = 0x11111111;
 //tmp a    *CRG_CTRL_CORE_PLL_CFG = 0x01010a01;
 //tmp a    while(1) {
 //tmp a        if ((*CRG_CTRL_CORE_PLL_CFG & 0x80000000) != 0) {
-//tmp a            printf_zqh("core_pll locked\n");
+//tmp a            printf("core_pll locked\n");
 //tmp a            *CRG_CTRL_CORE_PLL_CFG = *CRG_CTRL_CORE_PLL_CFG & 0xfeffffff;//disable bypass
-//tmp a            printf_zqh("core_pll clean bypass\n");
+//tmp a            printf("core_pll clean bypass\n");
 //tmp a            break;
 //tmp a        }
 //tmp a    }
 //tmp a    *CRG_CTRL_ETH_PLL_CFG = 0x03010504;
 //tmp a    while(1) {
 //tmp a        if ((*CRG_CTRL_ETH_PLL_CFG & 0x80000000) != 0) {
-//tmp a            printf_zqh("eth_pll locked\n");
+//tmp a            printf("eth_pll locked\n");
 //tmp a            *CRG_CTRL_ETH_PLL_CFG = *CRG_CTRL_ETH_PLL_CFG & 0xfeffffff;//disable bypass
-//tmp a            printf_zqh("eth_pll clean bypass\n");
+//tmp a            printf("eth_pll clean bypass\n");
 //tmp a            *CRG_CTRL_ETH_PLL_CFG = *CRG_CTRL_ETH_PLL_CFG | 0x02000000;//set en
-//tmp a            printf_zqh("eth_pll set en\n");
+//tmp a            printf("eth_pll set en\n");
 //tmp a            *CRG_CTRL_RESET_CFG = *CRG_CTRL_RESET_CFG | 0x20; //dereset eth
-//tmp a            printf_zqh("dereset eth\n");
+//tmp a            printf("dereset eth\n");
 //tmp a            break;
 //tmp a        }
 //tmp a    }
 //tmp a    *CRG_CTRL_DDR_PLL_CFG = 0x03010801;
 //tmp a    while(1) {
 //tmp a        if ((*CRG_CTRL_DDR_PLL_CFG & 0x80000000) != 0) {
-//tmp a            printf_zqh("ddr_pll locked\n");
+//tmp a            printf("ddr_pll locked\n");
 //tmp a            *CRG_CTRL_DDR_PLL_CFG = *CRG_CTRL_DDR_PLL_CFG & 0xfeffffff;//disable bypass
-//tmp a            printf_zqh("ddr_pll clean bypass\n");
+//tmp a            printf("ddr_pll clean bypass\n");
 //tmp a            *CRG_CTRL_DDR_PLL_CFG = *CRG_CTRL_DDR_PLL_CFG | 0x02000000;//set en
-//tmp a            printf_zqh("ddr_pll set en\n");
+//tmp a            printf("ddr_pll set en\n");
 //tmp a            *CRG_CTRL_RESET_CFG = *CRG_CTRL_RESET_CFG | 0x09; //dereset ddr_phy and ddr_mc
-//tmp a            printf_zqh("dereset ddr_phy and ddr_mc\n");
+//tmp a            printf("dereset ddr_phy and ddr_mc\n");
 //tmp a            break;
 //tmp a        }
 //tmp a    }
     //*CRG_CTRL_RESET_CFG = 0x22222222;
-    //printf_zqh("clock_ref_cfg reg data = %x\n", *CRG_CTRL_CLOCK_REF_CFG);
-    //printf_zqh("core_pll_cfg reg data = %x\n", *CRG_CTRL_CORE_PLL_CFG);
-    //printf_zqh("eth_pll_cfg reg data = %x\n", *CRG_CTRL_ETH_PLL_CFG);
-    //printf_zqh("reset_cfg reg data = %x\n", *CRG_CTRL_RESET_CFG);
+    //printf("clock_ref_cfg reg data = %x\n", *CRG_CTRL_CLOCK_REF_CFG);
+    //printf("core_pll_cfg reg data = %x\n", *CRG_CTRL_CORE_PLL_CFG);
+    //printf("eth_pll_cfg reg data = %x\n", *CRG_CTRL_ETH_PLL_CFG);
+    //printf("reset_cfg reg data = %x\n", *CRG_CTRL_RESET_CFG);
 
 //    //test itim read/write
 //    for (int i = 0; i < 4; i++) {
-//        printf_zqh("itim[%0d] pre %x\n", i, *((uint64_t *)(itim_io_addr + (0x00100000 >> 3) * hart_id)));
+//        printf("itim[%0d] pre %x\n", i, *((uint64_t *)(itim_io_addr + (0x00100000 >> 3) * hart_id)));
 //        *((uint16_t *)(itim_io_addr + (0x00100000 >> 3) * hart_id) + i) = i;
-//        printf_zqh("itim[%0d] pos %x\n", i, *((uint64_t *)(itim_io_addr + (0x00100000 >> 3) * hart_id)));
+//        printf("itim[%0d] pos %x\n", i, *((uint64_t *)(itim_io_addr + (0x00100000 >> 3) * hart_id)));
 //    }
 
     //test strong order access
@@ -174,14 +174,14 @@ int main (int argc, char** argv)
     //*(((volatile uint16_t *)CLINT_MTIMECMP) + 1) = 0x2222;
     //*(((volatile uint32_t *)CLINT_MTIMECMP) + 1) = 0x33333333;
     *CLINT_MTIMECMP(hart_id) = 0xffffffffffffffff; //set mtimecmp to max value
-    printf_zqh("CLINT_MTIMECMP_H %x\n", *CLINT_MTIMECMP_H(hart_id));
-    printf_zqh("CLINT_MTIMECMP_L %x\n", *CLINT_MTIMECMP_L(hart_id));
+    printf("CLINT_MTIMECMP_H %x\n", *CLINT_MTIMECMP_H(hart_id));
+    printf("CLINT_MTIMECMP_L %x\n", *CLINT_MTIMECMP_L(hart_id));
     //*CLINT_MTIMECMP_L(hart_id) = 0xffffffff;
     //*CLINT_MTIMECMP_H(hart_id) = 0xffffffff;
 
     //test none exist mmio address access
     *CLINT_MSIP(1) = 0;
-    printf_zqh("CLINT_MSIP(1) %x\n", *CLINT_MSIP(1));
+    printf("CLINT_MSIP(1) %x\n", *CLINT_MSIP(1));
 
     //set plic reg
     *PLIC_PRIORITY = 0;
@@ -218,17 +218,17 @@ int main (int argc, char** argv)
     //set pwm0 reg
     *PWM0_PWMCFG = 0x00000000;//initial clear
     *PWM0_PWMCOUNT = 0x00000000;
-    //printf_zqh("PWM0_PWMCOUNT %x\n", *PWM0_PWMCOUNT);
+    //printf("PWM0_PWMCOUNT %x\n", *PWM0_PWMCOUNT);
     *PWM0_PWMMAX = 0x00000fff;
-    //printf_zqh("PWM0_PWMMAX %x\n", *PWM0_PWMMAX);
+    //printf("PWM0_PWMMAX %x\n", *PWM0_PWMMAX);
     *PWM0_PWMCMP0 = 0x00000020;
-    //printf_zqh("PWM0_PWMCMP0 %x\n", *PWM0_PWMCMP0);
+    //printf("PWM0_PWMCMP0 %x\n", *PWM0_PWMCMP0);
     *PWM0_PWMCMP1 = 0x000000080;
-    //printf_zqh("PWM0_PWMCMP1 %x\n", *PWM0_PWMCMP1);
+    //printf("PWM0_PWMCMP1 %x\n", *PWM0_PWMCMP1);
     *PWM0_PWMCMP2 = 0x0000000200;
-    //printf_zqh("PWM0_PWMCMP2 %x\n", *PWM0_PWMCMP2);
+    //printf("PWM0_PWMCMP2 %x\n", *PWM0_PWMCMP2);
     *PWM0_PWMCMP3 = 0x0000000800;
-    //printf_zqh("PWM0_PWMCMP3 %x\n", *PWM0_PWMCMP3);
+    //printf("PWM0_PWMCMP3 %x\n", *PWM0_PWMCMP3);
     *PWM0_PWMCFG = 0x00001207;//cmpgang=0x0, cmpcenter=0x0, enalways=1,  deglitch=0, zerocmp=1, sticky=0, scale=0
     //*PWM0_PWMCFG = 0x00002000;//cmpgang=0x0, cmpcenter=0x0, enoneshot=1, deglitch=0, zerocmp=0, sticky=0, scale=0
     //*PWM0_PWMCFG = 0x00001600;//cmpgang=0x0, cmpcenter=0x0, enalways=1,  deglitch=1, zerocmp=1, sticky=0, scale=0
@@ -238,7 +238,7 @@ int main (int argc, char** argv)
     //*PWM0_PWMCFG = 0x000f1000;//cmpgang=0x0, cmpcenter=0xf, enalways=1,  deglitch=0, zerocmp=0, sticky=0, scale=0
     //*PWM0_PWMCFG = 0x000f1400;//cmpgang=0x0, cmpcenter=0xf, enalways=1,  deglitch=1, zerocmp=0, sticky=0, scale=0
     //*PWM0_PWMCFG = 0x07001200;//cmpgang=0x2, cmpcenter=0x0, enalways=1,  deglitch=0, zerocmp=1, sticky=0, scale=0
-    //printf_zqh("PWM0_PWMCFG %x\n", *PWM0_PWMCFG);
+    //printf("PWM0_PWMCFG %x\n", *PWM0_PWMCFG);
 
     //i2c reg set
     *I2C_DIV = 0x80;
@@ -247,17 +247,17 @@ int main (int argc, char** argv)
     //*I2C_CFG = 0x11000d;
 
     //mac reg set
-//tmp    printf_zqh("MAC_MODE pre: %x\n", *MAC_MODE);
+//tmp    printf("MAC_MODE pre: %x\n", *MAC_MODE);
 //tmp    //*MAC_MODE = 0;
 //tmp    *MAC_IPG = 12;
 //tmp    *MAC_IE = 0xfc; //interrupt enable
-    //printf_zqh("MAC_MODE post: %x\n", *MAC_MODE);
-    //printf_zqh("MAC_TX_BUF pre: %x\n", *MAC_TX_BUF);
+    //printf("MAC_MODE post: %x\n", *MAC_MODE);
+    //printf("MAC_TX_BUF pre: %x\n", *MAC_TX_BUF);
     //*MAC_TX_BUF = 0x55555555;
-    //printf_zqh("MAC_TX_BUF post: %x\n", *MAC_TX_BUF);
-    //printf_zqh("MAC_RX_BUF pre: %x\n", *MAC_RX_BUF);
+    //printf("MAC_TX_BUF post: %x\n", *MAC_TX_BUF);
+    //printf("MAC_RX_BUF pre: %x\n", *MAC_RX_BUF);
     //*MAC_RX_BUF = 0xaaaaaaaa;
-    //printf_zqh("MAC_RX_BUF post: %x\n", *MAC_RX_BUF);
+    //printf("MAC_RX_BUF post: %x\n", *MAC_RX_BUF);
 
 
     //plic interrupt enable
@@ -266,7 +266,7 @@ int main (int argc, char** argv)
     for (int i = 0; i < PLIC_INT_NUM; i++) {
         uint32_t int_id;
         int_id = *PLIC_CLAIM_COMPLETE_M(hart_id);
-        printf_zqh("plic claim %0d time, int_id = %x\n", i, int_id);
+        printf("plic claim %0d time, int_id = %x\n", i, int_id);
         if (int_id == 0) {
             break;
         }
@@ -277,10 +277,10 @@ int main (int argc, char** argv)
 //    //set_csr(mip, MIP_SSIP);//supervisor software interrupt
 
     //counters
-    //printf_zqh("mcounteren pre initial %x\n", read_csr(mcounteren));
+    //printf("mcounteren pre initial %x\n", read_csr(mcounteren));
     if (support_vm || support_user) {
         write_csr(mcounteren,0);
-        printf_zqh("mcounteren post initial %x\n", read_csr(mcounteren));
+        printf("mcounteren post initial %x\n", read_csr(mcounteren));
     }
 
     //hpm counters
@@ -289,10 +289,10 @@ int main (int argc, char** argv)
 //tmp    write_csr(mhpmcounter4, 0);
 //tmp    write_csr(mhpmcounter5, 0);
 //tmp    write_csr(mhpmcounter6, 0);
-//tmp    printf_zqh("mhpmcounter3 post initial %d\n", read_csr(mhpmcounter3));
-//tmp    printf_zqh("mhpmcounter4 post initial %d\n", read_csr(mhpmcounter4));
-//tmp    printf_zqh("mhpmcounter5 post initial %d\n", read_csr(mhpmcounter5));
-//tmp    printf_zqh("mhpmcounter6 post initial %d\n", read_csr(mhpmcounter6));
+//tmp    printf("mhpmcounter3 post initial %d\n", read_csr(mhpmcounter3));
+//tmp    printf("mhpmcounter4 post initial %d\n", read_csr(mhpmcounter4));
+//tmp    printf("mhpmcounter5 post initial %d\n", read_csr(mhpmcounter5));
+//tmp    printf("mhpmcounter6 post initial %d\n", read_csr(mhpmcounter6));
     //rocket's write_csr(mhpmevent3, 0x00 | (0x0000000e << 8));//load/store/amo
     //rocket's write_csr(mhpmevent4, 0x01 | (0x000001c0 << 8));//branch/jal/jalr
     //rocket's write_csr(mhpmevent5, 0x02 | (0x00000002 << 8));//D$ miss
@@ -307,7 +307,7 @@ int main (int argc, char** argv)
 
     //asm volatile ("scall");
     //asm volatile ("wfi");
-    //printf_zqh("dcsr %x\n", read_csr(dcsr));
+    //printf("dcsr %x\n", read_csr(dcsr));
     //write_csr(dcsr, 0);
 
 
@@ -315,7 +315,7 @@ int main (int argc, char** argv)
 //tmp    //gpio test
 //tmp    //{{{
 //tmp    //key input at gpio0-gpio3
-//tmp    printf_zqh("gpio test start\n");
+//tmp    printf("gpio test start\n");
 //tmp    *GPIO_INPUT_EN(0) = 0x0f;
 //tmp    //output at gpio4-gpio7
 //tmp    *GPIO_OUTPUT_EN(0) = 0xf0;
@@ -328,7 +328,7 @@ int main (int argc, char** argv)
 //tmp
 //tmp    //read input value
 //tmp    //for (int i = 0; i < 4; i++) {
-//tmp    //    printf_zqh("input gpio[%0d] = %0d\n", i, ((*GPIO_INPUT_VAL(0)) >> i) & 1);
+//tmp    //    printf("input gpio[%0d] = %0d\n", i, ((*GPIO_INPUT_VAL(0)) >> i) & 1);
 //tmp    //}
 //tmp    uint32_t pwmcmp_v;
 //tmp    uint32_t key1_last_v;
@@ -342,7 +342,7 @@ int main (int argc, char** argv)
 //tmp        //key1 capture, 0 valid
 //tmp        key_cur_v = (*GPIO_INPUT_VAL(0) >> 0) & 0x01;
 //tmp        if ((key_cur_v == 0) && (key1_last_v == 1)) {
-//tmp            printf_zqh("input gpio[0] valid\n");
+//tmp            printf("input gpio[0] valid\n");
 //tmp
 //tmp            //increase led1's light
 //tmp            pwmcmp_v = *PWM0_PWMCMP0 * 2;
@@ -361,7 +361,7 @@ int main (int argc, char** argv)
 //tmp        //key2 capture, 0 valid
 //tmp        key_cur_v = (*GPIO_INPUT_VAL(0) >> 1) & 0x01;
 //tmp        if ((key_cur_v == 0) && (key2_last_v == 1)) {
-//tmp            printf_zqh("input gpio[1] valid\n");
+//tmp            printf("input gpio[1] valid\n");
 //tmp
 //tmp            //decrease led1's light
 //tmp            pwmcmp_v = *PWM0_PWMCMP0 / 2;
@@ -378,7 +378,7 @@ int main (int argc, char** argv)
 //tmp        }
 //tmp    }
 //tmp
-//tmp    printf_zqh("gpio test end\n");
+//tmp    printf("gpio test end\n");
 //tmp    //}}}
 
 
@@ -402,29 +402,29 @@ int main (int argc, char** argv)
     //char tx_buf[] = "zqh uart test\n";
     //uart0_tx(tx_buf, sizeof(tx_buf));
     //for (int i = 0; i < sizeof(tx_buf); i++) {
-    //    printf_zqh("uart0 rx %x\n", uart0_rx_stall());
+    //    printf("uart0 rx %x\n", uart0_rx_stall());
     //}
     //delay_zqh(7000);
     //}}}
 
 //tmp    //spi0 test
 //tmp    //{{{
-//tmp    printf_zqh("spi0 test start\n");
+//tmp    printf("spi0 test start\n");
 //tmp    //program IO access spi norflash
 //tmp    uint32_t norflash_addr = 0;
 //tmp    for (int i = 0; i < 8; i++) {
 //tmp        norflash_addr = i;
-//tmp        printf_zqh("spi0 norflash IO read[%0d] = %x\n", i, spi0_norflash_read_1byte(norflash_addr));
+//tmp        printf("spi0 norflash IO read[%0d] = %x\n", i, spi0_norflash_read_1byte(norflash_addr));
 //tmp    }
 //tmp
 //tmp    //spi norflash memory map access
 //tmp    //only support read
 //tmp    uint8_t *norflash_xip_ptr = (SPI_FLASH_XIP_BASE + 8);
 //tmp    for (int i = 0; i < 8; i++) {
-//tmp        printf_zqh("spi0 norflash memory read[%0d]: %x\n", i, *(norflash_xip_ptr + i));
+//tmp        printf("spi0 norflash memory read[%0d]: %x\n", i, *(norflash_xip_ptr + i));
 //tmp    }
 //tmp
-//tmp    printf_zqh("spi0 test end\n");
+//tmp    printf("spi0 test end\n");
 //tmp    //}}}
 
 
@@ -432,7 +432,7 @@ int main (int argc, char** argv)
 //tmp    //i2c test
 //tmp    //{{{
 //tmp    //i2c eeprom write/read
-//tmp    printf_zqh("i2c eeprom access start\n");
+//tmp    printf("i2c eeprom access start\n");
 //tmp
 //tmp    for (int i = 0; i < 4; i++){
 //tmp        i2c_data_write(0xa0);//page0 write
@@ -449,7 +449,7 @@ int main (int argc, char** argv)
 //tmp
 //tmp        //delay_zqh(100);//wait write action done
 //tmp
-//tmp        printf_zqh("i2c eeprom write adddress = %x, data = %x\n", i, i);
+//tmp        printf("i2c eeprom write adddress = %x, data = %x\n", i, i);
 //tmp    }
 //tmp
 //tmp    for (int i = 0; i < 4; i++){
@@ -468,33 +468,33 @@ int main (int argc, char** argv)
 //tmp        i2c_cmd_read_nack_stop();
 //tmp        i2c_wait_no_transfer_in_progress();
 //tmp
-//tmp        printf_zqh("i2c eeprom read adddress = %x, data = %x\n", i, i2c_data_read());
+//tmp        printf("i2c eeprom read adddress = %x, data = %x\n", i, i2c_data_read());
 //tmp    }
-//tmp    printf_zqh("i2c eeprom access end\n");
+//tmp    printf("i2c eeprom access end\n");
 //tmp
 //tmp
-//tmp    printf_zqh("i2c test end\n");
+//tmp    printf("i2c test end\n");
 //tmp    //}}}
 
 
     //
     //mac test
 //tmp    //{{{
-//tmp    printf_zqh("mac test start\n");
+//tmp    printf("mac test start\n");
 //tmp    eth_mac_tx_rx_test();
-//tmp    printf_zqh("mac test end\n");
+//tmp    printf("mac test end\n");
     //}}}
 
 
     //
     //ddr mc test
     //{{{
-    printf_zqh("ddr_mc test start\n");
+    printf("ddr_mc test start\n");
 //tmp    //training WR_DQ, wr_dqs_delay = 0x00, wr_dq_delay = ?, rd_dqs_delay = 0x40
-//tmp    printf_zqh("ddr training WR_DQ delay\n");
+//tmp    printf("ddr training WR_DQ delay\n");
 //tmp    ddr3_training_delay(DDR_TN_WR_DQ, 0x00, 0x00, 0x40);
 //tmp
-//tmp    printf_zqh("ddr training RD_DQS delay\n");
+//tmp    printf("ddr training RD_DQS delay\n");
 //tmp    //training RD_DQS, wr_dqs_delay = 0x00, wr_dq_delay = 0x40, rd_dqs_delay = ?
 //tmp    ddr3_training_delay(DDR_TN_RD_DQS, 0x00, 0x40, 0x00);
 
@@ -505,7 +505,7 @@ int main (int argc, char** argv)
     //wr_dqs_delay = 0x00, wr_dq_delay = 0x40, rd_dqs_delay = 0xc8
 
 
-//tmp    printf_zqh("ddr memory read write check\n");
+//tmp    printf("ddr memory read write check\n");
     //ddr_phy_delay_cfg(0x00, 0x40, 0x40);//dll on
     //ddr_phy_delay_cfg(0x00, 0x40, 0xc8);//dll off
     //delay_ms(500);
@@ -513,13 +513,13 @@ int main (int argc, char** argv)
 //tmp    uint32_t ddr_mem_check_size;
 //tmp    ddr_mem_check_size = pow(2,20);//1GB max
 //tmp    if (ddr_wr_rd_check(ddr_mem_check_size, 0)) {
-//tmp        printf_zqh("ddr memory check(%0d) pass\n", ddr_mem_check_size);
+//tmp        printf("ddr memory check(%0d) pass\n", ddr_mem_check_size);
 //tmp    }
 //tmp    else {
-//tmp        printf_zqh("ddr memory check(%0d) fail\n", ddr_mem_check_size);
+//tmp        printf("ddr memory check(%0d) fail\n", ddr_mem_check_size);
 //tmp    }
 
-    printf_zqh("ddr_mc test end\n");
+    printf("ddr_mc test end\n");
     //while(1);
     //}}}
 
@@ -528,7 +528,7 @@ int main (int argc, char** argv)
     //dma read/write teset
     //cross: rsize, wsize, source_addr lsb, dest_addr lsb, length lsb
     //{{{
-    printf_zqh("dma test start\n");
+    printf("dma test start\n");
 //tmp    //config reg access
 //tmp    int chn = 0;
 //tmp    int chn_num = 1;
@@ -564,7 +564,7 @@ int main (int argc, char** argv)
 //tmp
 //tmp    for (int i = 0; i < chn_num; i++) {
 //tmp        chn = i;
-//tmp        printf_zqh("dma channel %0d do\n", chn);
+//tmp        printf("dma channel %0d do\n", chn);
 //tmp
 //tmp        *(DMA_CONTROL(chn)) = *(DMA_CONTROL(chn)) | 0x1;//set claim
 //tmp        //*(DMA_CONTROL(chn)) = *(DMA_CONTROL(chn)) | 0x0c000000;//enable interrupt
@@ -575,11 +575,11 @@ int main (int argc, char** argv)
 //tmp        *(DMA_NEXT_DEST   (chn)) = dma_dest + dma_dest_chn_offset * chn;
 //tmp        *(DMA_NEXT_SOURCE (chn)) = dma_source + dma_source_chn_offset * chn;
 //tmp
-//tmp        printf_zqh("DMA_CONTROL     (%0d) post = %x\n",  chn, *(DMA_CONTROL     (chn)));
-//tmp        printf_zqh("DMA_NEXT_CONFIG (%0d) post = %x\n",  chn, *(DMA_NEXT_CONFIG (chn)));
-//tmp        printf_zqh("DMA_NEXT_BYTES  (%0d) post = %lx\n", chn, *(DMA_NEXT_BYTES  (chn)));
-//tmp        printf_zqh("DMA_NEXT_DEST   (%0d) post = %lx\n", chn, *(DMA_NEXT_DEST   (chn)));
-//tmp        printf_zqh("DMA_NEXT_SOURCE (%0d) post = %lx\n", chn, *(DMA_NEXT_SOURCE (chn)));
+//tmp        printf("DMA_CONTROL     (%0d) post = %x\n",  chn, *(DMA_CONTROL     (chn)));
+//tmp        printf("DMA_NEXT_CONFIG (%0d) post = %x\n",  chn, *(DMA_NEXT_CONFIG (chn)));
+//tmp        printf("DMA_NEXT_BYTES  (%0d) post = %lx\n", chn, *(DMA_NEXT_BYTES  (chn)));
+//tmp        printf("DMA_NEXT_DEST   (%0d) post = %lx\n", chn, *(DMA_NEXT_DEST   (chn)));
+//tmp        printf("DMA_NEXT_SOURCE (%0d) post = %lx\n", chn, *(DMA_NEXT_SOURCE (chn)));
 //tmp
 //tmp
 //tmp        //tmp dma_source_ptr = dma_source;
@@ -588,7 +588,7 @@ int main (int argc, char** argv)
 //tmp
 //tmp
 //tmp        //for (int j = 0; j < dma_bytes/4; j++) {
-//tmp        //    printf_zqh("dma pre dest[%x] = %x\n", dma_dest_ptr + j, *(dma_dest_ptr + j));
+//tmp        //    printf("dma pre dest[%x] = %x\n", dma_dest_ptr + j, *(dma_dest_ptr + j));
 //tmp        //}
 //tmp
 //tmp        //flush dest address first
@@ -612,9 +612,9 @@ int main (int argc, char** argv)
 //tmp            if ((*(DMA_CONTROL(chn)) & 0x0c000000) != 0) {
 //tmp                //check run flag is cleared by interrupt process
 //tmp                if ((*(DMA_CONTROL(chn)) & 0x2) == 0) {
-//tmp                    //printf_zqh("dma channel %0d interrupt process done\n", chn);
+//tmp                    //printf("dma channel %0d interrupt process done\n", chn);
 //tmp                    for (int j = 0; j < data_print_num; j++) {
-//tmp                        printf_zqh("dma channel %0d interrupt post dest[%x] = %x\n", chn, dma_dest_ptr + j, *(dma_dest_ptr + j));
+//tmp                        printf("dma channel %0d interrupt post dest[%x] = %x\n", chn, dma_dest_ptr + j, *(dma_dest_ptr + j));
 //tmp                    }
 //tmp                    *(DMA_CONTROL(chn)) = *(DMA_CONTROL(chn)) & 0xfffffffe;//clean claim, release dma
 //tmp                    break;
@@ -623,9 +623,9 @@ int main (int argc, char** argv)
 //tmp            else {
 //tmp                //check done/error flag
 //tmp                if ((*(DMA_CONTROL(chn)) & 0xc0000000) != 0) {
-//tmp                    //printf_zqh("dma channel %0d sw scan done\n", chn);
+//tmp                    //printf("dma channel %0d sw scan done\n", chn);
 //tmp                    for (int j = 0; j < data_print_num; j++) {
-//tmp                        printf_zqh("dma channel %0d sw scan post dest[%x] = %x\n", chn, dma_dest_ptr + j, *(dma_dest_ptr + j));
+//tmp                        printf("dma channel %0d sw scan post dest[%x] = %x\n", chn, dma_dest_ptr + j, *(dma_dest_ptr + j));
 //tmp                    }
 //tmp
 //tmp                    *(DMA_CONTROL(chn)) = *(DMA_CONTROL(chn)) & 0xfffffffd;//clean run, stop dma
@@ -637,7 +637,7 @@ int main (int argc, char** argv)
 //tmp        //delay_zqh(500);
 //tmp    }
 
-    printf_zqh("dma test end\n");
+    printf("dma test end\n");
     //while(1);
     //}}}
 
@@ -645,7 +645,7 @@ int main (int argc, char** argv)
     //usb test
     //0: host, 1: device
     //{{{
-    printf_zqh("usb test start\n");
+    printf("usb test start\n");
 
 //tmp    usb_host_test();
 
@@ -688,14 +688,14 @@ int main (int argc, char** argv)
         //scan device_int_status
         device_int_status = usb_device_read_int_status();
         if ((device_int_status & 0x20) != 0) {
-            printf_zqh("usb int status stall_sent\n");
+            printf("usb int status stall_sent\n");
             //delay_ms(100);
             //while(1);
             continue;
         }
         else if ((device_int_status & 0x04) != 0) {
-            printf_zqh("usb int status reset_event\n");
-            printf_zqh("usb device 2nd reset event found\n");
+            printf("usb int status reset_event\n");
+            printf("usb device 2nd reset event found\n");
             device_ctrl_transfer_stage = 0;
             usb_device_ready_trans(0, 0, NULL, 0);
             usb_device_ready_trans(1, 0, NULL, 0);
@@ -724,13 +724,13 @@ int main (int argc, char** argv)
 
             //check ep's status
             if ((device_ep_status & 0x0001) != 0) {
-                printf_zqh("device ep crc_error\n");
+                printf("device ep crc_error\n");
                 while(1);
             }
             else if ((device_ep_status & 0x0008) != 0) {
-                printf_zqh("device ep rx_time_out\n");
+                printf("device ep rx_time_out\n");
             }
-            printf_zqh("usb int status trans_done\n");
+            printf("usb int status trans_done\n");
 
 
             //0: setup, 1: bulk in, 2: bulk out
@@ -754,10 +754,10 @@ int main (int argc, char** argv)
                 if (device_ctrl_transfer_stage == 0) {
                     //usb_host_trans_data_seq = 1;
                     usb_device_trans_data_seq = 1;
-                    printf_zqh("setup trans found\n");
+                    printf("setup trans found\n");
                     //recieve setup cmd
                     pkt_len = usb_device_read_rx_data(0, &device_setup_pkt);
-                    printf_zqh("setup pkt_len = %0d\n", pkt_len);
+                    printf("setup pkt_len = %0d\n", pkt_len);
                     display_usb_setup_packet(&device_setup_pkt);
 
                     //read: device -> host
@@ -787,7 +787,7 @@ int main (int argc, char** argv)
 
                         if ((device_setup_pkt.wValue >> 8) == 1) {
                             usb_host_control_get_descriptor(&host_setup_pkt, usb_host_rx_buf);
-                            printf_zqh("get descriptor device\n");
+                            printf("get descriptor device\n");
                             usb_dcp_copy(&device_device_dcp, usb_host_rx_buf);
                             display_usb_device_dcescriptor(&device_device_dcp);
                             pkt_len = usb_host_rx_buf[0];
@@ -797,7 +797,7 @@ int main (int argc, char** argv)
                         }
                         else if ((device_setup_pkt.wValue >> 8) == 2) {
                             usb_host_control_get_descriptor(&host_setup_pkt, usb_host_rx_buf);
-                            printf_zqh("get descriptor configuration\n");
+                            printf("get descriptor configuration\n");
                             usb_dcp_copy(&device_cfg_dcp, usb_host_rx_buf);
                             display_usb_cfg_dcescriptor(&device_cfg_dcp);
                             pkt_len = usb_host_rx_buf[2] + (usb_host_rx_buf[3] * 256);
@@ -806,12 +806,12 @@ int main (int argc, char** argv)
                             }
                         }
                         else if ((device_setup_pkt.wValue >> 8) == 3) {
-                            printf_zqh("get descriptor string\n");
+                            printf("get descriptor string\n");
                             debug_cnt++;
                             //tmp pkt_len = usb_host_rx_buf[0];
-                            //tmp printf_zqh("string dcp len = %d\n", pkt_len);
-                            //tmp printf_zqh("string idx = %d\n", device_setup_pkt.wValue & 0x00ff);
-                            //tmp printf_zqh("stored dcp len = %d\n", host_str_dcp[device_setup_pkt.wValue & 0x00ff][0]);
+                            //tmp printf("string dcp len = %d\n", pkt_len);
+                            //tmp printf("string idx = %d\n", device_setup_pkt.wValue & 0x00ff);
+                            //tmp printf("stored dcp len = %d\n", host_str_dcp[device_setup_pkt.wValue & 0x00ff][0]);
                             //tmp if (device_setup_pkt.wLength < pkt_len) {
                             //tmp     pkt_len = device_setup_pkt.wLength;
                             //tmp }
@@ -826,24 +826,24 @@ int main (int argc, char** argv)
                         }
                         else if ((device_setup_pkt.wValue >> 8) == 6) {
                             usb_host_control_get_descriptor(&host_setup_pkt, usb_host_rx_buf);
-                            printf_zqh("get descriptor %0x\n", device_setup_pkt.wValue >> 8);
+                            printf("get descriptor %0x\n", device_setup_pkt.wValue >> 8);
                             pkt_len = usb_host_rx_buf[0];
                             if (device_setup_pkt.wLength < pkt_len) {
                                 pkt_len = device_setup_pkt.wLength;
                             }
                             pkt_len = device_setup_pkt.wLength;
                             //for (int i = 0; i < 64; i++) {
-                            //    printf_zqh("usb_host_rx_buf[%0d] = %x\n", i, usb_host_rx_buf[i]);
+                            //    printf("usb_host_rx_buf[%0d] = %x\n", i, usb_host_rx_buf[i]);
                             //}
                         }
                         else {
-                            printf_zqh("get descriptor unknown %0x\n", device_setup_pkt.wValue >> 8);
+                            printf("get descriptor unknown %0x\n", device_setup_pkt.wValue >> 8);
                             while(1);
                         }
                     }
                     else {
-                        printf_zqh("get unknown\n");
-                        printf_zqh("setup get trans forward to host. wLength = 0x%04d\n", device_setup_pkt.wLength);
+                        printf("get unknown\n");
+                        printf("setup get trans forward to host. wLength = 0x%04d\n", device_setup_pkt.wLength);
                         //forward to host port to get data
                         usb_host_tx_addr_cfg(device_addr, 0);
                         pkt_len = usb_host_control_get_descriptor(&host_setup_pkt, usb_host_rx_buf);
@@ -851,7 +851,7 @@ int main (int argc, char** argv)
                             pkt_len = device_setup_pkt.wLength;
                         }
                         for (int i = 0; i < pkt_len; i++) {
-                            printf_zqh("usb_host_rx_buf[%0d] = 0x%02x\n", i, usb_host_rx_buf[i]);
+                            printf("usb_host_rx_buf[%0d] = 0x%02x\n", i, usb_host_rx_buf[i]);
                         }
                     }
                     //return get data
@@ -880,19 +880,19 @@ int main (int argc, char** argv)
                     else {
                         if ((device_setup_pkt.bmRequestType == 0x00) && 
                             (device_setup_pkt.bRequest == USB_REQ_SET_CONFIGURATION)) {
-                            printf_zqh("set configuration\n");
+                            printf("set configuration\n");
                             usb_host_tx_addr_cfg(device_addr, 0);
                             usb_host_control_set_cfg(&host_setup_pkt);
                         }
                         else if ((device_setup_pkt.bmRequestType == 0x01) && 
                             (device_setup_pkt.bRequest == USB_REQ_SET_INTERFACE)) {
-                            printf_zqh("set interface\n");
+                            printf("set interface\n");
                             usb_host_tx_addr_cfg(device_addr, 0);
                             usb_host_control_set_itf(&host_setup_pkt);
                         }
                         else if (device_setup_pkt.bRequest == USB_REQ_CLEAR_FEATURE) {
                             uint32_t clean_ep;
-                            printf_zqh("clear feature\n");
+                            printf("clear feature\n");
                             clean_ep = device_setup_pkt.wIndex & 0x000f;
                             usb_host_tx_addr_cfg(device_addr, 0);
                             usb_host_control_clear_feature(&host_setup_pkt);
@@ -905,10 +905,10 @@ int main (int argc, char** argv)
                             //debug_more = 1;
                         }
                         else {
-                            printf_zqh("set unknown\n");
+                            printf("set unknown\n");
                             while(1);
                         }
-                        //tmp printf_zqh("setup set trans forward to host. wLength = 0x%04d\n", device_setup_pkt.wLength);
+                        //tmp printf("setup set trans forward to host. wLength = 0x%04d\n", device_setup_pkt.wLength);
                         //tmp usb_setup_pkt_copy(&host_setup_pkt, &device_setup_pkt);
                         //tmp //forward setup pkt to host port
                         //tmp usb_host_tx_addr_cfg(device_addr, 0);
@@ -926,17 +926,17 @@ int main (int argc, char** argv)
                 if (device_ctrl_transfer_stage == 4) {
                     //ready to recieve zero len OUT trans
                     usb_device_rx_data_wait(0);
-                    printf_zqh("zero len OUT trans pkt len = %0d\n", *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,0));
+                    printf("zero len OUT trans pkt len = %0d\n", *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,0));
                     device_ep_status = *USB_CTRL_UTMI_DEVICE_STATUS(1,0);
                     *USB_CTRL_UTMI_DEVICE_STATUS(1,0) = 0;
-                    printf_zqh("device_ep_status = %0x\n", device_ep_status);
+                    printf("device_ep_status = %0x\n", device_ep_status);
 
                     //timeout no need read out data
                     if ((device_ep_status & 0x0008) == 0) {
                         //read out host's zero len out trans data
                         usb_device_drop_rx_data(3, usb_device_rx_buf);
                     }
-                    printf_zqh("device control transfer read done\n");
+                    printf("device control transfer read done\n");
 
                     //ready to recieve next setup cmd
                     //usb_device_rx_data_ready(0);
@@ -951,20 +951,20 @@ int main (int argc, char** argv)
                     if ((device_setup_pkt.bmRequestType == 0x00) && 
                         (device_setup_pkt.bRequest == USB_REQ_SET_ADDRESS)) {
                         *USB_CTRL_UTMI_DEVICE_ADDR(1) = device_setup_pkt.wValue;
-                        printf_zqh("set address to 0x%02x\n", device_setup_pkt.wValue);
+                        printf("set address to 0x%02x\n", device_setup_pkt.wValue);
                     }
                     else if (device_setup_pkt.bRequest == USB_REQ_CLEAR_FEATURE) {
-                        printf_zqh("clear feature post: read out the left csw of previous stalled cbw\n");
+                        printf("clear feature post: read out the left csw of previous stalled cbw\n");
                         usb_host_tx_addr_cfg(device_addr, ep_in_addr);
                         pkt_len = usb_host_csw_recv(&usb_device_csw);
-                        printf_zqh("pkt_len = %0d\n", pkt_len);
+                        printf("pkt_len = %0d\n", pkt_len);
                         display_usb_csw(&usb_device_csw);
                         //return the csw to host
                         usb_device_tx_data_wait(ep_in_addr, usb_device_trans_data_seq, &usb_device_csw, pkt_len);
                         usb_device_trans_data_seq = (usb_device_trans_data_seq + 1) & 1;
                     }
 
-                    printf_zqh("device control transfer write done\n");
+                    printf("device control transfer write done\n");
 
                     //ready to recieve next setup cmd
                     //usb_device_rx_data_ready(0);
@@ -973,26 +973,26 @@ int main (int argc, char** argv)
             }
             //bulk out cbw cmd
             else if (*USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,ep_out_addr) != 0) {
-//                printf_zqh("bulk out trans cbw found\n");
+//                printf("bulk out trans cbw found\n");
                 //for (int i = 0; i < 4; i++) {
-                //    printf_zqh("ep%0d USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT = %x\n", i, *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,i));
-                //    printf_zqh("ep%0d USB_CTRL_UTMI_DEVICE_CONTROL = %x\n", i, *USB_CTRL_UTMI_DEVICE_CONTROL(1,i));
+                //    printf("ep%0d USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT = %x\n", i, *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,i));
+                //    printf("ep%0d USB_CTRL_UTMI_DEVICE_CONTROL = %x\n", i, *USB_CTRL_UTMI_DEVICE_CONTROL(1,i));
                 //}
                 pkt_len = usb_device_read_rx_data(ep_out_addr, &usb_device_cbw);
-//                printf_zqh("bulk pkt_len = %0d\n", pkt_len);
+//                printf("bulk pkt_len = %0d\n", pkt_len);
                 display_usb_cbw(&usb_device_cbw);
 //                display_usb_cbw_cbwcb(&usb_device_cbw);
 
                 //read: device -> host
                 if ((usb_device_cbw.bmCBWFlag & 0x80) != 0) {
-                    printf_zqh("bulk cbw read\n");
+                    printf("bulk cbw read\n");
 
                     //forward cbw requset to host port
-//                    printf_zqh("bulk cbw read req forward to host\n");
+//                    printf("bulk cbw read req forward to host\n");
                     usb_host_tx_addr_cfg(device_addr, ep_out_addr);
                     usb_host_cbw_send(&usb_device_cbw, 0);
                     if (usb_host_trans_stalled) {
-                        printf_zqh("usb_host_cbw_send has stall\n");
+                        printf("usb_host_cbw_send has stall\n");
                     }
 
 
@@ -1008,17 +1008,17 @@ int main (int argc, char** argv)
                     for (int i = 0; i < read_cnt; i++) {
                         pkt_len = usb_host_cbw_data_recv(usb_host_rx_buf);
                         //if (usb_host_trans_stalled) {
-                        //    printf_zqh("usb_host_cbw_data_recv has stall\n");
+                        //    printf("usb_host_cbw_data_recv has stall\n");
                         //    break;
                         //}
 
-                        //printf_zqh("round %0d's pkt_len = %0d\n", i, pkt_len);
-//                        printf_zqh("round %0d\n", i);
+                        //printf("round %0d's pkt_len = %0d\n", i, pkt_len);
+//                        printf("round %0d\n", i);
                         //for (int j = 0; j < pkt_len; j++) {
-                        //    printf_zqh("pkt[%0d] = 0x%02x\n", j, usb_host_rx_buf[j]);
+                        //    printf("pkt[%0d] = 0x%02x\n", j, usb_host_rx_buf[j]);
                         //}
                         //return cbw data
-                        //printf_zqh("return cbw data to host\n");
+                        //printf("return cbw data to host\n");
                         usb_device_tx_data_wait(ep_in_addr, usb_device_trans_data_seq, usb_host_rx_buf, pkt_len);
                         usb_device_trans_data_seq = (usb_device_trans_data_seq + 1) & 1;
                     }
@@ -1026,14 +1026,14 @@ int main (int argc, char** argv)
 
                     //check if host port forward trans has stall or not
                     if (usb_host_trans_stalled) {
-                        printf_zqh("bulk cbw data read has stall\n");
+                        printf("bulk cbw data read has stall\n");
                         //send stall to next trans
                         *USB_CTRL_UTMI_DEVICE_CONTROL(1,ep_in_addr) = *USB_CTRL_UTMI_DEVICE_CONTROL(1,ep_in_addr) | 0x10;
                         *USB_CTRL_UTMI_DEVICE_CONTROL(1,ep_out_addr) = *USB_CTRL_UTMI_DEVICE_CONTROL(1,ep_out_addr) | 0x10;
                         usb_device_wait_stall_sent(ep_in_addr);
-                        printf_zqh("stall_sent found 1\n");
+                        printf("stall_sent found 1\n");
                         //usb_device_wait_stall_sent(ep_in_addr);
-                        //printf_zqh("stall_sent found 2\n");
+                        //printf("stall_sent found 2\n");
 
                         //delay_ms(100);
                     }
@@ -1043,12 +1043,12 @@ int main (int argc, char** argv)
                         pkt_len = usb_host_csw_recv(&usb_device_csw);
                         display_usb_csw(&usb_device_csw);
                         if (usb_host_trans_stalled) {
-                            printf_zqh("usb_host_csw_recv has stall\n");
+                            printf("usb_host_csw_recv has stall\n");
                         }
 
                         //return csw
-                        printf_zqh("return csw to host\n");
-                        printf_zqh("pkt_len = %0d\n", pkt_len);
+                        printf("return csw to host\n");
+                        printf("pkt_len = %0d\n", pkt_len);
                         usb_device_tx_data_wait(ep_in_addr, usb_device_trans_data_seq, &usb_device_csw, pkt_len);
                         usb_device_trans_data_seq = (usb_device_trans_data_seq + 1) & 1;
                     }
@@ -1060,12 +1060,12 @@ int main (int argc, char** argv)
                 }
                 //out: host -> device
                 else {
-                    printf_zqh("bulk cbw write\n");
+                    printf("bulk cbw write\n");
                     //forward cbw requset to host port
-//                    printf_zqh("bulk cbw write req forward to host\n");
-                    //printf_zqh("debug_cnt = %0d\n", debug_cnt);
+//                    printf("bulk cbw write req forward to host\n");
+                    //printf("debug_cnt = %0d\n", debug_cnt);
                     //if (debug_cnt == 10) {
-                    //    printf_zqh("usb_host_trans_data_seq = %0d\n", usb_host_trans_data_seq);
+                    //    printf("usb_host_trans_data_seq = %0d\n", usb_host_trans_data_seq);
                     //    //usb_host_trans_data_seq = (usb_host_trans_data_seq + 1) & 1;
                     //    //debug_more = 1;
                     //}
@@ -1074,27 +1074,27 @@ int main (int argc, char** argv)
                     usb_host_tx_addr_cfg(device_addr, ep_out_addr);
                     usb_host_cbw_send(&usb_device_cbw, 0);
                     if (usb_host_trans_stalled) {
-                        printf_zqh("usb_host_cbw_send has stall\n");
+                        printf("usb_host_cbw_send has stall\n");
                     }
 
 
                     //write cbw's data to meadia
                     //if (usb_device_cbw.dCBWDataTransferLength != 0) {
-                    //    printf_zqh("unknown cbw write:\n");
+                    //    printf("unknown cbw write:\n");
                     //    display_usb_cbw_cbwcb(&usb_device_cbw);
                     //    while(1);
                     //}
                     uint32_t write_cnt;
                     if (usb_device_cbw.CBWCB[0] == USB_CBS_SCSI_OPCODE_TEST_UNIT_READY) {
-                        printf_zqh("TEST_UNIT_READY\n");
+                        printf("TEST_UNIT_READY\n");
                         write_cnt = 0;
                     }
                     else if (usb_device_cbw.CBWCB[0] == USB_CBS_SCSI_OPCODE_WRITE_10) {
-                        printf_zqh("WRITE_10\n");
+                        printf("WRITE_10\n");
                         write_cnt = usb_device_cbw.dCBWDataTransferLength/ep_out_mps;
                     }
                     else {
-                        printf_zqh("write other\n");
+                        printf("write other\n");
                         if (usb_device_cbw.dCBWDataTransferLength != 0) {
                             write_cnt = 1;
                         }
@@ -1106,14 +1106,14 @@ int main (int argc, char** argv)
                         //read data from host
                         usb_device_rx_data_wait(ep_out_addr);
                         pkt_len = usb_device_read_rx_data(ep_out_addr, usb_device_rx_buf);
-                        //printf_zqh("pkt_len = %0d\n", pkt_len);
+                        //printf("pkt_len = %0d\n", pkt_len);
 
                         //write data to host port
                         usb_host_tx_addr_cfg(device_addr, ep_out_addr);
                         usb_host_trans_bulk_out(usb_device_rx_buf, pkt_len, 0);
                     }
                     if (usb_host_trans_stalled) {
-                        printf_zqh("usb_host_trans_bulk_out has stall\n");
+                        printf("usb_host_trans_bulk_out has stall\n");
                     }
 
 
@@ -1123,23 +1123,23 @@ int main (int argc, char** argv)
                     pkt_len = usb_host_csw_recv(&usb_device_csw);
                     display_usb_csw(&usb_device_csw);
                     if (usb_host_trans_stalled) {
-                        printf_zqh("usb_host_csw_recv has stall\n");
+                        printf("usb_host_csw_recv has stall\n");
                     }
 
                     //return csw
-                    printf_zqh("return csw to host\n");
-                    printf_zqh("pkt_len = %0d\n", pkt_len);
+                    printf("return csw to host\n");
+                    printf("pkt_len = %0d\n", pkt_len);
                     usb_device_tx_data_wait(ep_in_addr, usb_device_trans_data_seq, &usb_device_csw, pkt_len);
                     usb_device_trans_data_seq = (usb_device_trans_data_seq + 1) & 1;
 
                     //retrun data again
                     //if (debug_cnt == 10) {
-                    //    printf_zqh("return data again to host\n");
+                    //    printf("return data again to host\n");
                     //    //usb_host_tx_addr_cfg(device_addr, ep_in_addr);
                     //    //pkt_len = usb_host_csw_recv(&usb_device_csw);
                     //    //display_usb_csw(&usb_device_csw);
 
-                    //    printf_zqh("pkt_len = %0d\n", pkt_len);
+                    //    printf("pkt_len = %0d\n", pkt_len);
                     //    usb_device_tx_data_wait(ep_in_addr, usb_device_trans_data_seq, &usb_device_csw, pkt_len);
                     //    usb_device_trans_data_seq = (usb_device_trans_data_seq + 1) & 1;
                     //    debug_cnt = 0;
@@ -1150,37 +1150,37 @@ int main (int argc, char** argv)
                 }
             }
             else {
-                //tmp printf_zqh("ep_in fifo size = %0d\n", *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,ep_in_addr));
-                //tmp printf_zqh("ep_out fifo size = %0d\n", *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,ep_out_addr));
-                //tmp printf_zqh("ep0 fifo size = %0d\n", *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,0));
-                //tmp printf_zqh("ep_in status = %0x\n", *USB_CTRL_UTMI_DEVICE_STATUS(1,ep_in_addr));
-                //tmp printf_zqh("ep_out status = %0x\n", *USB_CTRL_UTMI_DEVICE_STATUS(1,ep_out_addr));
-                //tmp printf_zqh("ep0 status = %0x\n", *USB_CTRL_UTMI_DEVICE_STATUS(1,0));
+                //tmp printf("ep_in fifo size = %0d\n", *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,ep_in_addr));
+                //tmp printf("ep_out fifo size = %0d\n", *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,ep_out_addr));
+                //tmp printf("ep0 fifo size = %0d\n", *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,0));
+                //tmp printf("ep_in status = %0x\n", *USB_CTRL_UTMI_DEVICE_STATUS(1,ep_in_addr));
+                //tmp printf("ep_out status = %0x\n", *USB_CTRL_UTMI_DEVICE_STATUS(1,ep_out_addr));
+                //tmp printf("ep0 status = %0x\n", *USB_CTRL_UTMI_DEVICE_STATUS(1,0));
 
                 //tmp //clean for next time
                 //tmp *USB_CTRL_UTMI_DEVICE_STATUS(1,ep_in_addr) = 0;
                 //tmp *USB_CTRL_UTMI_DEVICE_STATUS(1,ep_out_addr) = 0;
                 //tmp *USB_CTRL_UTMI_DEVICE_STATUS(1,0) = 0;
 
-                printf_zqh("illegal trans\n");
+                printf("illegal trans\n");
                 //while(1);
             }
         }
         //nak_sent
         else if ((device_int_status & 0x10) != 0) {
             if (debug_more) {
-                printf_zqh("usb int status nak_sent\n");
-                printf_zqh("device_int_status = %x\n", device_int_status);
-                printf_zqh("new device int status = %x\n", *USB_CTRL_DEVICE_INTERRUPT_STATUS(1));
+                printf("usb int status nak_sent\n");
+                printf("device_int_status = %x\n", device_int_status);
+                printf("new device int status = %x\n", *USB_CTRL_DEVICE_INTERRUPT_STATUS(1));
 
                 //usb_device_ready_trans(1, 1, NULL, 0);
                 usb_device_ready_trans(1, 1, usb_device_rx_buf, 0);
 
                 //for (int i = 0; i < 4; i++) {
-                //    printf_zqh("USB_CTRL_UTMI_DEVICE_CONTROL(1,%0d) = %x\n", i, *USB_CTRL_UTMI_DEVICE_CONTROL(1,i));
-                //    printf_zqh("USB_CTRL_UTMI_DEVICE_STATUS(1,%0d) = %x\n", i, *USB_CTRL_UTMI_DEVICE_STATUS(1,i));
-                //    printf_zqh("USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,%0d) = %x\n", i, *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,i));
-                //    printf_zqh("USB_CTRL_DEVICE_TX_FIFO_DATA_COUNT(1,%0d) = %x\n", i, *USB_CTRL_DEVICE_TX_FIFO_DATA_COUNT(1,i));
+                //    printf("USB_CTRL_UTMI_DEVICE_CONTROL(1,%0d) = %x\n", i, *USB_CTRL_UTMI_DEVICE_CONTROL(1,i));
+                //    printf("USB_CTRL_UTMI_DEVICE_STATUS(1,%0d) = %x\n", i, *USB_CTRL_UTMI_DEVICE_STATUS(1,i));
+                //    printf("USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,%0d) = %x\n", i, *USB_CTRL_DEVICE_RX_FIFO_DATA_COUNT(1,i));
+                //    printf("USB_CTRL_DEVICE_TX_FIFO_DATA_COUNT(1,%0d) = %x\n", i, *USB_CTRL_DEVICE_TX_FIFO_DATA_COUNT(1,i));
                 //}
                 ////clean regs to see which ep is modified in next print
                 //for (int i = 0; i < 4; i++) {
@@ -1198,7 +1198,7 @@ int main (int argc, char** argv)
         }
     }
 
-    printf_zqh("usb test end\n");
+    printf("usb test end\n");
     while(1);
     //}}}
 
@@ -1210,7 +1210,7 @@ int main (int argc, char** argv)
     //
     //float test
     //{{{
-    printf_zqh("float test start\n");
+    printf("float test start\n");
     double da, db;
     float fa, fb;
     a = 0;
@@ -1229,40 +1229,40 @@ int main (int argc, char** argv)
         da = da + 2.971;
         db = db - 2.971;
 
-        //printf_zqh("read_csr %x\n",read_csr(mstatus));
+        //printf("read_csr %x\n",read_csr(mstatus));
 
-        printf_zqh("#####zhou do %d times!#####\n",i);
-        printf_zqh("mul  a(%d) b(%d), r(%d)\n",a,b,a*b);
+        printf("#####zhou do %d times!#####\n",i);
+        printf("mul  a(%d) b(%d), r(%d)\n",a,b,a*b);
 
-        printf_zqh("fmul fa(%s)\n",f2str(fa, str_buf));
-        printf_zqh("fmul fb(%s)\n",f2str(fb, str_buf));
-        printf_zqh("fmul r(%s)\n",f2str(fa*fb, str_buf));
+        printf("fmul fa(%s)\n",f2str(fa, str_buf));
+        printf("fmul fb(%s)\n",f2str(fb, str_buf));
+        printf("fmul r(%s)\n",f2str(fa*fb, str_buf));
 
-        printf_zqh("fmul da(%s)\n",f2str(da, str_buf));
-        printf_zqh("fmul db(%s)\n",f2str(db, str_buf));
-        printf_zqh("fmul r(%s)\n",f2str(da*db, str_buf));
+        printf("fmul da(%s)\n",f2str(da, str_buf));
+        printf("fmul db(%s)\n",f2str(db, str_buf));
+        printf("fmul r(%s)\n",f2str(da*db, str_buf));
 
-        printf_zqh("div  a(%d) b(%d), r(%d)\n",a*100,b,a*100/b);
+        printf("div  a(%d) b(%d), r(%d)\n",a*100,b,a*100/b);
 
-        printf_zqh("fdiv fa(%s)\n",f2str(fa*100.00, str_buf));
-        printf_zqh("fdiv fb(%s)\n",f2str(fb, str_buf));
-        printf_zqh("fdiv r(%s)\n",f2str(fa*100.00/fb, str_buf));
+        printf("fdiv fa(%s)\n",f2str(fa*100.00, str_buf));
+        printf("fdiv fb(%s)\n",f2str(fb, str_buf));
+        printf("fdiv r(%s)\n",f2str(fa*100.00/fb, str_buf));
 
-        printf_zqh("fdiv da(%s)\n",f2str(da*100.00, str_buf));
-        printf_zqh("fdiv db(%s)\n",f2str(db, str_buf));
-        printf_zqh("fdiv r(%s)\n",f2str(da*100.00/db, str_buf));
+        printf("fdiv da(%s)\n",f2str(da*100.00, str_buf));
+        printf("fdiv db(%s)\n",f2str(db, str_buf));
+        printf("fdiv r(%s)\n",f2str(da*100.00/db, str_buf));
 
-        printf_zqh("divSqrt fa(%s)\n",f2str(fa*200.00, str_buf));
-        printf_zqh("divSqrt fb(%s)\n",f2str(fb, str_buf));
-        printf_zqh("divSqrt r(%s)\n",f2str(sqrt(fa*200.00), str_buf));
+        printf("divSqrt fa(%s)\n",f2str(fa*200.00, str_buf));
+        printf("divSqrt fb(%s)\n",f2str(fb, str_buf));
+        printf("divSqrt r(%s)\n",f2str(sqrt(fa*200.00), str_buf));
 
-        printf_zqh("divSqrt da(%s)\n",f2str(da*200.00, str_buf));
-        printf_zqh("divSqrt db(%s)\n",f2str(db, str_buf));
-        printf_zqh("divSqrt r(%s)\n",f2str(sqrt(da*200.00), str_buf));
+        printf("divSqrt da(%s)\n",f2str(da*200.00, str_buf));
+        printf("divSqrt db(%s)\n",f2str(db, str_buf));
+        printf("divSqrt r(%s)\n",f2str(sqrt(da*200.00), str_buf));
 
         //*uc_addr = i;
     }
-    printf_zqh("float test end\n");
+    printf("float test end\n");
     //}}}
 
 //    //datatimpad access test
@@ -1273,16 +1273,16 @@ int main (int argc, char** argv)
 //        tim_wdata = i;
 //        //*(dtim_addr + i) = tim_wdata;
 //        *(dtim_addr) = tim_wdata;
-//        printf_zqh("tim[%x] write %x\n",dtim_addr, tim_wdata);
+//        printf("tim[%x] write %x\n",dtim_addr, tim_wdata);
 //        tim_rdata = *(dtim_addr);
-//        //printf_zqh("tim[%x] write %x\n",dtim_addr + i, tim_wdata);
-//        printf_zqh("tim[%x] read  %x\n",dtim_addr, tim_rdata);
+//        //printf("tim[%x] write %x\n",dtim_addr + i, tim_wdata);
+//        printf("tim[%x] read  %x\n",dtim_addr, tim_rdata);
 //    }
 
 //    for (int i = 0; i < 10; i++) {
-//        printf_zqh("tim[%x] before add %x\n", i, *dtim_addr);
+//        printf("tim[%x] before add %x\n", i, *dtim_addr);
 //        *dtim_addr = *dtim_addr + 1;
-//        printf_zqh("tim[%x] after  add %x\n", i, *dtim_addr);
+//        printf("tim[%x] after  add %x\n", i, *dtim_addr);
 //    }
  
     //while(hart_id != 0);
@@ -1292,18 +1292,18 @@ int main (int argc, char** argv)
     cnt1 = 3;
 //    if (hart_id == 0) {
         //for (int i = 0; i < cnt0; i++) {
-        //    printf_zqh("tim[%x] before add %x\n", i, *dtim_addr);
+        //    printf("tim[%x] before add %x\n", i, *dtim_addr);
         //    *dtim_addr = *dtim_addr + 1;
-        //    printf_zqh("tim[%x] after  add %x\n", i, *dtim_addr);
+        //    printf("tim[%x] after  add %x\n", i, *dtim_addr);
         //}
-        //printf_zqh("tim last value %d\n", *dtim_addr);
+        //printf("tim last value %d\n", *dtim_addr);
         //if (*dtim_addr != cnt0) {
         //    stop_code = 1;
         //}
 
         for (int i = 0; i < cnt0; i++) {
             *uc_addr = i;
-            //printf_zqh("cnt[%x] %x\n", i, i);
+            //printf("cnt[%x] %x\n", i, i);
         }
 
         //*CLINT_MTIMECMP = 0x8; // set timercmp
@@ -1334,7 +1334,7 @@ int main (int argc, char** argv)
             //else {
             //    sp_t_id = 0;
             //}
-            //printf_zqh("tim[%x] %x\n", i, *dtim_addr);
+            //printf("tim[%x] %x\n", i, *dtim_addr);
 
             //*dtim_addr = i;
             //*(dtim_addr + ((i * 64) >> 3)) = i;
@@ -1344,7 +1344,7 @@ int main (int argc, char** argv)
             //cas64_get_lock(lock_ptr);
             //swap64_get_lock(lock_ptr);
             swap32_get_lock(lock_ptr);
-            printf_zqh("get lock\n");
+            printf("get lock\n");
             (*c_addr)++;
             //(*axi4_c_addr)++;
             //tmp (*(itim_addr + itim_offset))++;
@@ -1355,22 +1355,22 @@ int main (int argc, char** argv)
             //ret_v = amo64_swap(CLINT_MTIMECMP(hart_id), 0x0000000000000001 << i);
             //ret_v = amo64_swap(c_addr, 0x0000000000000001 << i);
             //ret_v = amo64_swap(dtim_addr , 0x0000000000000001 << i);
-            //printf_zqh("ret_v %x\n", ret_v);
-            //printf_zqh("c_addr[%d] %x\n", i, *CLINT_MTIMECMP(hart_id));
-            printf_zqh("c_addr[%d] %x\n", i, *c_addr);
-            //printf_zqh("axi4_c_addr[%d] %x\n", i, *axi4_c_addr);
-            //tmp printf_zqh("itim_offset[%d] %x\n", i, *(itim_addr + itim_offset));
-            //tmp printf_zqh("dtim_offset[%d] %x\n", i, *(dtim_addr + dtim_offset));
-            //printf_zqh("itim_io_offset[%d] %x\n", i, *(ITIM_IO_ADDR(hart_id, itim_io_offset)));
-            //printf_zqh("dtim_io_offset[%d] %x\n", i, *(DTIM_IO_ADDR(hart_id, dtim_io_offset)));
-            //printf_zqh("itim_offset * c_addr[%d] %x\n", i, *(ITIM_ADDR(itim_offset)) * *c_addr);
-            //printf_zqh("dtim_offset * c_addr[%d] %x\n", i, *(DTIM_ADDR(dtim_offset)) * *c_addr);
-            //printf_zqh("itim_offset * axi4_c_addr[%d] %x\n", i, *(ITIM_ADDR(itim_offset)) * *axi4_c_addr);
-            //printf_zqh("dtim_offset * axi4_c_addr[%d] %x\n", i, *(DTIM_ADDR(dtim_offset)) * *axi4_c_addr);
-            //printf_zqh("float[%d] %s\n", i, f2str(*dtim_addr + 23.12345678, str_buf));
-            //printf_zqh("c_addr[%d] %x\n", i, *dtim_addr);
-            //printf_zqh("c_addr[%d] %x\n", i, *c_addr);
-            //printf_zqh("put lock\n");
+            //printf("ret_v %x\n", ret_v);
+            //printf("c_addr[%d] %x\n", i, *CLINT_MTIMECMP(hart_id));
+            printf("c_addr[%d] %x\n", i, *c_addr);
+            //printf("axi4_c_addr[%d] %x\n", i, *axi4_c_addr);
+            //tmp printf("itim_offset[%d] %x\n", i, *(itim_addr + itim_offset));
+            //tmp printf("dtim_offset[%d] %x\n", i, *(dtim_addr + dtim_offset));
+            //printf("itim_io_offset[%d] %x\n", i, *(ITIM_IO_ADDR(hart_id, itim_io_offset)));
+            //printf("dtim_io_offset[%d] %x\n", i, *(DTIM_IO_ADDR(hart_id, dtim_io_offset)));
+            //printf("itim_offset * c_addr[%d] %x\n", i, *(ITIM_ADDR(itim_offset)) * *c_addr);
+            //printf("dtim_offset * c_addr[%d] %x\n", i, *(DTIM_ADDR(dtim_offset)) * *c_addr);
+            //printf("itim_offset * axi4_c_addr[%d] %x\n", i, *(ITIM_ADDR(itim_offset)) * *axi4_c_addr);
+            //printf("dtim_offset * axi4_c_addr[%d] %x\n", i, *(DTIM_ADDR(dtim_offset)) * *axi4_c_addr);
+            //printf("float[%d] %s\n", i, f2str(*dtim_addr + 23.12345678, str_buf));
+            //printf("c_addr[%d] %x\n", i, *dtim_addr);
+            //printf("c_addr[%d] %x\n", i, *c_addr);
+            //printf("put lock\n");
             //while(cas(lock_ptr, 1, 0));
             //cas64_put_lock(lock_ptr);
             //swap64_put_lock(lock_ptr);
@@ -1383,10 +1383,10 @@ int main (int argc, char** argv)
             delay_zqh(20);
             //soft_scan_eip(PLIC_CLAIM_COMPLETE_M(hart_id);
             //soft_scan_eip(PLIC_CLAIM_COMPLETE_S(hart_id);
-            //printf_zqh("dtim_addr[%x] %x\n", i, *(dtim_addr + ((i * 64) >> 3)));
-            //printf_zqh("c_addr[%x] %x\n", i, *(c_addr + hart_id * 0x1000 + i * 64));
-            //printf_zqh("dtim_io_addr[%x] %x\n", i, *(dtim_io_addr + (0x00100000 >> 3) * hart_id));
-            //printf_zqh("c_addr[%x] %x\n", i, *c_addr);
+            //printf("dtim_addr[%x] %x\n", i, *(dtim_addr + ((i * 64) >> 3)));
+            //printf("c_addr[%x] %x\n", i, *(c_addr + hart_id * 0x1000 + i * 64));
+            //printf("dtim_io_addr[%x] %x\n", i, *(dtim_io_addr + (0x00100000 >> 3) * hart_id));
+            //printf("c_addr[%x] %x\n", i, *c_addr);
 
 //tmp            //*CLINT_MSIP = i;
 //tmp            *PLIC_PRIORITY         = i+0;
@@ -1398,23 +1398,23 @@ int main (int argc, char** argv)
 //tmp            *PLIC_THRESHOLD_S      = i+6;
 //tmp            *PLIC_CLAIM_COMPLETE_M = i+7;
 //tmp            *PLIC_CLAIM_COMPLETE_S = i+8;
-//tmp            printf_zqh("PLIC_PRIORITY         %x\n", *PLIC_PRIORITY);
-//tmp            printf_zqh("PLIC_PRIORITY + 1     %x\n", *(PLIC_PRIORITY + 1));
-//tmp            printf_zqh("PLIC_PENDING          %x\n", *PLIC_PENDING);
-//tmp            printf_zqh("PLIC_ENABLE_M         %x\n", *PLIC_ENABLE_M        );
-//tmp            printf_zqh("PLIC_ENABLE_S         %x\n", *PLIC_ENABLE_S        );
-//tmp            printf_zqh("PLIC_THRESHOLD_M      %x\n", *PLIC_THRESHOLD_M     );
-//tmp            printf_zqh("PLIC_THRESHOLD_S      %x\n", *PLIC_THRESHOLD_S     );
-//tmp            printf_zqh("PLIC_CLAIM_COMPLETE_M %x\n", *PLIC_CLAIM_COMPLETE_M);
-//tmp            printf_zqh("PLIC_CLAIM_COMPLETE_S %x\n", *PLIC_CLAIM_COMPLETE_S);
+//tmp            printf("PLIC_PRIORITY         %x\n", *PLIC_PRIORITY);
+//tmp            printf("PLIC_PRIORITY + 1     %x\n", *(PLIC_PRIORITY + 1));
+//tmp            printf("PLIC_PENDING          %x\n", *PLIC_PENDING);
+//tmp            printf("PLIC_ENABLE_M         %x\n", *PLIC_ENABLE_M        );
+//tmp            printf("PLIC_ENABLE_S         %x\n", *PLIC_ENABLE_S        );
+//tmp            printf("PLIC_THRESHOLD_M      %x\n", *PLIC_THRESHOLD_M     );
+//tmp            printf("PLIC_THRESHOLD_S      %x\n", *PLIC_THRESHOLD_S     );
+//tmp            printf("PLIC_CLAIM_COMPLETE_M %x\n", *PLIC_CLAIM_COMPLETE_M);
+//tmp            printf("PLIC_CLAIM_COMPLETE_S %x\n", *PLIC_CLAIM_COMPLETE_S);
 
         }
         delay_zqh(200);
-        //printf_zqh("c_addr[%x] %x\n", cnt0, *c_addr);
+        //printf("c_addr[%x] %x\n", cnt0, *c_addr);
 //    }
 //    else {
 //        //for (int i = 0; i < cnt1; i++) {
-//        //    printf_zqh("uc_addr[%x] before add %x\n", i, *uc_addr);
+//        //    printf("uc_addr[%x] before add %x\n", i, *uc_addr);
 //        //    *uc_addr = *uc_addr + 1;
 //
 //        //    //*uc_addr = 0;
@@ -1426,14 +1426,14 @@ int main (int argc, char** argv)
 //        //    //*uc_addr = 6;
 //        //    //*uc_addr = 7;
 //        //    delay_zqh(100);
-//        //    //printf_zqh("uc_addr[%x] after  add %x\n", i, *uc_addr);
+//        //    //printf("uc_addr[%x] after  add %x\n", i, *uc_addr);
 //        //}
 //        for (int i = 0; i < cnt1; i++) {
 //            *uc_addr = cnt1;
-//            printf_zqh("uc_addr[%x] %x\n", i, *uc_addr);
+//            printf("uc_addr[%x] %x\n", i, *uc_addr);
 //            delay_zqh(100);
 //        }
-//        printf_zqh("uc_addr last value %d\n", *uc_addr);
+//        printf("uc_addr last value %d\n", *uc_addr);
 //        //if (*uc_addr != cnt1) {
 //        //    stop_code = 1;
 //        //}
@@ -1450,12 +1450,12 @@ int main (int argc, char** argv)
 //        *(dtim_addr) = 0;
 //    }
 
-    printf_zqh("mcycle %d\n", read_csr(mcycle));
-    printf_zqh("minstret %d\n", read_csr(minstret));
-    printf_zqh("mhpmcounter3 last %d\n", read_csr(mhpmcounter3));
-    printf_zqh("mhpmcounter4 last %d\n", read_csr(mhpmcounter4));
-    printf_zqh("mhpmcounter5 last %d\n", read_csr(mhpmcounter5));
-    printf_zqh("mhpmcounter6 last %d\n", read_csr(mhpmcounter6));
+    printf("mcycle %d\n", read_csr(mcycle));
+    printf("minstret %d\n", read_csr(minstret));
+    printf("mhpmcounter3 last %d\n", read_csr(mhpmcounter3));
+    printf("mhpmcounter4 last %d\n", read_csr(mhpmcounter4));
+    printf("mhpmcounter5 last %d\n", read_csr(mhpmcounter5));
+    printf("mhpmcounter6 last %d\n", read_csr(mhpmcounter6));
     //__sync_synchronize();
     //*STOP_PTR_HART(hart_id) = stop_code;
     //while(1);

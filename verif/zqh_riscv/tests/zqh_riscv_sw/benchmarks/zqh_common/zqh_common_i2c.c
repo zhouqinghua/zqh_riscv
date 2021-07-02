@@ -45,7 +45,7 @@ void i2c_cmd_start() {
 void i2c_cmd_start_write() {
     *I2C_CMD = 0x09;
     while(i2c_arb_lost_chk()) {
-        printf_zqh("i2c arb lost, retry cmd %x\n", 0x09);
+        printf("i2c arb lost, retry cmd %x\n", 0x09);
         *I2C_CMD = 0x09;//retry this cmd
     }
 }
@@ -104,7 +104,7 @@ void i2c_cmd_read_nack_stop() {
 void i2c_cmd_stop() {
     *I2C_CMD = 0x02;
     while(i2c_arb_lost_chk()) {
-        printf_zqh("i2c arb lost, retry cmd %x\n", 0x02);
+        printf("i2c arb lost, retry cmd %x\n", 0x02);
         *I2C_CMD = 0x02;//retry this cmd
     }
 }

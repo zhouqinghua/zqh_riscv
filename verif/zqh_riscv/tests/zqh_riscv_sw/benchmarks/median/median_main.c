@@ -12,9 +12,6 @@
 #include "util.h"
 
 #include "median.h"
-//zqh
-#include "zqh_common_def.h"
-#include "zqh_common_funcs.c"
 
 //--------------------------------------------------------------------------
 // Input/Reference Data

@@ -12,6 +12,7 @@
 int main (int argc, char** argv)
 {
     zqh_common_csr_cfg();
+    setStats(1);
 
     //gpio hw iof enable
     *GPIO_IOF_EN(0) = *GPIO_IOF_EN(0) | 0xc0;
@@ -20,7 +21,7 @@ int main (int argc, char** argv)
     //i2c test
     //{{{
     //i2c eeprom write/read
-    printf_zqh("i2c eeprom access start\n");
+    printf("i2c eeprom access start\n");
 
     for (int i = 0; i < 4; i++){
         i2c_data_write(0xa0);//page0 write
@@ -37,7 +38,7 @@ int main (int argc, char** argv)
 
         //delay_zqh(100);//wait write action done
 
-        printf_zqh("i2c eeprom write adddress = %x, data = %x\n", i, i);
+        printf("i2c eeprom write adddress = %x, data = %x\n", i, i);
     }
 
     for (int i = 0; i < 4; i++){
@@ -56,14 +57,14 @@ int main (int argc, char** argv)
         i2c_cmd_read_nack_stop();
         i2c_wait_no_transfer_in_progress();
 
-        printf_zqh("i2c eeprom read adddress = %x, data = %x\n", i, i2c_data_read());
+        printf("i2c eeprom read adddress = %x, data = %x\n", i, i2c_data_read());
     }
-    printf_zqh("i2c eeprom access end\n");
+    printf("i2c eeprom access end\n");
 
 
-    printf_zqh("i2c test end\n");
+    printf("i2c test end\n");
     //}}}
 
-    //post_stop(0x01);
+    setStats(0);
     return 0;
 }

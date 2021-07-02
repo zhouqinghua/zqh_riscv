@@ -11,12 +11,13 @@
 int main (int argc, char** argv)
 {
     zqh_common_csr_cfg();
+    setStats(1);
 
     //
     //dma read/write teset
     //cross: rsize, wsize, source_addr lsb, dest_addr lsb, length lsb
     //{{{
-    printf_zqh("dma test start\n");
+    printf("dma test start\n");
     //config reg access
     int chn = 0;
     int chn_num = 1;
@@ -55,7 +56,7 @@ int main (int argc, char** argv)
 
     for (int i = 0; i < chn_num; i++) {
         chn = i;
-        printf_zqh("dma channel %0d do\n", chn);
+        printf("dma channel %0d do\n", chn);
 
         *(DMA_CONTROL(chn)) = *(DMA_CONTROL(chn)) | 0x1;//set claim
         //*(DMA_CONTROL(chn)) = *(DMA_CONTROL(chn)) | 0x0c000000;//enable interrupt
@@ -66,11 +67,11 @@ int main (int argc, char** argv)
         *(DMA_NEXT_DEST   (chn)) = dma_dest + dma_dest_chn_offset * chn;
         *(DMA_NEXT_SOURCE (chn)) = dma_source + dma_source_chn_offset * chn;
 
-        printf_zqh("DMA_CONTROL     (%0d) post = %x\n",  chn, *(DMA_CONTROL     (chn)));
-        printf_zqh("DMA_NEXT_CONFIG (%0d) post = %x\n",  chn, *(DMA_NEXT_CONFIG (chn)));
-        printf_zqh("DMA_NEXT_BYTES  (%0d) post = %lx\n", chn, *(DMA_NEXT_BYTES  (chn)));
-        printf_zqh("DMA_NEXT_DEST   (%0d) post = %lx\n", chn, *(DMA_NEXT_DEST   (chn)));
-        printf_zqh("DMA_NEXT_SOURCE (%0d) post = %lx\n", chn, *(DMA_NEXT_SOURCE (chn)));
+        printf("DMA_CONTROL     (%0d) post = %x\n",  chn, *(DMA_CONTROL     (chn)));
+        printf("DMA_NEXT_CONFIG (%0d) post = %x\n",  chn, *(DMA_NEXT_CONFIG (chn)));
+        printf("DMA_NEXT_BYTES  (%0d) post = %lx\n", chn, *(DMA_NEXT_BYTES  (chn)));
+        printf("DMA_NEXT_DEST   (%0d) post = %lx\n", chn, *(DMA_NEXT_DEST   (chn)));
+        printf("DMA_NEXT_SOURCE (%0d) post = %lx\n", chn, *(DMA_NEXT_SOURCE (chn)));
 
 
         //tmp dma_source_ptr = dma_source;
@@ -79,7 +80,7 @@ int main (int argc, char** argv)
 
 
         //for (int j = 0; j < dma_bytes/4; j++) {
-        //    printf_zqh("dma pre dest[%x] = %x\n", dma_dest_ptr + j, *(dma_dest_ptr + j));
+        //    printf("dma pre dest[%x] = %x\n", dma_dest_ptr + j, *(dma_dest_ptr + j));
         //}
 
         //flush dest address first
@@ -103,9 +104,9 @@ int main (int argc, char** argv)
             if ((*(DMA_CONTROL(chn)) & 0x0c000000) != 0) {
                 //check run flag is cleared by interrupt process
                 if ((*(DMA_CONTROL(chn)) & 0x2) == 0) {
-                    //printf_zqh("dma channel %0d interrupt process done\n", chn);
+                    //printf("dma channel %0d interrupt process done\n", chn);
                     for (int j = 0; j < data_print_num; j++) {
-                        printf_zqh("dma channel %0d interrupt post dest[%x] = %x\n", chn, dma_dest_ptr + j, *(dma_dest_ptr + j));
+                        printf("dma channel %0d interrupt post dest[%x] = %x\n", chn, dma_dest_ptr + j, *(dma_dest_ptr + j));
                     }
                     *(DMA_CONTROL(chn)) = *(DMA_CONTROL(chn)) & 0xfffffffe;//clean claim, release dma
                     break;
@@ -114,9 +115,9 @@ int main (int argc, char** argv)
             else {
                 //check done/error flag
                 if ((*(DMA_CONTROL(chn)) & 0xc0000000) != 0) {
-                    //printf_zqh("dma channel %0d sw scan done\n", chn);
+                    //printf("dma channel %0d sw scan done\n", chn);
                     for (int j = 0; j < data_print_num; j++) {
-                        printf_zqh("dma channel %0d sw scan post dest[%x] = %x\n", chn, dma_dest_ptr + j, *(dma_dest_ptr + j));
+                        printf("dma channel %0d sw scan post dest[%x] = %x\n", chn, dma_dest_ptr + j, *(dma_dest_ptr + j));
                     }
 
                     *(DMA_CONTROL(chn)) = *(DMA_CONTROL(chn)) & 0xfffffffd;//clean run, stop dma
@@ -128,10 +129,10 @@ int main (int argc, char** argv)
         //delay_zqh(500);
     }
 
-    printf_zqh("dma test end\n");
+    printf("dma test end\n");
     //while(1);
     //}}}
 
-    //post_stop(0x01);
+    setStats(0);
     return 0;
 }

@@ -26,7 +26,7 @@ int ddr_rd_all1_check() {
     //read out, need refill from ddr
     for (int i = 0; i < size/4; i++) {
         rd_data = *(mem_ptr_32 + i);
-        printf_zqh("ddr_rd_all1_scan[%x] rd data = %8x\n", (mem_ptr_32 + i), rd_data);
+        printf("ddr_rd_all1_scan[%x] rd data = %8x\n", (mem_ptr_32 + i), rd_data);
         if (rd_data != 0xffffffff) {
             check_pass = 0;
         }
@@ -48,7 +48,7 @@ int ddr_wr_rd_check(uint32_t size, uint32_t print) {
         wr_data = 0x5500aa00 + i + (i << 16);
         *(mem_ptr_32 + i) = wr_data;
         if ((i & 0x003fffff) == 0) {
-            printf_zqh("write address(%8x) = %8x done\n", (mem_ptr_32 + i), wr_data);
+            printf("write address(%8x) = %8x done\n", (mem_ptr_32 + i), wr_data);
         }
     }
 
@@ -57,7 +57,7 @@ int ddr_wr_rd_check(uint32_t size, uint32_t print) {
         //*DC_L1_FLUSH_IO_ADDR(0) = mem_ptr_32 + i;
         dc_l1_flush(mem_ptr_32 + i);
         if ((i & 0x003fffff) == 0) {
-            printf_zqh("flush address(%8x) done\n", mem_ptr_32 + i);
+            printf("flush address(%8x) done\n", mem_ptr_32 + i);
         }
     }
 
@@ -66,10 +66,10 @@ int ddr_wr_rd_check(uint32_t size, uint32_t print) {
         rd_data = *(mem_ptr_32 + i);
         expect_data = 0x5500aa00 + i + (i << 16);
         if ((i & 0x003fffff) == 0) {
-            printf_zqh("read address(%8x) = %8x done\n", (mem_ptr_32 + i), rd_data);
+            printf("read address(%8x) = %8x done\n", (mem_ptr_32 + i), rd_data);
         }
         if (print) {
-            printf_zqh("mem_ptr_32[%x] post rd data = %8x\n", (mem_ptr_32 + i), rd_data);
+            printf("mem_ptr_32[%x] post rd data = %8x\n", (mem_ptr_32 + i), rd_data);
         }
         if (rd_data != expect_data) {
             check_pass = 0;
@@ -113,18 +113,18 @@ void ddr3_training_delay(int mode, int v0, int v1, int v2) {
             rd_dqs_delay = dly_cnt << 3;
         }
 
-        printf_zqh("dly_cnt = %0x\n", dly_cnt);
-        printf_zqh("wr_dqs_delay = %0x\n", wr_dqs_delay);
-        printf_zqh("wr_dq_delay = %0x\n", wr_dq_delay);
-        printf_zqh("rd_dqs_delay = %0x\n", rd_dqs_delay);
+        printf("dly_cnt = %0x\n", dly_cnt);
+        printf("wr_dqs_delay = %0x\n", wr_dqs_delay);
+        printf("wr_dq_delay = %0x\n", wr_dq_delay);
+        printf("rd_dqs_delay = %0x\n", rd_dqs_delay);
         ddr_phy_delay_cfg(wr_dqs_delay, wr_dq_delay, rd_dqs_delay);
         delay_ms(500);
 
         if (ddr_wr_rd_check(64, 1)) {
-            printf_zqh("ddr_wr_rd_check pass. rd_dqs_delay = %0x, wr_dq_delay = %0x\n", rd_dqs_delay, wr_dq_delay);
+            printf("ddr_wr_rd_check pass. rd_dqs_delay = %0x, wr_dq_delay = %0x\n", rd_dqs_delay, wr_dq_delay);
         }
         //if (ddr_rd_all1_check()) {
-        //    printf_zqh("ddr_rd_all1_check pass. rd_dqs_delay = %0x, wr_dq_delay = %0x\n", rd_dqs_delay, wr_dq_delay);
+        //    printf("ddr_rd_all1_check pass. rd_dqs_delay = %0x, wr_dq_delay = %0x\n", rd_dqs_delay, wr_dq_delay);
         //}
     }
 }

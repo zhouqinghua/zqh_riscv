@@ -100,7 +100,7 @@ void mac_rx_bd_push(uint32_t rx_buf_offset) {
     do {
         rx_bd_fifo_ready = *MAC_RX_BD_L & 0x1;
         if (rx_bd_fifo_ready == 0) {
-            printf_zqh("mac_rx_bd_fifo %0d is not ready\n");
+            printf("mac_rx_bd_fifo %0d is not ready\n");
         }
     } while(rx_bd_fifo_ready == 0);
 
@@ -434,7 +434,7 @@ struct arp_packet* gen_arp_resp_pkt(uint32_t tx_buf_offset, uint32_t rx_buf_offs
     ////print arp resp pkt
     //for (int i = 0; i < 60; i++) {
     //    tx_data = *(((uint8_t *)MAC_TX_BUF) + i);
-    //    printf_zqh("mac arp resp pkt[%0d] = %x\n", i, tx_data);
+    //    printf("mac arp resp pkt[%0d] = %x\n", i, tx_data);
     //}
 }
 
@@ -611,7 +611,7 @@ int send_eth_pkt(uint32_t len, uint32_t tx_buf_offset) {
         tx_cpl = *MAC_TX_CPL;
         tx_done = tx_cpl & 0x1;
     }
-    printf_zqh("eth pkt send done, cpl = %x\n", tx_cpl);
+    printf("eth pkt send done, cpl = %x\n", tx_cpl);
 
     return 1;
 }
@@ -650,30 +650,30 @@ void eth_mac_tx_rx_test(){
     uint32_t link_ok_cnt = 0;
     while(1) {
         physr = mac_phy_smi_read(mac_phy_addr, 0x11);
-        printf_zqh("mac phy physr = %x\n", physr);
+        printf("mac phy physr = %x\n", physr);
         physr_link = (physr >> 10) & 0x1;
         physr_speed = (physr >> 14) & 0x3;
         if (physr_link == 1) {
             link_ok_cnt++;
-            printf_zqh("mac phy link ok %0d times\n", link_ok_cnt);
+            printf("mac phy link ok %0d times\n", link_ok_cnt);
             if (physr_speed == 0) {
-                printf_zqh("mac phy speed is 10Mbps\n");
+                printf("mac phy speed is 10Mbps\n");
             }
             else if (physr_speed == 1) {
-                printf_zqh("mac phy speed is 100Mbps\n");
+                printf("mac phy speed is 100Mbps\n");
             }
             else if (physr_speed == 2) {
-                printf_zqh("mac phy speed is 1000Mbps\n");
+                printf("mac phy speed is 1000Mbps\n");
             }
             else {
-                printf_zqh("mac phy speed is Reserved\n");
+                printf("mac phy speed is Reserved\n");
             }
         }
         else {
             link_ok_cnt = 0;
         }
         if (link_ok_cnt >= 3) {
-            printf_zqh("mac phy ready\n");
+            printf("mac phy ready\n");
             break;
         }
         delay_ms(1000);
@@ -681,7 +681,7 @@ void eth_mac_tx_rx_test(){
 
     //
     //modify
-    //printf_zqh("smi reg0 pre cfg = %x\n",mac_phy_smi_read(mac_phy_addr, 0));
+    //printf("smi reg0 pre cfg = %x\n",mac_phy_smi_read(mac_phy_addr, 0));
     //mac_phy_reg_wdata = mac_phy_reg_buffer[0];
     //mac_phy_reg_wdata = mac_phy_reg_wdata & 0xffffefff;//bit12 ANE=0, disable an
     //mac_phy_reg_wdata = mac_phy_reg_wdata | 0x40;//bit6 = 1, speed = 1000MHz, gmii mode
@@ -689,7 +689,7 @@ void eth_mac_tx_rx_test(){
     //mac_phy_reg_wdata = mac_phy_reg_wdata | 0x100;//bit8 full duplex
     //mac_phy_reg_wdata = mac_phy_reg_wdata | 0x4000;//bit14 = 1, loopback mode
     //mac_phy_smi_write(mac_phy_addr, 0, mac_phy_reg_wdata);
-    //printf_zqh("smi reg0 post cfg = %x\n",mac_phy_smi_read(mac_phy_addr, 0));
+    //printf("smi reg0 post cfg = %x\n",mac_phy_smi_read(mac_phy_addr, 0));
 
 
 
@@ -734,7 +734,7 @@ void eth_mac_tx_rx_test(){
         rx_done = rx_cpl & 0x1;
         rx_pkt_len = rx_cpl >> 16;
         if (rx_done) {
-            printf_zqh("mac rx_bd %0d done, cpl = %x\n", pkt_idx, rx_cpl);
+            printf("mac rx_bd %0d done, cpl = %x\n", pkt_idx, rx_cpl);
             rx_buf_offset = (4096/8)*pkt_idx;
 
             //check eth pkt type
@@ -743,7 +743,7 @@ void eth_mac_tx_rx_test(){
 
                 arp_rx_pkt_ptr = (struct arp_packet *) (((uint8_t *)MAC_RX_BUF) + rx_buf_offset);
                 if (rx_pkt_ip_cmp((*arp_rx_pkt_ptr).m_arp_hdr.arp_tpa, my_ip_address)) {
-                    printf_zqh("recieve one arp pkt\n");
+                    printf("recieve one arp pkt\n");
                     //arp request
                     if ((*arp_rx_pkt_ptr).m_arp_hdr.arp_op == 0x0100) {
                         struct arp_packet *arp_resp_pkt_ptr;
@@ -751,7 +751,7 @@ void eth_mac_tx_rx_test(){
                         //send arp resp
                         arp_resp_pkt_ptr = gen_arp_resp_pkt(0, rx_buf_offset, my_mac_address, my_ip_address);
                         send_eth_pkt(60, 0);
-                        printf_zqh("send arp resp, tell host my mac adress\n");
+                        printf("send arp resp, tell host my mac adress\n");
                     }
                     //arp response, extract host's mac address
                     else {
@@ -759,7 +759,7 @@ void eth_mac_tx_rx_test(){
                             host_mac_address[i] = (*arp_rx_pkt_ptr).m_arp_hdr.arp_sha[i];
                         }
                         eth_state = 1;
-                        printf_zqh("get host's mac address\n");
+                        printf("get host's mac address\n");
                     }
                 }
             }
@@ -768,23 +768,23 @@ void eth_mac_tx_rx_test(){
 
                 ip_rx_pkt_ptr = (struct ip_packet_hdr *) (((uint8_t *)MAC_RX_BUF) + rx_buf_offset);
                 if (rx_pkt_ip_cmp((*ip_rx_pkt_ptr).m_ip_hdr.daddr, my_ip_address)) {
-                    printf_zqh("recieve one ip pkt\n");
+                    printf("recieve one ip pkt\n");
                     if (ip_check_is_icmp_pkt(rx_buf_offset)) {
                         struct icmp_packet_hdr *icmp_resp_pkt_ptr;
 
-                        printf_zqh("recieve one icmp pkt\n");
+                        printf("recieve one icmp pkt\n");
                         icmp_resp_pkt_ptr = gen_icmp_resp_pkt(rx_pkt_len - 4, 0, rx_buf_offset, my_mac_address, my_ip_address);
                         send_eth_pkt(rx_pkt_len - 4, 0);
-                        printf_zqh("mac icmp resp send done\n");
+                        printf("mac icmp resp send done\n");
                     }
                     else if (ip_check_is_igmp_pkt(rx_buf_offset)) {
-                        printf_zqh("recieve one igmp pkt\n");
+                        printf("recieve one igmp pkt\n");
                     }
                     else if (ip_check_is_tcp_pkt(rx_buf_offset)) {
-                        printf_zqh("recieve one tcp pkt\n");
+                        printf("recieve one tcp pkt\n");
                     }
                     else if (ip_check_is_udp_pkt(rx_buf_offset)) {
-                        printf_zqh("recieve one udp pkt\n");
+                        printf("recieve one udp pkt\n");
                         uint8_t *data_buf;
                         uint16_t sport,dport;
                         uint32_t eth_pkt_len;
@@ -816,7 +816,7 @@ void eth_mac_tx_rx_test(){
 
             arp_req_pkt_ptr = gen_arp_req_pkt(0, my_mac_address, my_ip_address, host_ip_address);
             send_eth_pkt(42, 0);
-            printf_zqh("send arp req, ask for host's mac address\n");
+            printf("send arp req, ask for host's mac address\n");
         }
         else {
             uint8_t *data_buf;

@@ -12,31 +12,32 @@
 int main (int argc, char** argv)
 {
     zqh_common_csr_cfg();
+    setStats(1);
 
     volatile uint8_t * c_addr = TL_SRAM_MEM_BASE;
     uint32_t cnt;
-    printf_zqh("dcache flush test start\n");
+    printf("dcache flush test start\n");
 
     cnt = 8;
     //modify cache address
     for (int i = 0; i < cnt; i++) {
         *(c_addr + i) = i;
-        printf_zqh("pre write[%0d] = 0x%x\n", i, i);
+        printf("pre write[%0d] = 0x%x\n", i, i);
     }
 
     //flush dcache address
     for (int i = 0; i < cnt; i++) {
         dc_l1_flush(c_addr + i);
-        printf_zqh("dcache flush 0x%x done\n", c_addr + i);
+        printf("dcache flush 0x%x done\n", c_addr + i);
     }
 
     for (int i = 0; i < cnt; i++) {
         *(c_addr + i) = i;
-        printf_zqh("post read[%0d] = 0x%x\n", i, *(c_addr + i));
+        printf("post read[%0d] = 0x%x\n", i, *(c_addr + i));
     }
 
-    printf_zqh("dcache flush test end\n");
+    printf("dcache flush test end\n");
 
-    //post_stop(0x01);
+    setStats(0);
     return 0;
 }
