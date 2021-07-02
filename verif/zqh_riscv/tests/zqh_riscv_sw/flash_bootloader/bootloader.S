@@ -153,7 +153,7 @@ _start:
 #zqh  add sp, sp, tp
 #zqh added
 #define SRAM_BASE 0x40000000
-#define SRAM_SIZE (32 * 1024)
+#define SRAM_SIZE (64 * 1024)
 #define BOOTLOADER_CODE_SIZE 6144
 #define BOOTLOADER_DATA_SIZE 2048
 #define BOOTLOADER_DATA_GP_SIZE 512
