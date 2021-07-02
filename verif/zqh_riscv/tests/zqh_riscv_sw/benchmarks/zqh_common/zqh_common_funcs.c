@@ -21,7 +21,7 @@ volatile __thread char support_user = 0;
 //tmp int putchar(int ch)
 //tmp {
 //tmp     //user uart
-//tmp     #if PRINT_USE_UART == 1
+//tmp     #ifdef PRINT_USE_UART
 //tmp         while(((*UART0_TXDATA) & 0x80000000) != 0);
 //tmp         *UART0_TXDATA = ch;
 //tmp     //use print_monitor

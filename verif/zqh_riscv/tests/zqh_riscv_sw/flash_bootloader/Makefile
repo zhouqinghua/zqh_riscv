@@ -50,6 +50,10 @@ endif
 
 #print use uart is very slow in simulation, should use mmio print monitor
 print_use_uart=0
+def_print_use_uart=
+ifeq ($(print_use_uart),1)
+    def_print_use_uart=-DPRINT_USE_UART=1
+endif
 
 #impliment mode: sim/fpga
 imp_mode=sim
@@ -59,7 +63,7 @@ ifeq ($(imp_mode),sim)
 endif
 
 GCC=riscv64-unknown-elf-gcc
-RISCV_GCC_OPTS = -DPREALLOCATE=1 $(def_has_ddr) $(def_has_eth) $(def_imp_mode) -DMAIN_MEM_BASE=$(main_mem_base) -DPRINT_USE_UART=$(print_use_uart) -mcmodel=medany -static -std=gnu99 -O1 -ffast-math -fno-common -fno-builtin-printf -march=rv64g -g
+RISCV_GCC_OPTS = -DPREALLOCATE=1 $(def_has_ddr) $(def_has_eth) $(def_imp_mode) -DMAIN_MEM_BASE=$(main_mem_base) $(def_print_use_uart) -mcmodel=medany -static -std=gnu99 -O1 -ffast-math -fno-common -fno-builtin-printf -march=rv64g -g
 RISCV_LINK_OPTS = -static -nostdlib -nostartfiles -lm -lgcc -T $(src_dir)/$(lk_fn)
 OBJCOPY=riscv64-unknown-elf-objcopy --only-section=.text* --only-section=.rodata*
 OBJDUMP=riscv64-unknown-elf-objdump -S --disassemble-all --disassemble-zeroes

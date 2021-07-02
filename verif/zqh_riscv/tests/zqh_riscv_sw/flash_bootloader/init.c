@@ -459,7 +459,7 @@ int ddr_init() {
 
 void simple_print_char(char ch) {
     //user uart
-    #if PRINT_USE_UART == 1
+    #ifdef PRINT_USE_UART
         //while(((*UART0_TXDATA) & 0x80000000) != 0);
         //*UART0_TXDATA = ch;
         uart0_tx_char(ch);

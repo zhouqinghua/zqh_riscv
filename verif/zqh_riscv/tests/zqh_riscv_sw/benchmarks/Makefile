@@ -13,7 +13,12 @@ endif
 ifeq ($(link_file),test_flash.ld)
     main_mem_base = 0x40002000
 endif
+
 print_use_uart=0
+def_print_use_uart=
+ifeq ($(print_use_uart),1)
+    def_print_use_uart=-DPRINT_USE_UART=1
+endif
 
 XLEN ?= 64
 
@@ -46,7 +51,7 @@ MARCH ?= rv64gc
 
 RISCV_PREFIX ?= riscv$(XLEN)-unknown-elf-
 RISCV_GCC ?= $(RISCV_PREFIX)gcc
-RISCV_GCC_OPTS ?= -DPREALLOCATE=1 -DMAIN_MEM_BASE=$(main_mem_base) -DPRINT_USE_UART=$(print_use_uart) -mcmodel=medany -static -std=gnu99 -O1 -ffast-math -fno-common -fno-builtin-printf -march=$(MARCH) -g
+RISCV_GCC_OPTS ?= -DPREALLOCATE=1 -DMAIN_MEM_BASE=$(main_mem_base) $(def_print_use_uart) -mcmodel=medany -static -std=gnu99 -O1 -ffast-math -fno-common -fno-builtin-printf -march=$(MARCH) -g
 RISCV_LINK ?= $(RISCV_GCC) -T $(src_dir)/common/$(link_file) $(incs)
 RISCV_LINK_OPTS ?= -static -nostdlib -nostartfiles -lm -lgcc -T $(src_dir)/common/$(link_file) -march=$(MARCH)
 #zqh old RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump --disassemble-all --disassemble-zeroes --section=.text --section=.text.startup --section=.data
