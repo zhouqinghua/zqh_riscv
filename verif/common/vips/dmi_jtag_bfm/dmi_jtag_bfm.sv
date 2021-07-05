@@ -60,8 +60,8 @@ module dmi_jtag_bfm#(
         bit[31:0] data;
     } dmi_resp;
 
-    dmi_req req_q[$];
-    dmi_resp resp_q[$];
+    //tmp dmi_req req_q[$];
+    //tmp dmi_resp resp_q[$];
 
     reg[31:0] jtag_state_pre = JTAG_ST_TestLogicReset;
     reg[31:0] jtag_state = JTAG_ST_TestLogicReset;
@@ -78,37 +78,40 @@ module dmi_jtag_bfm#(
     reg trstn_var = 1;
     reg tdo_var = 1;
     //tmp dmi_req cur_req = new();
+    int cur_req_valid = 0;
     dmi_req cur_req;
+    int cur_resp_valid = 0;
+    dmi_resp cur_resp;
 
-    function void set_pins(bit _tck, bit _tms, bit _tdi);
+    function set_pins(bit _tck, bit _tms, bit _tdi);
         tck_var = _tck;
         tms_var = _tms;
         tdi_var = _tdi;
     endfunction
     
-    function dmi_req get_dmi_req();
-        dmi_req req;
-        if (req_q.size() > 0) begin
-            req = req_q.pop_front();
-            //printf("Received a req: op = %0x, data = %x, addr = %x\n", req.op, req.data, req.addr);
-        end
-        else begin
-            req = null;
-        end
-        return req;
-    endfunction
+//tmp    function dmi_req get_dmi_req();
+//tmp        dmi_req req;
+//tmp        if (req_q.size() > 0) begin
+//tmp            req = req_q.pop_front();
+//tmp            //printf("Received a req: op = %0x, data = %x, addr = %x\n", req.op, req.data, req.addr);
+//tmp        end
+//tmp        else begin
+//tmp            req = null;
+//tmp        end
+//tmp        return req;
+//tmp    endfunction
     
-    function void send_dmi_resp(dmi_resp resp);
-        if (resp.resp != 0) begin
-            $display("resp.resp has error: %x", resp.resp);
-            while(1);
-        end
-        resp_q.push_back(resp);
-        //printf("Send a resp: resp = %0x, data = %x\n", resp.resp, resp.data);
-    endfunction
+//tmp    function send_dmi_resp(dmi_resp resp);
+//tmp        if (resp.resp != 0) begin
+//tmp            $display("resp.resp has error: %x", resp.resp);
+//tmp            while(1);
+//tmp        end
+//tmp        resp_q.push_back(resp);
+//tmp        //printf("Send a resp: resp = %0x, data = %x\n", resp.resp, resp.data);
+//tmp    endfunction
     
     
-    function void jtag_goto_test_logic_reset();
+    function jtag_goto_test_logic_reset();
         if (tck_var == 1) begin
             set_pins(0, 1, 0);
         end
@@ -117,7 +120,7 @@ module dmi_jtag_bfm#(
         end
     endfunction
     
-    function void jtag_goto_run_test_idle();
+    function jtag_goto_run_test_idle();
         if (tck_var == 1) begin
             set_pins(0, 0, 0);
         end
@@ -126,7 +129,7 @@ module dmi_jtag_bfm#(
         end
     endfunction
     
-    function void jtag_goto_select_dr_scan();
+    function jtag_goto_select_dr_scan();
         if (tck_var == 1) begin
             set_pins(0, 1, 0);
         end
@@ -135,7 +138,7 @@ module dmi_jtag_bfm#(
         end
     endfunction
     
-    function void jtag_goto_select_ir_scan();
+    function jtag_goto_select_ir_scan();
         if (tck_var == 1) begin
             set_pins(0, 1, 0);
         end
@@ -144,7 +147,7 @@ module dmi_jtag_bfm#(
         end
     endfunction
     
-    function void jtag_goto_capture_ir();
+    function jtag_goto_capture_ir();
         if (tck_var == 1) begin
             set_pins(0, 0, 0);
         end
@@ -153,7 +156,7 @@ module dmi_jtag_bfm#(
         end
     endfunction
     
-    function void jtag_goto_shift_ir(int di = 0);
+    function jtag_goto_shift_ir(int di = 0);
         if (tck_var == 1) begin
             set_pins(0, 0, di);
         end
@@ -162,7 +165,7 @@ module dmi_jtag_bfm#(
         end
     endfunction
     
-    function void jtag_goto_exit_1_ir(int di);
+    function jtag_goto_exit_1_ir(int di);
         if (tck_var == 1) begin
             set_pins(0, 1, di);
         end
@@ -172,7 +175,7 @@ module dmi_jtag_bfm#(
     endfunction
     
     
-    function void jtag_do_shift_ir(int a);
+    function jtag_do_shift_ir(int a);
         int tdi_bit;
         //shift idcode instruction
         tdi_bit = (a >> (jtag_tick_cnt/2)) & 1;
@@ -187,7 +190,7 @@ module dmi_jtag_bfm#(
     
     endfunction
     
-    function void jtag_goto_update_ir();
+    function jtag_goto_update_ir();
         if (tck_var == 1) begin
             set_pins(0, 1, 0);
         end
@@ -196,7 +199,7 @@ module dmi_jtag_bfm#(
         end
     endfunction
     
-    function void jtag_goto_capture_dr();
+    function jtag_goto_capture_dr();
         if (tck_var == 1) begin
             set_pins(0, 0, 0);
         end
@@ -255,7 +258,7 @@ module dmi_jtag_bfm#(
         return jtag_tdo_all;
     endfunction
     
-    function void jtag_goto_update_dr();
+    function jtag_goto_update_dr();
         if (tck_var == 1) begin
             set_pins(0, 1, 0);
         end
@@ -264,7 +267,7 @@ module dmi_jtag_bfm#(
         end
     endfunction
     
-    function void jtag_init(int a = 1);
+    function jtag_init(int a = 1);
         int reset_cycle;
         reset_cycle = 10;
         if (jtag_tick_cnt < reset_cycle*2) begin
@@ -469,8 +472,9 @@ module dmi_jtag_bfm#(
                 end
             end
             DMI2JTAG_ST_REQ_CHECK: begin
-                cur_req = get_dmi_req();
-                if (cur_req != null) begin
+                //tmp cur_req = get_dmi_req();
+                //if (cur_req != null) begin
+                if (cur_req_valid) begin
                     if (cur_req.op == 1) begin
                         $display("dmi req read: op = %0x, addr = %x, data = %x", cur_req.op, cur_req.addr, cur_req.data);
                     end
@@ -531,15 +535,17 @@ module dmi_jtag_bfm#(
                 rdata = jtag_dmi_read();
                 if (jtag_access_done) begin
                     bit[31:0] addr;
-                    dmi_resp resp;
+                    //tmp dmi_resp resp;
                     //tmp resp = new();
     
                     //resp.resp = ((rdata & 64'h3) == 0) ? 0 : 1;
-                    resp.resp = rdata & 64'h3;
-                    resp.data = (rdata >> 2) & 32'hffffffff;
+                    cur_resp.resp = rdata & 64'h3;
+                    cur_resp.data = (rdata >> 2) & 32'hffffffff;
                     addr = rdata >> 34;
-                    $display("dmi resp: resp = %0x, data = %x",resp.resp, resp.data);
-                    send_dmi_resp(resp);
+                    $display("dmi resp: resp = %0x, data = %x",cur_resp.resp, cur_resp.data);
+                    cur_resp_valid = 1;
+                    cur_req_valid = 0;
+                    //tmp send_dmi_resp(resp);
                     dmi2jtag_state = DMI2JTAG_ST_RESP_DONE;
                     jtag_access_done = 0;
                 end
@@ -638,23 +644,39 @@ module dmi_jtag_bfm#(
    //tmp     $display("dmi_jtag_bfm get resp: resp = %x, data = %x", resp.resp, resp.data);
    //tmp end
 
-   function void push_req(bit[31:0] op, bit[31:0] addr, bit[31:0] data);
-       //tmp dmi_req req_pkt = new();
+//tmp   function push_req(bit[31:0] op, bit[31:0] addr, bit[31:0] data);
+//tmp       //tmp dmi_req req_pkt = new();
+//tmp       dmi_req req_pkt;
+//tmp       req_pkt.op = op;
+//tmp       req_pkt.addr = addr;
+//tmp       req_pkt.data = data;
+//tmp       //$display("dmi_jtag_bfm push req: op = %x, addr = %x, data = %x", op, addr, data);
+//tmp       req_q.push_back(req_pkt);
+//tmp   endfunction
+   task push_req(bit[31:0] op, bit[31:0] addr, bit[31:0] data);
        dmi_req req_pkt;
        req_pkt.op = op;
        req_pkt.addr = addr;
        req_pkt.data = data;
-       //$display("dmi_jtag_bfm push req: op = %x, addr = %x, data = %x", op, addr, data);
-       req_q.push_back(req_pkt);
-   endfunction
+
+       cur_req.op = op;
+       cur_req.addr = addr;
+       cur_req.data = data;
+
+       cur_req_valid = 1;
+   endtask
 
    task wait_resp(output bit[31:0] resp, output bit[31:0] data);
-       dmi_resp resp_pkt;
-       wait(resp_q.size() > 0);
-       resp_pkt = resp_q.pop_front();
+       //tmp dmi_resp resp_pkt;
+       //tmp wait(resp_q.size() > 0);
+       wait(cur_resp_valid);
+       //tmp resp_pkt = resp_q.pop_front();
        //$display("dmi_jtag_bfm get resp: resp = %x, data = %x", resp_pkt.resp, resp_pkt.data);
-       resp = resp_pkt.resp;
-       data = resp_pkt.data;
+       //tmp resp = resp_pkt.resp;
+       //tmp data = resp_pkt.data;
+       resp = cur_resp.resp;
+       data = cur_resp.data;
+       cur_resp_valid = 0;
    endtask
 
 endmodule
