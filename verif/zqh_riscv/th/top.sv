@@ -386,7 +386,7 @@ module top;
 
         //bootloader instruction and data initial
         //bootloader_data_file = $psprintf("%s%s",`FILENAME_mem, ".data");
-        $sformat(bootloader_data_file, "%s%s",`FILENAME_mem, ".data");
+        $sformat(bootloader_data_file, "%s%s", "../tests/zqh_riscv_sw/flash_bootloader/bootloader.hex.fix", ".data");
         fd = $fopen(bootloader_data_file, "r");
         if (fd == 0) begin
             $display("%s could not open", bootloader_data_file);

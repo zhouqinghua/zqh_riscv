@@ -50,7 +50,7 @@ module zqh_riscv_jtag_sba_test();
             bit[31:0] jedec_id;
             bit[63:0] unique_id;
 
-            bootloader_flash_file = `FILENAME_mem;
+            bootloader_flash_file = "../tests/zqh_riscv_sw/flash_bootloader/bootloader.hex.fix";
             fd = $fopen(bootloader_flash_file, "r");
             if (fd == 0) begin
                 $display("%s could not open", bootloader_flash_file);
