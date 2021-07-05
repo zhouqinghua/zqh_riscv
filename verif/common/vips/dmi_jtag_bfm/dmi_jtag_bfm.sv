@@ -40,16 +40,25 @@ module dmi_jtag_bfm#(
     input         jtag_TDO_driven,
     output reg[31:0] exit
 );
-    class dmi_req;
+//tmp    class dmi_req;
+//tmp        bit[31:0] addr;
+//tmp        bit[31:0] op;
+//tmp        bit[31:0] data;
+//tmp    endclass
+    typedef struct packed{
         bit[31:0] addr;
         bit[31:0] op;
         bit[31:0] data;
-    endclass
+    } dmi_req;
 
-    class dmi_resp;
+//tmp    class dmi_resp;
+//tmp        bit[31:0] resp;
+//tmp        bit[31:0] data;
+//tmp    endclass
+    typedef struct packed{
         bit[31:0] resp;
         bit[31:0] data;
-    endclass
+    } dmi_resp;
 
     dmi_req req_q[$];
     dmi_resp resp_q[$];
@@ -68,6 +77,8 @@ module dmi_jtag_bfm#(
     reg tdi_var = 1;
     reg trstn_var = 1;
     reg tdo_var = 1;
+    //tmp dmi_req cur_req = new();
+    dmi_req cur_req;
 
     function void set_pins(bit _tck, bit _tms, bit _tdi);
         tck_var = _tck;
@@ -75,7 +86,6 @@ module dmi_jtag_bfm#(
         tdi_var = _tdi;
     endfunction
     
-    dmi_req cur_req = new();
     function dmi_req get_dmi_req();
         dmi_req req;
         if (req_q.size() > 0) begin
@@ -217,8 +227,10 @@ module dmi_jtag_bfm#(
     
     function bit[63:0] jtag_do_shift_dr(int width = 32, bit[63:0] a = 0);
         int tdi_bit;
-        bit[63:0] tdo_bit = 0;
-        bit[63:0] tdo_all = 0;
+        bit[63:0] tdo_bit;
+        bit[63:0] tdo_all;
+        tdo_bit = 0;
+        tdo_all = 0;
     
         if (jtag_tick_cnt == 0) begin
             jtag_tdo_all = 0;
@@ -253,7 +265,8 @@ module dmi_jtag_bfm#(
     endfunction
     
     function void jtag_init(int a = 1);
-        int reset_cycle = 10;
+        int reset_cycle;
+        reset_cycle = 10;
         if (jtag_tick_cnt < reset_cycle*2) begin
             jtag_goto_test_logic_reset();
             jtag_tick_cnt++;
@@ -436,7 +449,8 @@ module dmi_jtag_bfm#(
         return jtag_access(8'h11, 41);
     endfunction
 
-    function int jtag_tick (
+    //tmp function int jtag_tick (
+    task jtag_tick (
         input reg[31:0] jtag_socket_port,
         output reg jtag_TCK,
         output reg jtag_TMS,
@@ -518,7 +532,7 @@ module dmi_jtag_bfm#(
                 if (jtag_access_done) begin
                     bit[31:0] addr;
                     dmi_resp resp;
-                    resp = new();
+                    //tmp resp = new();
     
                     //resp.resp = ((rdata & 64'h3) == 0) ? 0 : 1;
                     resp.resp = rdata & 64'h3;
@@ -541,7 +555,8 @@ module dmi_jtag_bfm#(
         jtag_TMS = tms_var;
         jtag_TDI = tdi_var;
         jtag_TRSTn = trstn_var;
-    endfunction
+    //tmp endfunction
+    endtask
 
    reg [31:0]                    tickCounterReg;
    wire [31:0]                   tickCounterNxt;
@@ -588,13 +603,13 @@ module dmi_jtag_bfm#(
          if (enable && init_done_sticky) begin
             tickCounterReg <= tickCounterNxt;
             if (tickCounterReg == 0) begin
-               __exit = jtag_tick(
-                                  __socket_port,
-                                  __jtag_TCK,
-                                  __jtag_TMS,
-                                  __jtag_TDI,
-                                  __jtag_TRSTn,
-                                  __jtag_TDO);
+               jtag_tick(
+                   __socket_port,
+                   __jtag_TCK,
+                   __jtag_TMS,
+                   __jtag_TDI,
+                   __jtag_TRSTn,
+                   __jtag_TDO);
             end
          end // if (enable && init_done_sticky)
       end // else: !if(reset || r_reset)
@@ -624,7 +639,8 @@ module dmi_jtag_bfm#(
    //tmp end
 
    function void push_req(bit[31:0] op, bit[31:0] addr, bit[31:0] data);
-       dmi_req req_pkt = new();
+       //tmp dmi_req req_pkt = new();
+       dmi_req req_pkt;
        req_pkt.op = op;
        req_pkt.addr = addr;
        req_pkt.data = data;
