@@ -16,7 +16,7 @@ module zqh_riscv_jtag_sba_test();
             bit[31:0] cnt;
             repeat(3000) @(posedge `ZQH_TOP.clock);
             cnt = 0;
-            while(1) begin
+            do begin
                 if (`ZQH_TOP.reset_n === 1) begin
                     cnt++;
                 end
@@ -24,10 +24,10 @@ module zqh_riscv_jtag_sba_test();
                     repeat(3000) @(posedge `ZQH_TOP.clock);
                     cnt = 0;
                 end
-                if (cnt > 1000) begin
-                    break;
-                end
-            end
+                //if (cnt > 1000) begin
+                //    break;
+                //end
+            end while(cnt <= 1000);
         end
 
         //
