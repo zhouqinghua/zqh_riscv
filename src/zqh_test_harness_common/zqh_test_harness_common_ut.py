@@ -125,6 +125,8 @@ class zqh_test_harness_common_ut(unit_test):
             gpio1_idx += 1
             # SYSTEM
             eth_phy0.io.phy_log /= value(0x80000001, w = 32) #STDOUT
+        else:
+            gpio1_idx = 28
 
         
         #spi flash model

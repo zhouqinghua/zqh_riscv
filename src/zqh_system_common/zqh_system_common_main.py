@@ -503,6 +503,8 @@ class zqh_system_common(zqh_tilelink_node_module):
             mmio_gpio1.io.hw_iof.port[gpio1_idx].oe /= 1
             mmio_gpio1.io.hw_iof.port[gpio1_idx].output /= mmio_eth_mac.io.mac_phy.reset_n
             gpio1_idx += 1
+        else:
+            gpio1_idx = 28
 
         if (self.p.has_ddr):
             vmacro('HAS_DDR')
