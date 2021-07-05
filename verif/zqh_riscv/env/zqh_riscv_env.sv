@@ -54,7 +54,8 @@ module zqh_riscv_env();
 
         //uart's tx loopback to rx
         begin
-            int uart_lb= 0;
+            int uart_lb;
+            uart_lb= 0;
             $value$plusargs("uart_lb=%d", uart_lb);
             if (uart_lb) begin
                 force `ZQH_TOP.test_harness.uart_print_monitor.io_tx = `ZQH_TOP.test_harness.uart_print_monitor.io_rx;
@@ -100,7 +101,8 @@ module zqh_riscv_env();
 
 
         begin
-            int eth_phy_lb = 0;
+            int eth_phy_lb;
+            eth_phy_lb = 0;
             $value$plusargs("eth_phy_lb=%d", eth_phy_lb);
             if (eth_phy_lb) begin
                 force `ZQH_TOP.test_harness.dut.system.mmio_eth_mac.io_mac_phy_gmii_rx_clk = `ZQH_TOP.test_harness.dut.system.mmio_eth_mac.io_mac_phy_gmii_tx_gclk;
