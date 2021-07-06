@@ -2021,27 +2021,31 @@ always @(sendToBus) begin
 
 
       dtr_dout_started = 1'b1;
+      begin//zqh add
       force DQ1 = 1'bX;
-      if(N25Qxxx.DoubleTransferRate == 1) force DQ0 = 1'bX;
-      if((cmdRecName == "Read Fast") || 
-        (cmdRecName == "Dual Command Fast Read") || 
-        (cmdRecName == "Quad Command Fast Read") || 
-        (cmdRecName == "Dual Output Fast Read") ||
-        (cmdRecName == "Dual I/O Fast Read") ||
-        (cmdRecName == "Quad I/O Fast Read") 
-        ) begin 
-      // #(tCLQV - tCLQX) 
-        #(tCLQV/2 - tCLQX - 1); 
-      end 
-      else begin
-        #(tCLQV - tCLQX - 1) ;
-      end
-      // if(DoubleTransferRate == 1) begin
-      //   force DQ0 = bitOut;
-      // end
-      // else begin
-        force DQ1 = bitOut;
-      // end
+        if(N25Qxxx.DoubleTransferRate == 1) force DQ0 = 1'bX;
+      end//zqh add
+      begin//zqh add
+        if((cmdRecName == "Read Fast") || 
+          (cmdRecName == "Dual Command Fast Read") || 
+          (cmdRecName == "Quad Command Fast Read") || 
+          (cmdRecName == "Dual Output Fast Read") ||
+          (cmdRecName == "Dual I/O Fast Read") ||
+          (cmdRecName == "Quad I/O Fast Read") 
+          ) begin 
+        // #(tCLQV - tCLQX) 
+          #(tCLQV/2 - tCLQX - 1); 
+        end 
+        else begin
+          #(tCLQV - tCLQX - 1) ;
+        end
+        // if(DoubleTransferRate == 1) begin
+        //   force DQ0 = bitOut;
+        // end
+        // else begin
+          force DQ1 = bitOut;
+        // end
+      end//zqh add
 
     join
   end
