@@ -14,17 +14,21 @@ int main (int argc, char** argv)
     zqh_common_csr_cfg();
     setStats(1);
 
+    uint32_t do_tranning = 0;
+
     //
     //ddr mc test
     //{{{
     printf("ddr_mc test start\n");
-    //training WR_DQ, wr_dqs_delay = 0x00, wr_dq_delay = ?, rd_dqs_delay = 0x40
-    printf("ddr training WR_DQ delay\n");
-    ddr3_training_delay(DDR_TN_WR_DQ, 0x00, 0x00, 0x40);
+    if (do_tranning) {
+        //training WR_DQ, wr_dqs_delay = 0x00, wr_dq_delay = ?, rd_dqs_delay = 0x40
+        printf("ddr training WR_DQ delay\n");
+        ddr3_training_delay(DDR_TN_WR_DQ, 0x00, 0x00, 0x40);
 
-    printf("ddr training RD_DQS delay\n");
-    //training RD_DQS, wr_dqs_delay = 0x00, wr_dq_delay = 0x40, rd_dqs_delay = ?
-    ddr3_training_delay(DDR_TN_RD_DQS, 0x00, 0x40, 0x00);
+        printf("ddr training RD_DQS delay\n");
+        //training RD_DQS, wr_dqs_delay = 0x00, wr_dq_delay = 0x40, rd_dqs_delay = ?
+        ddr3_training_delay(DDR_TN_RD_DQS, 0x00, 0x40, 0x00);
+    }
 
     //best training resault
     //dll on mode:
@@ -39,8 +43,8 @@ int main (int argc, char** argv)
     //delay_ms(500);
 
     uint32_t ddr_mem_check_size;
-    ddr_mem_check_size = pow(2,20);//1GB max
-    if (ddr_wr_rd_check(ddr_mem_check_size, 0)) {
+    ddr_mem_check_size = pow(2,8);//1GB max
+    if (ddr_wr_rd_check(ddr_mem_check_size, 1)) {
         printf("ddr memory check(%0d) pass\n", ddr_mem_check_size);
     }
     else {
