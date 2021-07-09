@@ -7,7 +7,7 @@ import serial
 import serial.tools.list_ports
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], 'h:', ['help', 'boot_img=', 'sec_ctrl_img=', 'main_img='])
+    opts, args = getopt.getopt(sys.argv[1:], 'h:', ['help', 'boot_img=', 'sec_ctrl_img=', 'main_img=', 'portx='])
 except getopt.GetoptError:
     print("argv error,please input")
 
@@ -17,6 +17,9 @@ main_img = './flash_main_img.hex.fix'
 main_img_rom = './flash_main_img.hex.rom.fix'
 main_img_ram = './flash_main_img.hex.ram.fix'
 
+#Linux's /dev/ttyUSB0. or Windows's COM3
+portx="COM3"
+
 for (k,v) in opts:
     if (k == '--boot_img'):
         boot_img = v
@@ -24,42 +27,39 @@ for (k,v) in opts:
         main_img = v
     elif (k == '--sec_ctrl_img'):
         sec_ctrl_img = v
+    elif (k == '--portx'):
+        portx = v
     else:
         assert(0), 'illegal prameter name: %s' %(k)
 
 
 
-#端口，GNU / Linux上的/ dev / ttyUSB0 等 或 Windows上的 COM3 等
-portx="COM3"
-#波特率，标准值之一：50,75,110,134,150,200,300,600,1200,1800,2400,4800,9600,19200,38400,57600,115200
+#baudrate: 50,75,110,134,150,200,300,600,1200,1800,2400,4800,9600,19200,38400,57600,115200
 bps=57600
-#超时设置,None：永远等待操作，0为立即返回请求结果，其他值为等待超时时间(单位为秒）
+#timeout None means wait forever, 0 means no wait, other value means wait x seconds
 timex=5
-# 打开串口，并得到串口对象
 ser=serial.Serial(portx,bps,timeout=timex)
-#print("串口详情参数：", ser)
+#print("ser parameter: ", ser)
 
-#print(ser.port)#获取到当前打开的串口名
-#print(ser.baudrate)#获取波特率
+#print(ser.port)#port number
+#print(ser.baudrate)#baudrate
 
 
 #port_list = list(serial.tools.list_ports.comports())
 #print(port_list)
 #if len(port_list) == 0:
-#   print('无可用串口')
+#   print('no ser port can use')
 #else:
 #    for i in range(0,len(port_list)):
 #        print(port_list[i])
 
 
-#print(ser.read())#读一个字节
-#print(ser.read(10).decode("gbk"))#读十个字节
-#print(ser.readline().decode("gbk"))#读一行
-#print(ser.readlines())#读取多行，返回列表，必须匹配超时（timeout)使用
-#print(ser.in_waiting)#获取输入缓冲区的剩余字节数
-#print(ser.out_waiting)#获取输出缓冲区的字节数
-
-#循环接收数据，此为死循环，可用线程实现
+#print(ser.read())#read one byte
+#print(ser.read(10).decode("gbk"))#read 10 bytes
+#print(ser.readline().decode("gbk"))#read one line
+#print(ser.readlines())#read multy lines
+#print(ser.in_waiting)#input buffer's left byte number
+#print(ser.out_waiting)#output buffer's left byte number
 
 # initial send one byte
 #ser.write('\n'.encode("gbk"))
@@ -67,9 +67,9 @@ ser=serial.Serial(portx,bps,timeout=timex)
 #ser.write('\n'.encode("gbk"))
 #time.sleep(1)
 
-ser.flush() #等待所有数据写出。
-ser.flushInput() #丢弃接收缓存中的所有数据
-ser.flushOutput() #终止当前写操作，并丢弃发送缓存中的数据。
+ser.flush()
+ser.flushInput()
+ser.flushOutput()
 
 #1st and 2nd send byte will by droped ???
 ser.write('\n'.encode("gbk"))
@@ -157,5 +157,5 @@ for fn in (boot_img, sec_ctrl_img, main_img_rom, main_img_ram):
     img_idx = img_idx + 1
 
 print("flash write success")
-ser.close()#关闭串口
+ser.close()
 sys.exit(0)
