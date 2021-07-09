@@ -526,14 +526,16 @@ void eraseBlock64KTest() {
 
 }
 
-void eraseChipTest() {
+uint8_t eraseChipTest() {
   uint32_t _time;
   Serial.println("Erase Chip");
   if (flash.eraseChip()) {
     pass(TRUE);
+    return 1;//zqh add
   }
   else {
     pass(FALSE);
+    return 0;//zqh add
   }
 
 }

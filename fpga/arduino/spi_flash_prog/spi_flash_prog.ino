@@ -109,10 +109,16 @@ void loop() {
   uint32_t addr;
   uint8_t wr_data;
   uint8_t rd_data;
+  uint8_t erase_done;
 
   establishContact();
   
-  eraseChipTest();
+  erase_done = eraseChipTest();
+  if (erase_done == 0) {
+    Serial.print("eraseChipTest fail!!\n");
+    while(1);
+  }
+  
 
   //clean recieve buffer
   if (Serial.available() > 0) {
