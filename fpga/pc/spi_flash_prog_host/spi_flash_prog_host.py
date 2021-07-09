@@ -80,6 +80,7 @@ time.sleep(1)
 ser.write('\n'.encode("gbk"))
 time.sleep(1)
 
+check_data_en = 0
 while(1):
     if(ser.in_waiting):
         recv_str = ser.readline().decode("gbk")
@@ -87,6 +88,12 @@ while(1):
         if (recv_str == '**FLASH INIT DONE**\n'):
             time.sleep(2)
             break;
+
+#send check_data_en flag
+send_str = str(check_data_en)
+ser.write(send_str.encode("gbk"))
+ser.write('\n'.encode("gbk"))
+
     
 img_idx = 0
 boot_loader_size = 0x2000
@@ -127,34 +134,27 @@ for fn in (boot_img, sec_ctrl_img, main_img_rom, main_img_ram):
         send_str = i
         print("send: %s" %(send_str), end = '')
         ser.write(send_str.encode("gbk"))
-    
-    img_idx = img_idx + 1
 
-#tmp if (img_rom_start_addr is not None):
-#tmp     print("img_rom_start_addr = %x" %(img_rom_start_addr))
-#tmp if (img_ram_start_addr is not None):
-#tmp     print("img_ram_start_addr = %x" %(img_ram_start_addr))
-#tmp print("ram_offset = %x" %(ram_offset))
         #wait response
-#tmp        while(ser.in_waiting == 0):
-#tmp            #time.sleep(1)
-#tmp            #print("in_waiting = %d" %(ser.in_waiting))
-#tmp            pass
-#tmp    
-#tmp        #print all recieve byte
-#tmp        while(ser.in_waiting):
-#tmp            #str=ser.read(ser.in_waiting ).decode("gbk")
-#tmp            #recv_str = ser.read(ser.in_waiting ).decode("gbk")
-#tmp            recv_str = ser.readline().decode("gbk")
-#tmp            #str = str.strip()
-#tmp            if (send_str[0] == '@'):
-#tmp                exp_str = send_str[1:];
-#tmp            else:
-#tmp                exp_str = send_str;
-#tmp            if (int(recv_str, 16) != int(exp_str, 16)):
-#tmp                print("recv: %s" %(recv_str), end = '')
-#tmp                print("fail: data compare no match")
-#tmp                sys.exit(1)
+        if (check_data_en):
+            while(ser.in_waiting == 0):
+                #time.sleep(1)
+                #print("in_waiting = %d" %(ser.in_waiting))
+                pass
+            while(ser.in_waiting):
+                #str=ser.read(ser.in_waiting ).decode("gbk")
+                #recv_str = ser.read(ser.in_waiting ).decode("gbk")
+                recv_str = ser.readline().decode("gbk")
+                #str = str.strip()
+                if (send_str[0] == '@'):
+                    exp_str = send_str[1:];
+                else:
+                    exp_str = send_str;
+                if (int(recv_str, 16) != int(exp_str, 16)):
+                    print("recv: %s" %(recv_str), end = '')
+                    print("fail: data compare no match")
+                    sys.exit(1)
+    img_idx = img_idx + 1
 
 print("flash write success")
 ser.close()#关闭串口
