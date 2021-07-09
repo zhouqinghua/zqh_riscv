@@ -31,6 +31,7 @@ uint8_t recv_state = RECV_DONE;
 uint8_t recv_idx = 0;
 uint8_t recv_bytes_addr[20];
 uint8_t recv_bytes_data[20];
+uint8_t check_data_en = 0;
 
 SPIFlash flash;
 
@@ -120,6 +121,23 @@ void loop() {
 
   //indicate host to send flash address and data
   Serial.print("**FLASH INIT DONE**\n");
+
+  //recieve host's check_data_en flag
+  while(1) {
+    if (Serial.available() <= 0) {
+      continue;
+    }
+    inByte = Serial.read();
+    if (inByte == '\n') {
+      break;
+    }
+    else if (inByte == '1'){
+      check_data_en = 1;
+    }
+    else if (inByte == '0') {
+      check_data_en = 0;
+    }
+  }
   
   while(1) {
     if (Serial.available() <= 0) {
@@ -153,7 +171,9 @@ void loop() {
         //addr = 0;
         //sscanf(recv_bytes_addr, "%x\n", &addr);
         addr = my_atoi_16(recv_bytes_addr);
-//        Serial.println(addr, HEX);
+        if (check_data_en) {
+          Serial.println(addr, HEX);
+        }
         //Serial.println(recv_bytes_addr);
         //send_back(recv_bytes_addr);
         recv_state = RECV_DONE;
@@ -174,8 +194,10 @@ void loop() {
         uint32_t offset_addr;
         offset_addr = addr & 0x00ffffff;
         flash.writeByte(offset_addr, wr_data);
-//        rd_data = flash.readByte(offset_addr);
-//        Serial.println(rd_data, HEX);
+        if (check_data_en) {
+          rd_data = flash.readByte(offset_addr);
+          Serial.println(rd_data, HEX);
+        }
         
         recv_state = RECV_DONE;
       }
