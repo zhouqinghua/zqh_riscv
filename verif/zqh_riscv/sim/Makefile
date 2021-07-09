@@ -40,6 +40,9 @@ endif
 link_file=test_sram.ld
 print_use_uart=0
 
+#sim/fpga
+imp_mode=sim
+
 
 fesvr=off
 CMP_MACRO_VCS = $(addprefix +define+, $(cmp_macro))
@@ -292,7 +295,7 @@ cmp:
 
 sw:
 	test -d ./log/$(sw_tc_dir) || mkdir ./log/$(sw_tc_dir)
-	cd ./log; make -C $(sw_tc_dir) -f ../../$(sw_root_dir)/$(sw_tc_grp_dir)/Makefile src_dir=../../$(sw_root_dir)/$(sw_tc_grp_dir) bmarks=$(sw_tc_dir) link_file=$(link_file) print_use_uart=$(print_use_uart) XLEN=$(gcc_xlen) MARCH=$(gcc_march) $(sw_tc_elf).dump
+	cd ./log; make -C $(sw_tc_dir) -f ../../$(sw_root_dir)/$(sw_tc_grp_dir)/Makefile src_dir=../../$(sw_root_dir)/$(sw_tc_grp_dir) bmarks=$(sw_tc_dir) link_file=$(link_file) print_use_uart=$(print_use_uart) imp_mode=$(imp_mode) XLEN=$(gcc_xlen) MARCH=$(gcc_march) $(sw_tc_elf).dump
 	riscv$(gcc_xlen)-unknown-elf-objcopy -O verilog $(sw_elf_fn) $(sw_hex_fn)
 	../../scripts/zqh_sw_hex_fix.py --hex_in=$(sw_hex_fn)
 	../../scripts/zqh_elf_section_dec.py --elf_in=$(sw_elf_fn)

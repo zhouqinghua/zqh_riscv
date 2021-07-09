@@ -58,7 +58,11 @@ void setStats(int enable)
 void __attribute__((noreturn)) tohost_exit(uintptr_t code)
 {
   //zqh tohost = (code << 1) | 1;
-  *EXIT_PTR = (code << 1) | 1;
+  #ifdef IMP_MODE_SIM
+    *EXIT_PTR = (code << 1) | 1;
+  #else
+    ;
+  #endif
   while (1);
 }
 
