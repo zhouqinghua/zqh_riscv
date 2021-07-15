@@ -433,7 +433,7 @@ class zqh_core_r1_core(module):
             mem_inst_dec.jal)
         mem_br_taken_misprediction = (
             mem_inst_dec.branch & 
-            (mem_reg_br_taken != mem_reg_btb_taken))
+            (mem_reg_br_taken != (mem_reg_btb_hit & mem_reg_btb_taken)))
         mem_br_misprediction = mem_inst_dec.branch & mem_wrong_npc
         mem_jal_misprediction = mem_inst_dec.jal & mem_wrong_npc
         mem_jalr_misprediction = mem_inst_dec.jalr & mem_wrong_npc

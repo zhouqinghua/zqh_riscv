@@ -192,7 +192,7 @@ class zqh_core_common_ifu(zqh_tilelink_node_module):
             bht_resp_last = bht_resp_s1 if (self.p.mem_latency < 2) else bht_resp_s2
 
             #when btb give taken, next pc need get from btb_resp's target
-            with when(req_valid_s1 & btb_resp_s1.taken.r_or()):
+            with when(req_valid_s1 & (btb_resp_s1.hit & btb_resp_s1.taken).r_or()):
                 req_addr_s0 /= btb_resp_s1.tgt
 
             #set btb/bht info for this instruction
@@ -231,7 +231,7 @@ class zqh_core_common_ifu(zqh_tilelink_node_module):
             #record btb resp taken when it is blocked
             btb_resp_taken_pending = reg_r('btb_resp_taken_pending')
             btb_resp_taken_valid_s0 = (
-                (req_cache_hit_last & btb_resp_last.taken.r_or()) | 
+                (req_cache_hit_last & (btb_resp_last.hit & btb_resp_last.taken).r_or()) | 
                 btb_resp_taken_pending)
             btb_resp_taken_s0 = bits('btb_resp_taken_s0')
             btb_resp_taken_s1 = reg('btb_resp_taken_s1', next = btb_resp_taken_s0)
@@ -242,7 +242,7 @@ class zqh_core_common_ifu(zqh_tilelink_node_module):
                 btb_resp_taken_valid_s0 | 
                 (req_cache_miss_last & btb_resp_taken_last))
             with when(~cpu_req_valid_s0 & ~btb_req_valid_s0):
-                with when(req_cache_hit_last & btb_resp_last.taken.r_or() & ~req_valid_s0):
+                with when(req_cache_hit_last & (btb_resp_last.hit & btb_resp_last.taken).r_or() & ~req_valid_s0):
                     btb_resp_taken_pending /= 1
                 with elsewhen(
                     icache_req_fire_s1 & 
@@ -449,14 +449,14 @@ class zqh_core_common_ifu(zqh_tilelink_node_module):
                                 inst_is_rvc[i] /= 1
                                 if (i == 0):
                                     #invalid the following hw instruction
-                                    with when(inst_pre_dec.bits.taken[i]):
+                                    with when(inst_pre_dec.bits.btb_hit[i] & inst_pre_dec.bits.taken[i]):
                                         cur_iv_mask /= 1
                         with elsewhen(self.p.isa_c):
                             if (i == 0):
                                 inst_decode_en[i] /= 1
                                 inst_is_rvc[i] /= 0
                                 #invalid the following hw instruction
-                                with when(inst_pre_dec.bits.taken[i]):
+                                with when(inst_pre_dec.bits.btb_hit[i] & inst_pre_dec.bits.taken[i]):
                                     cur_iv_mask /= 1
                             else:
                                 with when(len_code_rvi):
@@ -521,13 +521,13 @@ class zqh_core_common_ifu(zqh_tilelink_node_module):
         inst_sel_map = list(map(lambda _: bits(init = 0), range(max_fetch_width)))
         pre_jump = 0
         for i in range(max_fetch_width):
-            b_taken = inst_is_b[i] & (inst_pre_dec.bits.bht_info.taken() 
+            b_taken = inst_is_b[i] & inst_pre_dec.bits.btb_hit[i] & (inst_pre_dec.bits.bht_info.taken() 
                 if (self.p.use_bht) else inst_pre_dec.bits.taken[i])
             cur_taken = inst_is_j[i] | b_taken
             with when(pre_jump == 0):
                 inst_sel_map[i] /= cur_taken
                 pc_jump_en /= (
-                    ((inst_is_jal[i] | b_taken) & ~inst_pre_dec.bits.taken[i]) | 
+                    ((inst_is_jal[i] | b_taken) & ~(inst_pre_dec.bits.btb_hit[i] & inst_pre_dec.bits.taken[i])) | 
                     (inst_is_ret[i] & ~ras_empty))
 
                 with when(~predict_unkown):
@@ -538,7 +538,7 @@ class zqh_core_common_ifu(zqh_tilelink_node_module):
             pre_jump = pre_jump | cur_taken
 
         for i in range(max_fetch_width):
-            with when(~inst_pre_dec.bits.taken[i]):
+            with when(~(inst_pre_dec.bits.btb_hit[i] & inst_pre_dec.bits.taken[i])):
                 with when(inst_is_jalr[i]):
                     with when(~inst_is_ret[i] | ras_empty):
                         predict_unkown /= 1
@@ -591,7 +591,7 @@ class zqh_core_common_ifu(zqh_tilelink_node_module):
 
             #set taken bit if btb not taken(miss)
             for i in range(max_fetch_width):
-                with when(inst_sel_map[i] & ~inst_pre_dec.bits.taken[i]):
+                with when(inst_sel_map[i] & ~(inst_pre_dec.bits.btb_hit[i] & inst_pre_dec.bits.taken[i])):
                     inst_post_dec.bits.taken[i] /= 1
 
 
@@ -629,7 +629,7 @@ class zqh_core_common_ifu(zqh_tilelink_node_module):
                 with when(~predict_unkown):
                     with when(inst_is_b[i] & inst_pre_dec.bits.iv[i]):
                         bht_update_en /= 1
-                        bht_update_taken /= inst_pre_dec.bits.taken[i]
+                        bht_update_taken /= inst_pre_dec.bits.btb_hit[i] & inst_pre_dec.bits.taken[i]
 
             with when(bht_update_en):
                 self.bht.raw_history(bht_update_taken)
