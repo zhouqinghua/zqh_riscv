@@ -422,6 +422,7 @@ class zqh_core_common_ifu(zqh_tilelink_node_module):
             lambda _: bits(w = inst_pre_dec.bits.pc.get_w()),
             range(max_fetch_width)))
         inst_all = list(map(lambda _: bits(w = 32), range(max_fetch_width)))
+        inst_b_immd_s = list(map(lambda _: bits(), range(max_fetch_width))) #branch immd's sign flag
 
         inst_idx_start = ((~inst_partial & inst_pre_dec.bits.pc[1]) 
             if (self.p.isa_c) else 0)
@@ -495,6 +496,7 @@ class zqh_core_common_ifu(zqh_tilelink_node_module):
                     inst_pre_dec.bits.inst))
             rvc_cfi_mask = mux(inst_is_rvc[i], rvc_cfi, 1)
             inst_all[i] /= inst_rvi
+            inst_b_immd_s[i] /= inst_all[i][31]
             (rvi_jal, rvi_jalr, rvi_b, rvi_cfi_type) = self.inst_rvi_jal_jalr_decode(
                 inst_rvi)
             with when(inst_decode_en[i]):
@@ -522,7 +524,7 @@ class zqh_core_common_ifu(zqh_tilelink_node_module):
         pre_jump = 0
         for i in range(max_fetch_width):
             b_taken = inst_is_b[i] & (inst_pre_dec.bits.bht_info.taken() 
-                if (self.p.use_bht) else 0) #TBD, backward branch need taken, forward branch should not taken(risc-v spec)
+                if (self.p.use_bht) else (~inst_pre_dec.bits.btb_hit[i] & inst_b_immd_s[i])) #TBD. when btb no hit, backward(inst_b_immd_s[i] == 1) branch need taken, forward branch(inst_b_immd_s[i] == 0) should not taken(risc-v spec)
             cur_taken = inst_is_j[i] | b_taken
             with when(pre_jump == 0):
                 inst_sel_map[i] /= cur_taken
