@@ -521,8 +521,8 @@ class zqh_core_common_ifu(zqh_tilelink_node_module):
         inst_sel_map = list(map(lambda _: bits(init = 0), range(max_fetch_width)))
         pre_jump = 0
         for i in range(max_fetch_width):
-            b_taken = inst_is_b[i] & inst_pre_dec.bits.btb_hit[i] & (inst_pre_dec.bits.bht_info.taken() 
-                if (self.p.use_bht) else inst_pre_dec.bits.taken[i])
+            b_taken = inst_is_b[i] & (inst_pre_dec.bits.bht_info.taken() 
+                if (self.p.use_bht) else 0) #TBD, backward branch need taken, forward branch should not taken(risc-v spec)
             cur_taken = inst_is_j[i] | b_taken
             with when(pre_jump == 0):
                 inst_sel_map[i] /= cur_taken
