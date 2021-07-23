@@ -167,6 +167,7 @@ _start:
   li gp, SRAM_BASE + SRAM_SIZE - BOOTLOADER_DATA_STACK_SIZE - BOOTLOADER_DATA_TLS_SIZE - BOOTLOADER_DATA_GP_SIZE
 
 
+  rdtime t0
   jal boot_init
 #  li s0, MAIN_MEM_BASE
 #  jr s0 #jump to main memory space and never return back

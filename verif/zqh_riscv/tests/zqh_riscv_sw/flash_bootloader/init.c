@@ -5,11 +5,6 @@
 #include "util.h"
 #include "zqh_common_def.h"
 
-uintptr_t __attribute__((weak)) handle_trap(uintptr_t cause, uintptr_t epc, uintptr_t regs[32])
-{
-}
-
-
 void delay_sw(int a) {
     for (int i = 0; i < a; i ++) {
         asm volatile ("nop");
@@ -707,3 +702,17 @@ uint32_t boot_init()
     ret_v = load_img();
     return ret_v;
 }
+
+uintptr_t __attribute__((weak)) handle_trap(uintptr_t cause, uintptr_t epc, uintptr_t regs[32])
+{
+    simple_print_str("boot exception: cause = ");
+    simple_print_str(my_itoa_32(cause, str_buf));
+    simple_print_str("\n");
+    simple_print_str("boot exception: epc = ");
+    simple_print_str(my_itoa_32(epc, str_buf));
+    simple_print_str("\n");
+
+    return epc;
+}
+
+
