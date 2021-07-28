@@ -62,11 +62,13 @@ ifeq ($(imp_mode),sim)
     def_imp_mode=-DIMP_MODE_SIM=1
 endif
 
-GCC=riscv64-unknown-elf-gcc
-RISCV_GCC_OPTS = -DPREALLOCATE=1 $(def_has_ddr) $(def_has_eth) $(def_imp_mode) -DMAIN_MEM_BASE=$(main_mem_base) $(def_print_use_uart) -mcmodel=medany -static -std=gnu99 -O1 -ffast-math -fno-common -fno-builtin-printf -march=rv64g -g
+XLEN = 64
+
+GCC=riscv$(XLEN)-unknown-elf-gcc
+RISCV_GCC_OPTS = -DPREALLOCATE=1 $(def_has_ddr) $(def_has_eth) $(def_imp_mode) -DMAIN_MEM_BASE=$(main_mem_base) $(def_print_use_uart) -mcmodel=medany -static -std=gnu99 -O1 -ffast-math -fno-common -fno-builtin-printf -march=rv$(XLEN)g -g
 RISCV_LINK_OPTS = -static -nostdlib -nostartfiles -lm -lgcc -T $(src_dir)/$(lk_fn)
-OBJCOPY=riscv64-unknown-elf-objcopy --only-section=.text* --only-section=.rodata*
-OBJDUMP=riscv64-unknown-elf-objdump -S --disassemble-all --disassemble-zeroes
+OBJCOPY=riscv$(XLEN)-unknown-elf-objcopy --only-section=.text* --only-section=.rodata*
+OBJDUMP=riscv$(XLEN)-unknown-elf-objdump -S --disassemble-all --disassemble-zeroes
 HEX_FIX=../../../../scripts/zqh_sw_hex_fix.py
 
 src_dir = .

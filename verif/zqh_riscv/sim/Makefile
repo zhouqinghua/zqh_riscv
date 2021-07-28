@@ -237,6 +237,7 @@ gen_cfgfile = ../../../src/zqh_cfgs/zqh_cfg_r1.py
 #gen_cfg = zqh_cfg_r1__no_ddr
 #gen_cfg = zqh_cfg_r1__no_ddr__no_eth
 gen_cfg = zqh_cfg_r1__fpga_min
+#gen_cfg = zqh_cfg_r1__fpga_min__xlen_32
 #gen_cfg = zqh_cfg_r1__lsu_num_flights_4
 #gen_cfg = zqh_cfg_r1__itim_8k__dtim_8k__lsu_num_flights_4
 #gen_cfg = zqh_cfg_r1__num_cores_2__itim_8k__dtim_8k__lsu_num_flights_4

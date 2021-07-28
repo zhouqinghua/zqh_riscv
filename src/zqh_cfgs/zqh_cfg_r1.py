@@ -58,6 +58,10 @@ class zqh_cfg_r1__fpga_min(zqh_cfg_r1__fpga_base):
         #self.cfg_all('zqh_tile_common_parameter', 'node_has_buffer', 0)
         #self.cfg_all('zqh_system_common_parameter', 'device_has_buffer', 0)
 
+class zqh_cfg_r1__fpga_min__xlen_32(zqh_cfg_r1__fpga_min):
+    def set_cfg(self):
+        super(zqh_cfg_r1__fpga_min__xlen_32, self).set_cfg()
+        self.cfg_all('zqh_core_common_core_parameter', 'xlen', 32)
 
 class zqh_cfg_r1__lsu_num_flights_4(zqh_cfg_r1__basic):
     def set_cfg(self):
