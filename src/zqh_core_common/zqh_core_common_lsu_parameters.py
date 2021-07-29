@@ -64,6 +64,8 @@ class zqh_core_common_lsu_parameter(zqh_tilelink_node_module_parameter, zqh_core
         if (self.dtim_size != 0):
             assert(is_pow_of_2(self.dtim_size))
 
+        assert(self.data_ecc_bytes <= (self.core_data_bits//8))
+
         self.par(
             'req_tag_bits',
             log2_ceil(self.num_gprs) + 1 + log2_ceil(self.num_arb_ports))
