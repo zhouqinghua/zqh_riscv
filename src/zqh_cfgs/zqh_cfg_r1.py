@@ -62,6 +62,9 @@ class zqh_cfg_r1__fpga_min__xlen_32(zqh_cfg_r1__fpga_min):
     def set_cfg(self):
         super(zqh_cfg_r1__fpga_min__xlen_32, self).set_cfg()
         self.cfg_all('zqh_core_common_core_parameter', 'xlen', 32)
+        self.cfg_all('zqh_core_common_core_parameter', 'flen', 32)
+        self.cfg_all('zqh_core_common_core_parameter', 'isa_f', 0)
+        self.cfg_all('zqh_core_common_lsu_parameter', 'data_ecc_bytes', 4)
 
 class zqh_cfg_r1__lsu_num_flights_4(zqh_cfg_r1__basic):
     def set_cfg(self):
