@@ -94,11 +94,11 @@ int main (int argc, char** argv)
 
         printf("divSqrt fa(%s)\n",f2str(fa*200.00, str_buf));
         printf("divSqrt fb(%s)\n",f2str(fb, str_buf));
-        printf("divSqrt r(%s)\n",f2str(sqrt(fa*200.00), str_buf));
+//        printf("divSqrt r(%s)\n",f2str(sqrt(fa*200.00), str_buf));
 
         printf("divSqrt da(%s)\n",f2str(da*200.00, str_buf));
         printf("divSqrt db(%s)\n",f2str(db, str_buf));
-        printf("divSqrt r(%s)\n",f2str(sqrt(da*200.00), str_buf));
+//        printf("divSqrt r(%s)\n",f2str(sqrt(da*200.00), str_buf));
 
         //*uc_addr = i;
     }
