@@ -190,7 +190,7 @@ Number of bytes associated with the BD to be transmitted'''),
 Generate PAD code for this BD's small packet or not
 when mode.pad_en is valid, this bit control the current BD's packet's PAD generation
 0: don't generate PAD code
-0: generate PAD code'''),
+1: generate PAD code'''),
                 csr_reg_field_desc('crc', width = 1, reset = 0, comments = '''\
 Generate CRC code for this BD's packet or not
 when mode.crc_en is valid, this bit control the current BD's packet's CRC generation
@@ -278,7 +278,7 @@ recieve BD's low part'''))
                 csr_reg_field_desc('ptr', width = 32, reset = 0, comments = '''\
 Rransmit Pointer
 This is the buffer pointer when the associated frame is stored.''')], comments = '''\
-recieve BD's low part'''))
+recieve BD's high part'''))
 
         rx_cpl_read = bits('rx_cpl_read', init = 0)
         def func_rx_cpl_read(reg_ptr, fire, address, size, mask_bit):
@@ -382,7 +382,7 @@ No Preamble
                 csr_reg_field_desc('clk_div', width = 8, reset = 0x64, comments = '''\
 Clock Divider
 The field is a host clock divider factor.
-Fsmi = Fin/(clk_div+1)''')]))
+Fsmi = Fin/((clk_div+1)*4)''')]))
         self.cfg_reg(csr_reg_group(
             'smi_ctrl', 
             offset = 0x005c, 
@@ -472,7 +472,8 @@ tx BD fifo's current entry number''')]))
         self.cfg_reg(csr_reg_group(
             'tx_buf', 
             offset = 0x8000, 
-            size = 4, mem_size = self.p.tx_buf_size, 
+            size = 4, 
+            mem_size = self.p.tx_buf_size, 
             fields_desc = [
                 csr_reg_field_desc('data', access = 'VOL', width = 32, write = func_tx_buf_write, read = func_tx_buf_read)], comments = '''\
 tx packet buffer's read/write port'''))
@@ -524,7 +525,8 @@ tx packet buffer's read/write port'''))
         self.cfg_reg(csr_reg_group(
             'rx_buf', 
             offset = 0xc000, 
-            size = 4, mem_size = self.p.rx_buf_size, 
+            size = 4, 
+            mem_size = self.p.rx_buf_size, 
             fields_desc = [
                 csr_reg_field_desc('data', access = 'VOL', width = 32, write = func_rx_buf_write, read = func_rx_buf_read)], comments = '''\
 rx packet buffer's read/write port'''))

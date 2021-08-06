@@ -69,7 +69,7 @@ undefine condition will be checked and report to status reg'''),
                 csr_reg_field_desc('reserved0', access = 'VOL', width = 3), 
                 csr_reg_field_desc('t_low', width = 5, reset = 11, comments = '''\
 sck period tick from 0 to 23. period start from sck's negedge
-@ tick t_low, scl change to 0
+@ tick t_low, scl change from 0 to 1
 scl low time duty = (t_low + 1)/24''')]))
 
         sda_rx_data = reg_r(w = 8)
