@@ -143,16 +143,17 @@ baudrate divisor. baudrate = Fin/(16*(div+1))''')]))
             offset = 0x01c, 
             size = 4, 
             fields_desc = [
-                csr_reg_field_desc('rx_cnt', width = 8, reset = 0, comments = '''\
+                csr_reg_field_desc('rx_cnt', access = 'RO', width = 8, reset = 0, comments = '''\
 rx fifo's current entry number'''),
-                csr_reg_field_desc('tx_cnt', width = 8, reset = 0, comments = '''\
+                csr_reg_field_desc('tx_cnt', access = 'RO', width = 8, reset = 0, comments = '''\
 tx fifo's current entry number'''),
                 csr_reg_field_desc('reserved', access = 'VOL', width = 5),
-                csr_reg_field_desc('code', width = 3, reset = 0, comments = '''\
-0: no error
-1: rx error start
-2: rx error data
-3: rx error stop''')]))
+                csr_reg_field_desc('error_stop', width = 1, reset = 0, comments = '''\
+rx stop error flag'''),
+                csr_reg_field_desc('error_data', width = 1, reset = 0, comments = '''\
+rx data error flag'''),
+                csr_reg_field_desc('error_start', width = 1, reset = 0, comments = '''\
+rx start error flag''')]))
 
         #baud rate divider
         baud_16x_cnt = reg_r(w = self.regs['div'].div.get_w())
@@ -197,33 +198,26 @@ tx fifo's current entry number'''),
         tx_data_bits_num = mux(self.regs['txctrl'].parity == 0, 7, 8)
         tx_stop_cnt = reg_r(w = 2)
 
-        with when(tx_state == s_tx_ready):
-            with when(tx_do):
+        with when(tx_do):
+            with when(tx_state == s_tx_ready):
                 with when(tx_fifo.io.deq.valid):
                     tx_state /= s_tx_start
-        with when(tx_state == s_tx_start):
-            with when(tx_do):
+            with when(tx_state == s_tx_start):
                 tx_state /= s_tx_data
                 tx_data_cnt /= 0
-        with when(tx_state == s_tx_data):
-            with when(tx_do):
+            with when(tx_state == s_tx_data):
                 with when(tx_data_cnt == tx_data_bits_num):
                     tx_state /= s_tx_stop
                     tx_stop_cnt /= 0
                 with other():
                     tx_data_cnt /= tx_data_cnt + 1
-        with when(tx_state == s_tx_stop):
-            with when(tx_do):
+            with when(tx_state == s_tx_stop):
                 with when(tx_stop_cnt == self.regs['txctrl'].nstop):
                     tx_state /= s_tx_ready
                 with other():
                     tx_stop_cnt /= tx_stop_cnt + 1
-        with when(tx_state == s_tx_gap):
-            with when(tx_do):
+            with when(tx_state == s_tx_gap):
                 tx_state /= s_tx_ready
-        #force to s_tx_ready
-        with when(~self.regs['txctrl'].txen):
-            tx_state /= s_tx_ready
 
         tx_out_reg = reg_s()
         if (self.p.parity_check):
@@ -250,10 +244,18 @@ tx fifo's current entry number'''),
 
         #tx_fifo pop
         tx_fifo.io.deq.ready /= 0
-        with when(tx_state == s_tx_stop):
-            with when(tx_do):
+        with when(tx_do):
+            with when(tx_state == s_tx_stop):
                 with when(tx_stop_cnt == self.regs['txctrl'].nstop):
                     tx_fifo.io.deq.ready /= 1
+
+        #if txen = 0, reset FSM
+        with when(~self.regs['txctrl'].txen):
+            tx_state /= s_tx_ready
+            baud_cnt /= 0
+            tx_data_cnt /= 0
+            tx_stop_cnt /= 0
+            tx_out_reg /= 1
 
         #}}}
 
@@ -267,7 +269,6 @@ tx fifo's current entry number'''),
         rx_state = reg_rs('rx_state', w = 3)
         rx_data_cnt = reg_r('rx_data_cnt', w = 4)
         rx_data_bits_num = mux(self.regs['rxctrl'].parity == 0, 7, 8)
-        rx_stop_cnt = reg_r('rx_stop_cnt', w = 2)
         rx_sample_cnt = reg_r('rx_sample_cnt', w = 4)
         rx_sample_start = rx_sample_cnt.match_any([0])
         rx_sample_middle= rx_sample_cnt.match_any([7,8,9])
@@ -278,8 +279,9 @@ tx fifo's current entry number'''),
         rx_sample_data = reg('rx_sample_data', w = 3)
         rx_vote_v = count_ones_cmp(rx_sample_data, 2)
         rx_shift_data = reg('rx_shift_data', w = 9)
-        (rx_error_ok, rx_error_start, rx_error_data, rx_error_stop) = range(4)
-        rx_error_code = reg_rs('rx_error_code', w = 3, rs = rx_error_ok)
+        rx_has_error_start = bits('rx_has_error_start', init = 0)
+        rx_has_error_data = bits('rx_has_error_data', init = 0)
+        rx_has_error_stop = bits('rx_has_error_stop', init = 0)
         rx_valid = reg_r('rx_valid')
 
         with when(rx_16x_clk):
@@ -292,17 +294,15 @@ tx fifo's current entry number'''),
                 with when(rx_dly1 & ~rx_reg_sync):
                     rx_state /= s_rx_start
                     rx_sample_cnt /= 0
-                    rx_error_code /= rx_error_ok
                     rx_valid /= 0
             with when(rx_state == s_rx_start):
                 with when(rx_sample_end):
                     with when(~rx_vote_v):
                         rx_state /= s_rx_data
                         rx_data_cnt /= 0
-                        rx_error_code /= rx_error_ok
                     with other(): #fake start
                         rx_state /= s_rx_ready
-                        rx_error_code /= rx_error_start
+                        rx_has_error_start /= 1
             with when(rx_state == s_rx_data):
                 with when(rx_sample_end):
                     rx_data_cnt /= rx_data_cnt + 1
@@ -311,20 +311,13 @@ tx fifo's current entry number'''),
                         rx_shift_data[rx_shift_data.get_w() - 1 : 1]])
                     with when(rx_data_cnt == rx_data_bits_num):
                         rx_state /= s_rx_stop
-                        rx_stop_cnt /= 0
             with when(rx_state == s_rx_stop):
                 with when(rx_sample_stop_valid):
-                    with when(rx_stop_cnt == 0):
-                        rx_state /= s_rx_ready
-                        with when(rx_vote_v):
-                            rx_error_code /= rx_error_ok
-                            rx_valid /= 1
-                        with other(): #error stop bit
-                            rx_error_code /= rx_error_stop
-        #force to s_rx_ready
-        with when(~self.regs['rxctrl'].rxen):
-            rx_state /= s_rx_ready
-            rx_valid /= 0
+                    rx_state /= s_rx_ready
+                    with when(rx_vote_v):
+                        rx_valid /= 1
+                    with other(): #error stop bit
+                        rx_has_error_stop /= 1
 
         #rx_data fifo
         rx_fifo = queue(
@@ -349,20 +342,30 @@ tx fifo's current entry number'''),
             with when(
                 (self.regs['rxctrl'].parity == 1) & 
                 rx_data_check_error_odd): #odd check
-                rx_error_code /= rx_error_data
+                rx_has_error_data /= 1
             with when(
                 (self.regs['rxctrl'].parity == 2) & 
                 rx_data_check_error_even): #even check
-                rx_error_code /= rx_error_data
-        with when(rx_error_code != rx_error_ok):
-            self.regs['status'].code /= rx_error_code
+                rx_has_error_data /= 1
+        with when(rx_has_error_start):
+            self.regs['status'].error_start /= 1
+        with when(rx_has_error_data):
+            self.regs['status'].error_data /= 1
+        with when(rx_has_error_stop):
+            self.regs['status'].error_stop /= 1
 
+        #if rxen = 0, reset FSM
+        with when(~self.regs['rxctrl'].rxen):
+            rx_state /= s_rx_ready
+            rx_data_cnt /= 0
+            rx_sample_cnt /= 0
+            rx_valid /= 0
         #}}}
 
         #interrupt
         self.regs['ip'].txwm /= (tx_fifo.io.count < self.regs['txctrl'].txwm_lv)
         self.regs['ip'].rxwm /= (rx_fifo.io.count > self.regs['rxctrl'].rxwm_lv)
-        self.regs['ip'].error /= (self.regs['status'].code != rx_error_ok)
+        self.regs['ip'].error /= self.regs['status'].error_start | self.regs['status'].error_data | self.regs['status'].error_stop
         self.int_out[0] /= (
             (self.regs['ie'].txwm & self.regs['ip'].txwm) | 
             (self.regs['ie'].rxwm & self.regs['ip'].rxwm) | 
