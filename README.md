@@ -6,6 +6,7 @@ zqh_riscv是一套开源SOC开发平台，核心部分包含处理器core、cach
 zqh_riscv平台集成了目前各种主流的外设IP，例如UART、SPI、I2C、GPIO、PWM、JTAG、USB、Ethernet MAC、DDR、DMA引擎、时钟与复位控制器(CRG)、调试debug控制器等。除了模拟电路相关的功能，大部分数字电路相关的IP都做了整合集成，IP的接口统一为tilelink，IP既可以作为子模块集成进zqh_riscv系统，也可以单独使用并集成到任意地方。
 zqh_riscv平台还提供了一套仿真脚本，可以运行仿真测试用例。综合脚本实现ASIC电路综合。可以在FPGA上跑原型仿真，zqh_riscv内会自动替换部分FPGA相关的cell。
 zqh_riscv平台的实现语言以python为主，硬件描述代码使用的是PHGL，PHGL可以构建高度参数化的模块电路。
+
 ![image](doc/zqh_riscv_global_block.png)
 
 zqh_riscv的完整硬件系统如上图所述，zqh_riscv处理器外挂tilelink master与slave接口，memory bus与IO bus分别由独立的tileink master控制。fbus slave接口用来提供外部访问的接口，例如带master接口的外设访问ITIM/DTIM memory。mem bus上挂接onchip sram、DDR3控制器、SPI XIP Flash控制器。mmio bus上挂接IO属性的配置模块与外设，支持各种主流外设: I2C、SPI、UART、PWM、USB等。目前还不支持原生ADC与DAC，模拟电路相关部分暂时无原生IP提供，但是后续规划中会随着模拟电路部分的完善而加入，print_monitor是一个仿真打印device，用来打印软件输出的debug信息。时钟产生模块由于通常有PLL等模拟电路，目前没有原生IP，但有后续规划加入。支持jtag debug接口，可以调试软件。
