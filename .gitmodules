@@ -1,3 +1,6 @@
 [submodule "phgl"]
 	path = phgl
 	url = git@github.com:zhouqinghua/phgl.git
+[submodule "rocket-tools"]
+	path = rocket-tools
+	url = https://github.com/freechipsproject/rocket-tools.git
